@@ -11,77 +11,51 @@ namespace LineRunnerShooter
 {
     class Hiro : User
     {
-        private Vector2 _camPos;
-        private int _JumpHeight;
-        private int gravity;
-        private bool jumpAllowed;
+        protected bool jumpAllowed;
+        protected int _JumpHeight;
 
-        public Hiro(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet) : base(textureL, textureR, move, bullet)
+
+        public Hiro(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(textureL, textureR, move, bullet)
         {
             _spritePos = new Rectangle(0, 0, 100, 200);
-            _Position.X = 200;
-            _Position.Y = 1000;
-            _camPos = _Position;
+            _Position.X = posX;
+            _Position.Y = posY;
             arm = new ARM(armtexture, bullet);
             _JumpHeight = 0;
             _CollisionRect = new Rectangle(100, 0, 100, 200);
+            speedX = 7;
         }
 
-        public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos)
+        public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)
         {
-            Vector2 mousePos = mouseState.Position.ToVector2();
-            base.Update(gameTime, stateKey);
-            arm.Update(gameTime, _Position, mousePos, camPos);
+            base.Update(gameTime, stateKey, mouse, camPos);
             if (isGrounded)
             {
-                gravity = 0;
                 jumpAllowed = true;
             }
+            CheckAction();
 
         }
 
-        protected override void Move()
+        protected override void MoveHorizontal(Double time)
         {
-            switch (_MoveMethod.Movedir)
+            base.MoveHorizontal(time);
+            if (_JumpHeight > 0)
             {
-                case (0):
-
-                    _Position.X -= 7;
-                    _Action = 0;
-                    break;
-                case (1):
-                    _Position.X += 7;
-                    _Action = 1;
-                    break;
-                default:
-                    _spritePos.X = 0;
-                    break;
+                _Position.Y -= 30 - (10 - _JumpHeight) * 2;
+                _JumpHeight--;
             }
+        }
+
+        private void CheckAction()
+        {
             if (_MoveMethod.isShooting)
             {
                 arm.Fire();
             }
-            if(_MoveMethod.isJump)
+            if (_MoveMethod.isJump)
             {
                 Jump();
-            }
-            if (!isGrounded)
-            {
-                _Position.Y += 1 + (gravity/2);
-                _camPos.Y += 10;
-                gravity++;
-            }
-            if (_JumpHeight > 0)
-            {
-                _Position.Y -= 30 -(10-_JumpHeight)*2;
-                _camPos.Y -= 30;
-                _JumpHeight--;
-            }
-
-            _spritePos.X += 100;
-            if (_spritePos.X > 700)
-            {
-                _spritePos.X = 0;
             }
         }
         private void Jump()

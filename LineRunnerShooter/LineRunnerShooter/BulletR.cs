@@ -53,20 +53,6 @@ namespace LineRunnerShooter
                 _direction.Y = -15;
                 isFired = true;
             }
-
-        }
-
-        public void Update(Vector2 camPos)
-        {
-            if (isFired)
-            {
-                Positie = Vector2.Add(Positie, _direction);
-            }
-            if ((Positie.X < (camPos.X-100) || Positie.X > (camPos.X +600)) || (Positie.Y < (camPos.Y-200) || Positie.Y > (camPos.Y+600)))
-            {
-                isFired = false;
-                Positie = new Vector2();
-            }
         }
 
         public void Update()

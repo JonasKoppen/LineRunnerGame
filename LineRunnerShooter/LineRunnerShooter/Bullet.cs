@@ -15,6 +15,7 @@ namespace LineRunnerShooter
         public Vector2 _direction;
         public bool isFired;
         private Rectangle collisionRect;
+        private Rectangle viewBox;
 
         public Bullet(Texture2D texture)
         {
@@ -22,6 +23,7 @@ namespace LineRunnerShooter
             Positie = new Vector2();
             isFired = false;
             collisionRect = new Rectangle(Positie.ToPoint(), new Point(50, 50));
+            viewBox = new Rectangle(0, 0, 2000, 2000);
         }
         public Bullet(Texture2D texture, Point size)
         {
@@ -54,29 +56,17 @@ namespace LineRunnerShooter
 
         }
 
-        public void Update(Vector2 camPos)
+        public void Update(Vector2 camPos, GameTime gameTime)
         {
+            viewBox.Location = camPos.ToPoint() - new Point(200,800);
             if (isFired)
             {
                 Positie = Vector2.Add(Positie, _direction);
             }
-            if ((Positie.X < (camPos.X-100) || Positie.X > (camPos.X +600)) || (Positie.Y < (camPos.Y-200) || Positie.Y > (camPos.Y+600)))
+            if (!collisionRect.Intersects(viewBox))
             {
                 isFired = false;
                 Positie = new Vector2();
-            }
-        }
-
-        public void Update()
-        {
-            if (isFired)
-            {
-                Positie = Vector2.Add(Positie, _direction);
-            }
-            if (Positie.Y > 1000)
-            {
-                isFired = false;
-                Positie = new Vector2(0,0);
             }
         }
 

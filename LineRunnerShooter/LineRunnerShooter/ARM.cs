@@ -13,7 +13,6 @@ namespace LineRunnerShooter
         private Texture2D pixel;
         private float angle;
         private Vector2 _position;
-        public Bullet bullet;
         public List<Bullet> bullets;
 
         public ARM(Texture2D pix, Texture2D energy)
@@ -21,26 +20,22 @@ namespace LineRunnerShooter
             angle = 0;
             pixel = pix;
             _position = new Vector2(200, 240);
-            bullet = new Bullet(energy);
             bullets = new List<Bullet>();
             bullets.Add(new Bullet(energy));
             bullets.Add(new Bullet(energy));
             bullets.Add(new Bullet(energy));
-
         }
-        public void Update(GameTime gameTime, Vector2 posistion, Vector2 mouse, Vector2 camPos)
+        public void Update(GameTime gameTime, Vector2 position, Vector2 mouse, Vector2 camPos)
         {
-            int totalTime = Convert.ToInt32(gameTime.TotalGameTime.TotalMilliseconds);
-            _position = posistion;
+            _position = position;
             _position.X += 50;
             _position.Y += 65;
             float xVers =  -mouse.X+200;
             float yVers =  -mouse.Y+200;
             angle = (float)Math.Atan2(xVers,yVers) + (float) (Math.PI/2);
-            bullet.Update(camPos);
             foreach(Bullet b in bullets)
             {
-                b.Update(camPos);
+                b.Update(camPos, gameTime);
             }
         }
 
@@ -48,7 +43,6 @@ namespace LineRunnerShooter
         {
             Rectangle sourceRectangle = new Rectangle(0, 0, 250, 195);
             Vector2 origin = new Vector2(5, 10);
-            bullet.Draw(spriteBatch);
             foreach (Bullet b in bullets)
             {
                 b.Draw(spriteBatch);

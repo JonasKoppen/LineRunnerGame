@@ -16,6 +16,7 @@ namespace LineRunnerShooter
         bool isStable;
         bool isTouched;
         float stablePosY;
+        double lastTime;
 
         public BlockPurple(Texture2D texture, Vector2 pos) : base(texture, pos)
         {
@@ -26,6 +27,7 @@ namespace LineRunnerShooter
             isTouched = false;
             _texturePos = new Rectangle(0, 0, 100, 100);
             stablePosY = pos.Y;
+            lastTime = 0;
         }
         
 
@@ -59,36 +61,36 @@ namespace LineRunnerShooter
                         downTime = 5;
                     }
                 }
-                if (!isStable)
-                {
-                    downTime--;
-                    Positie.Y += 50;
-                    if (downTime <= 0)
-                    {
-                        isTouched = false;
-                        isStable = true;
-                        upTime = 3;
-                    }
-                }
                 if (isStable)
                 {
                     Positie.Y = stablePosY;
                 }
-
+                else
+                {
+                    downTime--;
+                }
             }
+            UpdatePosition(gameTime.TotalGameTime.TotalMilliseconds);
         }
 
-        public void UpdatePosition()
+        public void UpdatePosition(double time)
         {
             if (!isStable)
             {
-                Positie.Y += 5;
+                double dt = time - lastTime;
+                Positie.Y += Convert.ToInt16(dt/4);
+                if (downTime <= 0)
+                {
+                    isTouched = false;
+                    isStable = true;
+                    upTime = 3;
+                }
             }
             else
             {
                 Positie.Y = stablePosY;
             }
-
+            lastTime = time;
         }
     }
 }

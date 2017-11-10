@@ -50,7 +50,6 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Hiro2.cs" />
     <Compile Include="Hiro.cs" />
     <Compile Include="ICollide.cs" />
     <Compile Include="Level.cs" />
@@ -59,7 +58,6 @@
     <Compile Include="Orih.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User2.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

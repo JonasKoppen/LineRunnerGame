@@ -21,7 +21,7 @@ namespace LineRunnerShooter
         List<Texture2D> _levelMaps;
         int currentLevel;
         Level level;
-        Hiro2 held;
+        Hiro held;
         Orih orih;
         List<Orih> orihList;
         MovingPlatform platform;
@@ -151,7 +151,6 @@ namespace LineRunnerShooter
 
                         held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
                         orih.isGrounded = level.checkCollision(orih.getFeetCollisionRect());
-                        held.getBulletCollision(orih.getCollisionRectagle());
                         orih.canLeft = level.checkCollision(orih._CollisionLeft);
                         orih.canRight = level.checkCollision(orih._CollisionRight);
                         orih.SeePlayer(held.getCollisionRectagle());
@@ -185,7 +184,6 @@ namespace LineRunnerShooter
 
                         level.Update(gameTime, held.getFeetCollisionRect());
                         held.Update(gameTime, stateKey, mouseState, held.Location);
-                        orih.Update(gameTime, stateKey, held.getBulletCollision(orih.getCollisionRectagle()));
 
                         if(eindLift.Positie.Y < 200)
                         {
@@ -374,7 +372,7 @@ namespace LineRunnerShooter
 
             level = new Level(Content.Load<Texture2D>("Map"), _afbeeldingBlokken[0], _afbeeldingBlokken[1]);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
-            held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
+            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             orih = new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 1600);
             orihList.Add(orih);
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 1500));
