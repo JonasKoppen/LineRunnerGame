@@ -1,0 +1,83 @@
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LineRunnerShooter
+{
+    class ARM
+    {
+        private Texture2D pixel;
+        private float angle;
+        private Vector2 _position;
+        public Bullet bullet;
+        public List<Bullet> bullets;
+
+        public ARM(Texture2D pix, Texture2D energy)
+        {
+            angle = 0;
+            pixel = pix;
+            _position = new Vector2(200, 240);
+            bullet = new Bullet(energy);
+            bullets = new List<Bullet>();
+            bullets.Add(new Bullet(energy));
+            bullets.Add(new Bullet(energy));
+            bullets.Add(new Bullet(energy));
+
+        }
+        public void Update(GameTime gameTime, Vector2 posistion, Vector2 mouse, Vector2 camPos)
+        {
+            int totalTime = Convert.ToInt32(gameTime.TotalGameTime.TotalMilliseconds);
+            _position = posistion;
+            _position.X += 50;
+            _position.Y += 65;
+            float xVers =  -mouse.X+200;
+            float yVers =  -mouse.Y+200;
+            angle = (float)Math.Atan2(xVers,yVers) + (float) (Math.PI/2);
+            bullet.Update(camPos);
+            foreach(Bullet b in bullets)
+            {
+                b.Update(camPos);
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle sourceRectangle = new Rectangle(0, 0, 250, 195);
+            Vector2 origin = new Vector2(5, 10);
+            bullet.Draw(spriteBatch);
+            foreach (Bullet b in bullets)
+            {
+                b.Draw(spriteBatch);
+            }
+            spriteBatch.Draw(pixel, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
+        }
+
+        public void Fire()
+        {
+            //bullet.fire(angle, _position);
+            int i = 0;
+            while(!(i == -1))
+            {
+                Console.WriteLine(i);
+                if (!bullets[i].isFired)
+                {
+                    bullets[i].fire(angle, _position);
+                    i = -1;
+                }
+                else
+                {
+                    i++;
+                    if(bullets.Count <= i)
+                    {
+                        i = -1;
+                    }
+                }
+            }
+        }
+    }
+}
+
