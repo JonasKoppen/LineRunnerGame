@@ -12,7 +12,7 @@ namespace LineRunnerShooter
     {
         int upTime;
         int downTime;
-        int time;
+        double time;
         bool isStable;
         bool isTouched;
         float stablePosY;
@@ -22,12 +22,13 @@ namespace LineRunnerShooter
         {
             upTime = 3;
             downTime = 0;
-            time = 1;
+            time = 0;
             isStable = true;
             isTouched = false;
             _texturePos = new Rectangle(0, 0, 100, 100);
             stablePosY = pos.Y;
             lastTime = 0;
+            collisionRect.Height = 60;
         }
         
 
@@ -45,13 +46,10 @@ namespace LineRunnerShooter
 
         public void Update(GameTime gameTime, Rectangle player)
         {
-            if (gameTime.TotalGameTime.TotalSeconds > time)
+            time += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if (time > 1000)
             {
-                time += 1;
-                if (player.Intersects(this.getCollisionRectagle()))
-                {
-                    isTouched = true;
-                }
+                time = 0;
                 if (isTouched && isStable)
                 {
                     upTime--;
@@ -70,14 +68,17 @@ namespace LineRunnerShooter
                     downTime--;
                 }
             }
-            UpdatePosition(gameTime.TotalGameTime.TotalMilliseconds);
+            if (player.Intersects(this.getCollisionRectagle()))
+            {
+                isTouched = true;
+            }
+            UpdatePosition(gameTime.ElapsedGameTime.TotalMilliseconds);
         }
 
-        public void UpdatePosition(double time)
+        public void UpdatePosition(double dt)
         {
             if (!isStable)
             {
-                double dt = time - lastTime;
                 Positie.Y += Convert.ToInt16(dt/4);
                 if (downTime <= 0)
                 {

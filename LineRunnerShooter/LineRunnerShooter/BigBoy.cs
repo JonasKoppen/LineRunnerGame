@@ -12,11 +12,9 @@ namespace LineRunnerShooter
     class BigBoy : Orih
     {
         private bool attackMode;
-        private int time;
         private List<BulletR> rockets;
         private int firedRockets;
         private Random r;
-        private int _lives;
         public BigBoy(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet, posX)
         {
             
@@ -35,9 +33,17 @@ namespace LineRunnerShooter
         }
 
 
-        public void Update(GameTime gameTime, KeyboardState stateKey, Vector2 player, bool isHit)
+        public void Update(GameTime gameTime, KeyboardState stateKey, Vector2 player, List<Rectangle> heroBullets)
         {
             base.Update(gameTime, stateKey);
+            bool isHit = false;
+            foreach(Rectangle bullet in heroBullets)
+            {
+                if (!isHit)
+                {
+                    isHit = getCollisionRectagle().Intersects(bullet);
+                }
+            }
             if (isAlive)
             {
                 if (true) //gameTime.TotalGameTime.Seconds > time

@@ -54,7 +54,7 @@ namespace LineRunnerShooter
         {
             //bullet.fire(angle, _position);
             int i = 0;
-            while(!(i == -1))
+            while((i != -1))
             {
                 Console.WriteLine(i);
                 if (!bullets[i].isFired)
@@ -71,6 +71,16 @@ namespace LineRunnerShooter
                     }
                 }
             }
+        }
+
+        public List<Rectangle> getBulletsRect()
+        {
+            List<Rectangle> bulletsRect = new List<Rectangle>();
+            foreach (Bullet b in bullets)
+            {
+                bulletsRect.Add(b.getCollisionRectagle());
+            }
+            return bulletsRect;
         }
     }
 }

@@ -55,7 +55,7 @@ namespace LineRunnerShooter
             blockArray = new Block[xDim, yDim];
             }
 
-        public Level(Texture2D map, Texture2D texture, Texture2D texture2) 
+        public Level(Texture2D map, List<Texture2D> texture) 
         {   //gebruik Texture 2D colors array als level editor: https://stackoverflow.com/questions/10127871/how-can-i-read-image-pixels-values-as-rgb-into-2d-array // http://www.riemers.net/eng/Tutorials/XNA/Csharp/Series2D/Texture_to_Colors.php
             xDim = map.Width;
             yDim = map.Height;
@@ -80,22 +80,22 @@ namespace LineRunnerShooter
                             }
                         case "0 0":
                             {
-                                blockArray[x, y] = new Block(texture, new Vector2(x * 100, (y * 50)));
+                                blockArray[x, y] = new Block(texture[B], new Vector2(x * 100, (y * 50)));
                                 break;
                             }
                         case "0 255":
                             {
-                                blockArray[x, y] = new BlockRed(texture2, new Vector2(x * 100, (y * 50)));
+                                blockArray[x, y] = new BlockRed(texture[1], new Vector2(x * 100, (y * 50)));
                                 break;
                             }
                         case "72 0":
                             {
-                                blockArray[x, y] = new BlockPurple(texture2, new Vector2(x * 100, (y * 50)));
+                                blockArray[x, y] = new BlockPurple(texture[1], new Vector2(x * 100, (y * 50)));
                                 break;
                             }
                         case "100 0":
                             {
-                                blockArray[x, y] = new MovingPlatform(texture, new Vector2(x * 100, (y * 50)), B, 255 - alfa);
+                                blockArray[x, y] = new MovingPlatform(texture[0], new Vector2(x * 100, (y * 50)), B, 255 - alfa);
                                 break;
                             }
                     }

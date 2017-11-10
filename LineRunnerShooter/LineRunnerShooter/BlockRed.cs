@@ -11,7 +11,7 @@ namespace LineRunnerShooter
     class BlockRed : Block,ICollide
     {
         private bool isActive;
-        protected int time;
+        protected double time;
         int state;
         bool isRotating;
         public BlockRed(Texture2D texture, Vector2 pos) : base(texture, pos)
@@ -21,6 +21,7 @@ namespace LineRunnerShooter
             state = 2;
             isRotating = false;
             _texturePos = new Rectangle(100, 0, 100, 100);
+            collisionRect.Height = 60;
         }
 
         public override Rectangle getCollisionRectagle()
@@ -34,6 +35,7 @@ namespace LineRunnerShooter
             {
                 rectangle = new Rectangle();
             }
+            rectangle.Y += 20;
             return rectangle;
         }
 
@@ -44,9 +46,10 @@ namespace LineRunnerShooter
 
         public void Update(GameTime gameTime)
         {
-            if(gameTime.TotalGameTime.TotalSeconds > time)
+            time += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if(time > 2000)
             {
-                time += 3;
+                time = 0;
                 isRotating = true; //trigger voor rotatie animatie
             }
             if (isRotating)
@@ -73,6 +76,6 @@ namespace LineRunnerShooter
                 }
                 _texturePos.X = state * 100;
             }
-        }
+    }
     }
 }

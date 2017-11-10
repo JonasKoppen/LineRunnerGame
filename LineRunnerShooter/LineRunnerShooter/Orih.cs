@@ -14,6 +14,7 @@ namespace LineRunnerShooter
         public bool isAlive;
         public bool seePlayer;
 
+        /*
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet) : base(textureL, textureR, move, bullet)
         {
             _spritePos = new Rectangle(0, 0, 60, 200);
@@ -22,11 +23,11 @@ namespace LineRunnerShooter
             _CollisionLeft = new Rectangle(30, 0, 30, 20);
             feetCollisionRect = new Rectangle(0, 0, 60, 10);
             _Position.X = 900;
-            //_MoveMethod = move;
             arm = null;
             isAlive = true;
             
         }
+        */
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
         {
             _spritePos = new Rectangle(posX, 0, 60, 200);
@@ -34,7 +35,7 @@ namespace LineRunnerShooter
             _CollisionRight = new Rectangle(0, 0, 30, 20);
             _CollisionLeft = new Rectangle(30, 0, 30, 20);
             _Position.X = posX;
-            //_MoveMethod = move;
+            _StartPos.X = posX;
             arm = null;
             isAlive = true;
 

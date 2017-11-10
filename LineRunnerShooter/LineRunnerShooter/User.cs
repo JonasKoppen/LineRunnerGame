@@ -12,12 +12,12 @@ namespace LineRunnerShooter
     class User : ICollide
     {
         protected int time; //for update 
-        protected double lastTime;
 
         protected List<Texture2D> _texture; //textures
         protected Rectangle _spritePos;     //texture pos
         protected int _Action;              //actioin movement
         public Vector2 _Position;        //position
+        protected Vector2 _StartPos;
         protected MoveMethod _MoveMethod;   //movemethod 
         protected int speedX;
         protected int gravity;
@@ -30,8 +30,8 @@ namespace LineRunnerShooter
         public bool isGrounded;             //true = ik sta op de grond
 
 
-        public Rectangle _CollisionRight;   //for move right
-        public Rectangle _CollisionLeft;    //for move left
+        protected Rectangle _CollisionRight;   //for move right
+        protected Rectangle _CollisionLeft;    //for move left
         protected Rectangle _CollisionRect; //hit box
         protected Rectangle feetCollisionRect; //bepaald isGrounded gebruik voor collisie met de grond
 
@@ -48,31 +48,33 @@ namespace LineRunnerShooter
             _Position = new Vector2(0, 500);
             time = 0;
             _MoveMethod = move;
-            _spritePos = new Rectangle(0, 90, 100, 200);
-            feetCollisionRect = new Rectangle(0, 0, 80, 10);
+            _spritePos = new Rectangle(100, 190, 100, 200);
+            feetCollisionRect = new Rectangle(100, 100, 80, 10);
             isGrounded = false;
-            _CollisionRight = new Rectangle(0, 0, 30, 20);
-            _CollisionLeft = new Rectangle(30, 0, 30, 20);
+            _CollisionRight = new Rectangle(100, 100, 30, 20);
+            _CollisionLeft = new Rectangle(130, 100, 30, 20);
             canLeft = true;
             canRight = true;
             speedX = 3;
             _lives = 5;
-            lastTime = 0;
+            _StartPos = new Vector2(500, 300);
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey)
         {
-            int totalTime = Convert.ToInt32(gameTime.TotalGameTime.TotalMilliseconds);
-            if (totalTime > time)
+            double totalTime = Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds);
+            time += Convert.ToInt32(totalTime);
+            if (time > 20)
             {
-                time += 10;
+                time = 0;
                 _spritePos.X += 100;
                 if (_spritePos.X > 700)
                 {
                     _spritePos.X = 0;
                 }
             }
-            UpdateFI(gameTime, stateKey);
+
+            UpdateFI(totalTime, stateKey);
             if (_Position.Y > 3000 && (_Position.X > 500 || _Position.X <0))
             {
                 Reset();
@@ -91,13 +93,11 @@ namespace LineRunnerShooter
             Update(gameTime, stateKey);
         }
 
-        public virtual void UpdateFI(GameTime gameTime, KeyboardState stateKey)
+        public virtual void UpdateFI(double dt, KeyboardState stateKey)
         {
-            double dt = gameTime.TotalGameTime.TotalMilliseconds - lastTime;
             _MoveMethod.Update(stateKey, canLeft, canRight);
             MoveHorizontal(dt);
             MoveVertical(dt);
-            lastTime = gameTime.TotalGameTime.TotalMilliseconds;
 
         }
 
@@ -215,9 +215,14 @@ namespace LineRunnerShooter
             return isHit;
         }
 
+        public List<Rectangle> getBulletsRect()
+        {
+            return arm.getBulletsRect();
+        }
+
         public void Reset()
         {
-            _Position = new Vector2(500, 300);
+            _Position = _StartPos;
         }
     }
 
