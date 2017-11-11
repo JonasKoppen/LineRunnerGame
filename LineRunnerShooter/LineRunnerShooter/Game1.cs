@@ -28,6 +28,7 @@ namespace LineRunnerShooter
         MovingPlatform platform2;
         Lift startLift;
         Lift eindLift;
+        List<LiftSide> liftSides;
 
         public Game1() //https://stackoverflow.com/questions/720429/how-do-i-set-the-window-screen-size-in-xna Set Window Size
         {
@@ -65,16 +66,17 @@ namespace LineRunnerShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _afbeeldingBlokken = new List<Texture2D>();
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("RetroBlock")); 
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("RetroBlock")); //0
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RotPlat")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lava"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("DreadBlock"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsCornerL"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsCornerR"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsCornerR")); //5
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsSideL"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsSideM"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsSideR"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsStreight"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("intro")); //10
 
             _afbeeldingEnemys = new List<Texture2D>();
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyL"));
@@ -147,6 +149,12 @@ namespace LineRunnerShooter
                         {
                             loadLevel1(gameTime);
                         }
+                        for(int i =0; i < liftSides.Count; i++)
+                        {
+                            liftSides[i].Update(gameTime);
+                        }
+                        startLift.Update(gameTime, new Rectangle());
+                        eindLift.Update(gameTime, new Rectangle());
                         break;
                     }
                 case 1:
@@ -158,7 +166,8 @@ namespace LineRunnerShooter
                         held.PlatformUpdate(platform2.Update(gameTime, (held.getFeetCollisionRect())));
 
                         held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
-                       
+                        held.canLeft = level.checkCollision(held.getLeftCollision());
+                        held.canRight = level.checkCollision(held.getRightCollision());
 
                         foreach (Orih orihd in orihList)
                         {
@@ -202,7 +211,8 @@ namespace LineRunnerShooter
                         held.PlatformUpdate(eindLift.Update(gameTime, held.getFeetCollisionRect()));
 
                         held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
-
+                        held.canLeft = level.checkCollision(held.getLeftCollision());
+                        held.canRight = level.checkCollision(held.getRightCollision());
 
                         foreach (Orih orihd in orihList)
                         {
@@ -238,6 +248,8 @@ namespace LineRunnerShooter
                         held.PlatformUpdate(eindLift.Update(gameTime, held.getFeetCollisionRect()));
 
                         held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
+                        held.canLeft = level.checkCollision(held.getLeftCollision());
+                        held.canRight = level.checkCollision(held.getRightCollision());
 
                         boss.canLeft = level.checkCollision(boss.getLeftCollision());
                         boss.canRight = level.checkCollision(boss.getRightCollision());
@@ -281,7 +293,7 @@ namespace LineRunnerShooter
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkBlue);
 
             var viewMatrix = camera.GetViewMatrix();
             //_camera.Position = new Vector2(theHero.position.X - 200, theHero.position.Y - 300);// new Vector2(theHero.position.X + 200, theHero.position.Y+400);
@@ -293,8 +305,15 @@ namespace LineRunnerShooter
             {
                 case 0:
                     {
-                        spriteBatch.Begin();
-                        spriteBatch.Draw(_afbeeldingBlokken[1], new Rectangle(500, 500, 100, 50), Color.White);
+                        zoom = 1;
+                        camera.Position = new Vector2(0, 0);
+                        spriteBatch.Begin(transformMatrix: viewMatrix);
+                        for (int i = 0; i < liftSides.Count; i++)
+                        {
+                            liftSides[i].Draw(spriteBatch);
+                        }
+                        startLift.Draw(spriteBatch);
+                        eindLift.Draw(spriteBatch);
                         spriteBatch.End();
                         break;
                     }
@@ -363,7 +382,17 @@ namespace LineRunnerShooter
         public void loadLevel0()
         {
             orihList = new List<Orih>();
+            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             level = new Level();
+            liftSides = new List<LiftSide>();
+            for(int i = 0; i < 1100; i += 200)
+            {
+                liftSides.Add(new LiftSide(_afbeeldingBlokken[10], new Vector2(0, i), false));
+                liftSides.Add(new LiftSide(_afbeeldingBlokken[10], new Vector2(300, i), true));
+            }
+            startLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 1000), new Vector2(100, 500));
+            startLift.isActive = true;
+            eindLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 500), new Vector2(100, 0));
             currentLevel = 0;
         }
         public void loadLevel1(GameTime gameTime)
@@ -406,7 +435,7 @@ namespace LineRunnerShooter
         public void loadLevel3(GameTime gameTime)
         {
             currentLevel = 3;
-            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 4700);
+            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 5200);
             held.setStartPos();
             level = new Level(Content.Load<Texture2D>("Map2"), _afbeeldingBlokken);
 

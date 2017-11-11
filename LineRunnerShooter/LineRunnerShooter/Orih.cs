@@ -61,8 +61,7 @@ namespace LineRunnerShooter
                 base.draw(spriteBatch);
             }
             
-            //spriteBatch.Draw(_texture[0], _CollisionLeft, _spritePos, Color.Red);
-            //spriteBatch.Draw(_texture[0], _CollisionRight, _spritePos, Color.Red);
+            
 
         }
 
@@ -109,10 +108,7 @@ namespace LineRunnerShooter
             }
             if (moveRight && movedir == 1)
             {
-                
-                
-                    movedir = 0;
-                
+                 movedir = 0;  
             }
         }
     }

@@ -84,15 +84,15 @@ namespace LineRunnerShooter
 
     class MovePlayer : MoveMethod
     {
-        public override void Update(KeyboardState stateKey, bool moveLeft, bool moveRight)
+        public override void Update(KeyboardState stateKey, bool blockLeft, bool blockRight)
         {
             isJump = false;
             isShooting = false;
-            if (stateKey.IsKeyDown(Keys.Left))
+            if (stateKey.IsKeyDown(Keys.Left) && !blockLeft)
             {
                 movedir = 0;
             }
-            else if (stateKey.IsKeyDown(Keys.Right))
+            else if (stateKey.IsKeyDown(Keys.Right) && !blockRight)
             {
                 movedir = 1;
             }

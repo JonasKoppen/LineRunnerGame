@@ -104,7 +104,8 @@ namespace LineRunnerShooter
         public virtual void draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
-
+            spriteBatch.Draw(_texture[0], _CollisionLeft, _spritePos, Color.Red);
+            spriteBatch.Draw(_texture[0], _CollisionRight, _spritePos, Color.Red);
         }
 
         protected virtual void MoveHorizontal()
@@ -184,7 +185,7 @@ namespace LineRunnerShooter
         {
             _CollisionRight.Location = _Position.ToPoint();
             _CollisionRight.X += 30;
-            _CollisionRight.Y += 170;
+            _CollisionRight.Y += 160;
             return _CollisionRight;
 
         }
@@ -192,7 +193,7 @@ namespace LineRunnerShooter
         public Rectangle getLeftCollision()
         {
             _CollisionLeft.Location = _Position.ToPoint();
-            _CollisionLeft.Y += 170;
+            _CollisionLeft.Y += 160;
             return _CollisionLeft;
         }
 

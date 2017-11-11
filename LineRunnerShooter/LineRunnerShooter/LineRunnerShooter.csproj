@@ -54,6 +54,7 @@
     <Compile Include="ICollide.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Lift.cs" />
+    <Compile Include="LiftSide.cs" />
     <Compile Include="MovingPlatform.cs" />
     <Compile Include="Orih.cs" />
     <Compile Include="Program.cs" />

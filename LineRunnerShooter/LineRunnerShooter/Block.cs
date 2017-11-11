@@ -19,27 +19,25 @@ namespace LineRunnerShooter
         {
             _texture = texture;
             Positie = pos;
-            collisionRect = new Rectangle(pos.ToPoint(), new Point(100,50));
+            _texturePos = new Rectangle(0,0, 100,50);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            
-            spriteBatch.Draw(_texture, Positie, Color.Gold);
-            
+            spriteBatch.Draw(_texture, Positie ,_texturePos, Color.Gold);
         }
 
         public void Draw(SpriteBatch spriteBatch, int i)
         {
             spriteBatch.Draw(_texture, Positie, Color.Yellow);
-            spriteBatch.Draw(_texture, this.getCollisionRectagle(), Color.Red); //Check collision block locations
+            spriteBatch.Draw(_texture, getCollisionRectagle(), Color.Red); //Check collision block locations
 
         }
 
         public virtual Rectangle getCollisionRectagle()
         {
-            collisionRect.Location = Positie.ToPoint();
-            return collisionRect;
+            
+            return new Rectangle(Positie.ToPoint(),_texturePos.Size); ;
         }
     }
 }
