@@ -147,24 +147,60 @@ namespace LineRunnerShooter
                     {
                         if (stateKey.IsKeyDown(Keys.Enter))
                         {
+                            eindLift.activate();
+                        }
+                        if (eindLift.Positie.Y < 200)
+                        {
                             loadLevel1(gameTime);
                         }
-                        for(int i =0; i < liftSides.Count; i++)
+                        for (int i =0; i < liftSides.Count; i++)
                         {
                             liftSides[i].Update(gameTime);
                         }
+                        bool left = false;
+                        bool right = false;
+                        for (int i = 0; i < (liftSides.Count-1); i+=2)
+                        {
+                            if (!left)
+                            {
+                                left = held.getLeftCollision().Intersects(liftSides[i].getCollisionRectagle());
+                            }
+                            if (!right)
+                            {
+                                right = held.getRightCollision().Intersects(liftSides[i + 1].getCollisionRectagle());
+                            }
+                        }
+                        held.canRight = right;
+                        held.canLeft = left;
+
+
+                        held.PlatformUpdate(startLift.Update(gameTime, held.getFeetCollisionRect()));
+                        held.PlatformUpdate(eindLift.Update(gameTime, held.getFeetCollisionRect()));
+                        if (!held.isGrounded)
+                        {
+                            held.isGrounded = held.getFeetCollisionRect().Intersects(startLift.getCollisionRectagle());
+                        }
+                        if (!held.isGrounded)
+                        {
+                            held.isGrounded = held.getFeetCollisionRect().Intersects(eindLift.getCollisionRectagle());
+                            eindLift.activate(held.getFeetCollisionRect());
+                        }
+                        held.Update(gameTime, stateKey, mouseState, held.Location);
                         startLift.Update(gameTime, new Rectangle());
                         eindLift.Update(gameTime, new Rectangle());
                         break;
                     }
                 case 1:
                     {
+                        if (stateKey.IsKeyDown(Keys.E))
+                        {
+                            loadLevel2(gameTime);
+                        }
+
+                        eindLift.activate(held.getFeetCollisionRect());
                         held.PlatformUpdate(startLift.Update(gameTime, held.getFeetCollisionRect()));
                         held.PlatformUpdate(eindLift.Update(gameTime, held.getFeetCollisionRect()));
-
-                        held.PlatformUpdate(platform.Update(gameTime, (held.getFeetCollisionRect()), 1));
-                        held.PlatformUpdate(platform2.Update(gameTime, (held.getFeetCollisionRect())));
-
+                        
                         held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
                         held.canLeft = level.checkCollision(held.getLeftCollision());
                         held.canRight = level.checkCollision(held.getRightCollision());
@@ -193,7 +229,6 @@ namespace LineRunnerShooter
                         if (!held.isGrounded)
                         {
                             held.isGrounded = held.getFeetCollisionRect().Intersects(eindLift.getCollisionRectagle());
-                            eindLift.activate(held.getFeetCollisionRect());
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
@@ -305,13 +340,15 @@ namespace LineRunnerShooter
             {
                 case 0:
                     {
-                        zoom = 1;
+                        
                         camera.Position = new Vector2(0, 0);
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         for (int i = 0; i < liftSides.Count; i++)
                         {
                             liftSides[i].Draw(spriteBatch);
                         }
+                        held.draw(spriteBatch);
+                        spriteBatch.Draw(_afbeeldingBlokken[0], held.getLeftCollision(), Color.Red);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
                         spriteBatch.End();
@@ -381,8 +418,9 @@ namespace LineRunnerShooter
 
         public void loadLevel0()
         {
+            zoom = 0.5f;
             orihList = new List<Orih>();
-            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
+            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 800);
             level = new Level();
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
@@ -390,14 +428,15 @@ namespace LineRunnerShooter
                 liftSides.Add(new LiftSide(_afbeeldingBlokken[10], new Vector2(0, i), false));
                 liftSides.Add(new LiftSide(_afbeeldingBlokken[10], new Vector2(300, i), true));
             }
-            startLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 1000), new Vector2(100, 500));
+            startLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 1500), new Vector2(100, 500));
             startLift.isActive = true;
             eindLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 500), new Vector2(100, 0));
             currentLevel = 0;
         }
         public void loadLevel1(GameTime gameTime)
         {
-            
+
+            zoom = 1 - 0.5f;
             currentLevel = 1;
 
             orihList = new List<Orih>();

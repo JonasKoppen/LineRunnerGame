@@ -20,6 +20,7 @@ namespace LineRunnerShooter
             goingUp = true;
             this.eindPos = eindPos;
             collisionRect = new Rectangle(0, 0, 200, 50);
+            _texturePos.Width = 200;
         }
 
         public int Update(GameTime gameTime, Rectangle player)
@@ -27,15 +28,22 @@ namespace LineRunnerShooter
             int change = 0;
             if (isActive)
             {
-                if (gameTime.TotalGameTime.TotalMilliseconds > stateTimer)
+                if (goingUp)
                 {
-                    stateTimer += 25;
                     if (goingUp)
                     {
-                        Positie.Y -= 3;
-                    }
-                    change = PushUpDown(player);
+                        change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds/8);
+                        Positie.Y += change;
+                    } 
                 }
+                if (player.Intersects(this.getCollisionRectagle()))
+                {
+                    if (!goingUp)
+                    {
+                        change = 0;
+                    }
+
+                };
             }
             if(Positie.Y <= eindPos.Y)
             {
@@ -48,7 +56,14 @@ namespace LineRunnerShooter
         {
             if (!isActive)
             {
-                isActive = player.Intersects(collisionRect);
+                isActive = player.Intersects(getCollisionRectagle());
+            }
+        }
+        public void activate()
+        {
+            if (!isActive)
+            {
+                isActive = true;
             }
         }
         public int PushUpDown(Rectangle player)

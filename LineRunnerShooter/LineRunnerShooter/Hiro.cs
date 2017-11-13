@@ -73,6 +73,7 @@ namespace LineRunnerShooter
         {
             _Position = new Vector2(150, 1700);
         }
+
         public override void draw(SpriteBatch spriteBatch)
         {
             _spritePos = new Rectangle(0, 0, 100, 200);

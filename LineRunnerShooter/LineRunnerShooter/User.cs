@@ -199,7 +199,7 @@ namespace LineRunnerShooter
 
         public void PlatformUpdate(int platform)
         {
-            _Position.Y += platform;
+            _Position.Y += platform*2;
         }
 
         public bool getBulletsCollision(Rectangle target)
