@@ -11,6 +11,8 @@ namespace LineRunnerShooter
 {
     class BigBoy : Orih
     {
+        //TODO: More scripted actions: begin when hiro is on X, enter battle scene on X, ...
+        //TODO: More attack modes + fixed hitbox, only face => hiro has to jump and shoot
         private bool attackMode;
         private List<BulletR> rockets;
         private int firedRockets;

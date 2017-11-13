@@ -11,6 +11,10 @@ namespace LineRunnerShooter
 {
     class User : ICollide
     {
+        //TODO: healt
+        //TODO: vaste schiethoek (met de muis is niet echt ++)
+        //TODO: Hiro sprite maken
+
         protected int time; //for update 
 
         protected List<Texture2D> _texture; //textures

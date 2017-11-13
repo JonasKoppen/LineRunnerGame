@@ -11,9 +11,10 @@ namespace LineRunnerShooter
 {
     class Orih : User
     {
+        //TODO: attack modes: spinning arms, shooting
         public bool isAlive;
         public bool seePlayer;
-
+        private Rectangle attackBox;
         /*
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet) : base(textureL, textureR, move, bullet)
         {

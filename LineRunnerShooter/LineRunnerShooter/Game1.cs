@@ -144,6 +144,7 @@ namespace LineRunnerShooter
             switch (currentLevel)
             {
                 case 0:
+                    
                     {
                         if (stateKey.IsKeyDown(Keys.Enter))
                         {
@@ -212,6 +213,10 @@ namespace LineRunnerShooter
                             orihd.canRight = level.checkCollision(orihd.getRightCollision());
                             orihd.SeePlayer(held.getCollisionRectagle());
                             orihd.Update(gameTime, stateKey, held.getBulletsCollision(orihd.getCollisionRectagle()));
+                            if (!held.isGrounded)
+                            {
+                                held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                            }
                         }
 
                         if (!held.isGrounded)
@@ -340,7 +345,6 @@ namespace LineRunnerShooter
             {
                 case 0:
                     {
-                        
                         camera.Position = new Vector2(0, 0);
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         for (int i = 0; i < liftSides.Count; i++)
@@ -418,7 +422,8 @@ namespace LineRunnerShooter
 
         public void loadLevel0()
         {
-            zoom = 0.5f;
+            //TODO: explenation picture
+            zoom = 1;
             orihList = new List<Orih>();
             held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 800);
             level = new Level();
