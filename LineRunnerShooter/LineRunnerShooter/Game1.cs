@@ -150,7 +150,7 @@ namespace LineRunnerShooter
                         {
                             eindLift.activate();
                         }
-                        if (eindLift.Positie.Y < 200)
+                        if (eindLift.Positie.Y < 0)
                         {
                             loadLevel1(gameTime);
                         }
@@ -184,7 +184,6 @@ namespace LineRunnerShooter
                         if (!held.isGrounded)
                         {
                             held.isGrounded = held.getFeetCollisionRect().Intersects(eindLift.getCollisionRectagle());
-                            eindLift.activate(held.getFeetCollisionRect());
                         }
                         held.Update(gameTime, stateKey, mouseState, held.Location);
                         startLift.Update(gameTime, new Rectangle());
@@ -435,7 +434,7 @@ namespace LineRunnerShooter
             }
             startLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 1500), new Vector2(100, 500));
             startLift.isActive = true;
-            eindLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 500), new Vector2(100, 0));
+            eindLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 500), new Vector2(100, -100));
             currentLevel = 0;
         }
         public void loadLevel1(GameTime gameTime)
@@ -451,7 +450,7 @@ namespace LineRunnerShooter
 
             level = new Level(Content.Load<Texture2D>("Map"), _afbeeldingBlokken);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
-            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
+            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 1600));
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 1500));
             platform = new MovingPlatform(_afbeeldingBlokken[0], new Vector2(1500, 300));

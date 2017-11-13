@@ -188,8 +188,8 @@ namespace LineRunnerShooter
         public Rectangle getRightCollision()
         {
             _CollisionRight.Location = _Position.ToPoint();
-            _CollisionRight.X += 30;
-            _CollisionRight.Y += 160;
+            _CollisionRight.X += _spritePos.Width - 30;
+            _CollisionRight.Y += 30;
             return _CollisionRight;
 
         }
@@ -203,7 +203,7 @@ namespace LineRunnerShooter
 
         public void PlatformUpdate(int platform)
         {
-            _Position.Y += platform*2;
+            _Position.Y += platform*2; //TODO: first official bug, kan niet verwijderd worden zonder dat dit een probleem geeft
         }
 
         public bool getBulletsCollision(Rectangle target)
