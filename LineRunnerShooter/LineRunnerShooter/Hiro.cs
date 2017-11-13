@@ -23,7 +23,6 @@ namespace LineRunnerShooter
             arm = new ARM(armtexture, bullet);
             _JumpHeight = 0;
             _CollisionRect = new Rectangle(100, 0, 100, 200);
-            speedX = 7;
         }
 
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)

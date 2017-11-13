@@ -11,12 +11,10 @@ namespace LineRunnerShooter
     class Lift : Block
     {
         bool goingUp;
-        int stateTimer;
         Vector2 eindPos;
         public bool isActive;
         public Lift(Texture2D texture, Vector2 startPos, Vector2 eindPos) : base(texture, startPos)
         {
-            stateTimer = 50;
             goingUp = true;
             this.eindPos = eindPos;
             collisionRect = new Rectangle(0, 0, 200, 50);
@@ -29,21 +27,14 @@ namespace LineRunnerShooter
             if (isActive)
             {
                 if (goingUp)
-                {
-                    if (goingUp)
-                    {
-                        change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds/8);
-                        Positie.Y += change;
-                    } 
+                {                 
+                    change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds/8);
+                    Positie.Y += change;
                 }
-                if (player.Intersects(this.getCollisionRectagle()))
+                if ((!player.Intersects(getCollisionRectagle())) || !goingUp )
                 {
-                    if (!goingUp)
-                    {
-                        change = 0;
-                    }
-
-                };
+                    change = 0;
+                }
             }
             if(Positie.Y <= eindPos.Y)
             {
@@ -69,7 +60,7 @@ namespace LineRunnerShooter
         public int PushUpDown(Rectangle player)
         {
             int uit = 0;
-            if (player.Intersects(this.getCollisionRectagle()))
+            if (player.Intersects(getCollisionRectagle()))
             {
                 if (goingUp)
                 {
@@ -84,12 +75,14 @@ namespace LineRunnerShooter
             return uit;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch) //TODO: dit moet in  1 draw gebeuren
         {
             base.Draw(spriteBatch);
+            
             Positie.X += 100;
             spriteBatch.Draw(_texture, Positie, Color.Yellow);
             Positie.X -= 100;
+            
         }
     }
 

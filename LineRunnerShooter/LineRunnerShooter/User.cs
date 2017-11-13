@@ -23,9 +23,9 @@ namespace LineRunnerShooter
         public Vector2 _Position;        //position
         protected Vector2 _StartPos;
         protected MoveMethod _MoveMethod;   //movemethod 
-        protected int speedX;
         protected int gravity;
         protected int _lives;
+        protected double slow;
 
 
 
@@ -59,9 +59,9 @@ namespace LineRunnerShooter
             _CollisionLeft = new Rectangle(130, 100, 30, 20);
             canLeft = true;
             canRight = true;
-            speedX = 3;
             _lives = 5;
             _StartPos = new Vector2(500, 300);
+            slow = 2;
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey)
@@ -112,38 +112,17 @@ namespace LineRunnerShooter
             spriteBatch.Draw(_texture[0], _CollisionRight, _spritePos, Color.Red);
         }
 
-        protected virtual void MoveHorizontal()
-        {
-            _spritePos.X += 100;
-            if (_spritePos.X > 700)
-            {
-                _spritePos.X = 0;
-            }
-            switch (_MoveMethod.Movedir)
-            {
-                case (0):
-                    _Position.X -= speedX;
-                    _Action = 0;
-                    break;
-                case (1):
-                    _Position.X += speedX;
-                    _Action = 1;
-                    break;
-                default:
-                    _spritePos.X = 0;
-                    break;
-            }
-        }
         protected virtual void MoveHorizontal(double time)
         {
+            int distance = Convert.ToInt16(time / slow);
             switch (_MoveMethod.Movedir)
             {
                 case (0):
-                    _Position.X -= Convert.ToInt16(time /2);
+                    _Position.X -= distance;
                     _Action = 0;
                     break;
                 case (1):
-                    _Position.X += Convert.ToInt16(time /2);
+                    _Position.X += distance;
                     _Action = 1;
                     break;
                 default:
@@ -181,7 +160,7 @@ namespace LineRunnerShooter
         {
             feetCollisionRect.Location = _Position.ToPoint();
             feetCollisionRect.X += 10;
-            feetCollisionRect.Y += 190;
+            feetCollisionRect.Y += _spritePos.Height-10;
             return feetCollisionRect;
         }
 
@@ -189,7 +168,7 @@ namespace LineRunnerShooter
         {
             _CollisionRight.Location = _Position.ToPoint();
             _CollisionRight.X += _spritePos.Width - 30;
-            _CollisionRight.Y += 30;
+            _CollisionRight.Y += _spritePos.Height - 40;
             return _CollisionRight;
 
         }
@@ -197,7 +176,7 @@ namespace LineRunnerShooter
         public Rectangle getLeftCollision()
         {
             _CollisionLeft.Location = _Position.ToPoint();
-            _CollisionLeft.Y += 160;
+            _CollisionLeft.Y += _spritePos.Height - 40;
             return _CollisionLeft;
         }
 

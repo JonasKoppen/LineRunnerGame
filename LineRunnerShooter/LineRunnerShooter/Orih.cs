@@ -15,20 +15,10 @@ namespace LineRunnerShooter
         public bool isAlive;
         public bool seePlayer;
         private Rectangle attackBox;
-        /*
-        public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet) : base(textureL, textureR, move, bullet)
-        {
-            _spritePos = new Rectangle(0, 0, 60, 200);
-            _CollisionRect = _spritePos;
-            _CollisionRight = new Rectangle(0, 0, 30, 20);
-            _CollisionLeft = new Rectangle(30, 0, 30, 20);
-            feetCollisionRect = new Rectangle(0, 0, 60, 10);
-            _Position.X = 900;
-            arm = null;
-            isAlive = true;
-            
-        }
-        */
+        private bool isAttacking;
+        private int lastMove;
+
+
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
         {
             _spritePos = new Rectangle(posX, 0, 60, 200);
@@ -39,7 +29,7 @@ namespace LineRunnerShooter
             _StartPos.X = posX;
             arm = null;
             isAlive = true;
-
+            isAttacking = false;
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {
@@ -49,7 +39,15 @@ namespace LineRunnerShooter
                 isAlive = false;
                 Console.WriteLine("I am hit");
                 _Position = new Vector2(0, 10000);
-                
+            }
+            if(isAttacking)
+            {
+                Console.WriteLine("Attacing");
+            }
+            if(lastMove != _MoveMethod.Movedir)
+            {
+                isAttacking = false;
+                slow = 2;
             }
             
         }
@@ -82,11 +80,18 @@ namespace LineRunnerShooter
             {
                 seePlayer = true;
                 Console.WriteLine("I see you");
+                Attack();
             }
             else
             {
                 seePlayer = false;
             }
+        }
+        public void Attack()
+        {
+            isAttacking = true;
+            slow = 1.5;
+            lastMove = _MoveMethod.Movedir;
         }
     }
 

@@ -260,6 +260,10 @@ namespace LineRunnerShooter
                             orihd.canRight = level.checkCollision(orihd.getRightCollision());
                             orihd.SeePlayer(held.getCollisionRectagle());
                             orihd.Update(gameTime, stateKey, held.getBulletsCollision(orihd.getCollisionRectagle()));
+                            if (!held.isGrounded)
+                            {
+                                held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                            }
                         }
                         if (!held.isGrounded)
                         {
