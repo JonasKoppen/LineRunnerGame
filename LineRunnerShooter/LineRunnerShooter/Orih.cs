@@ -30,26 +30,32 @@ namespace LineRunnerShooter
             arm = null;
             isAlive = true;
             isAttacking = false;
+            _lives = 3;
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {
-            base.Update(gameTime, stateKey);
-            if (isHit)
+            if (isAlive)
             {
-                isAlive = false;
-                Console.WriteLine("I am hit");
-                _Position = new Vector2(0, 10000);
+                base.Update(gameTime, stateKey);
+                if (isHit)
+                {
+                    Console.WriteLine("I am hit");
+                    _lives--;
+                }
+                if (isAttacking)
+                {
+                    Console.WriteLine("Attacing");
+                }
+                if (lastMove != _MoveMethod.Movedir)
+                {
+                    isAttacking = false;
+                    slow = 2;
+                }
+                if (_lives <= 0)
+                {
+                    Reset();
+                }
             }
-            if(isAttacking)
-            {
-                Console.WriteLine("Attacing");
-            }
-            if(lastMove != _MoveMethod.Movedir)
-            {
-                isAttacking = false;
-                slow = 2;
-            }
-            
         }
 
         public override void draw(SpriteBatch spriteBatch)
@@ -59,9 +65,6 @@ namespace LineRunnerShooter
             {
                 base.draw(spriteBatch);
             }
-            
-            
-
         }
 
         public void SeePlayer(Rectangle player)
@@ -90,8 +93,13 @@ namespace LineRunnerShooter
         public void Attack()
         {
             isAttacking = true;
-            slow = 1.5;
+            slow = 1.75;
             lastMove = _MoveMethod.Movedir;
+        }
+
+        public override void Reset()
+        {
+            isAlive = false;
         }
     }
 

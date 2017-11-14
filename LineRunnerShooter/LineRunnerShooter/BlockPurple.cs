@@ -84,7 +84,7 @@ namespace LineRunnerShooter
                 {
                     isTouched = false;
                     isStable = true;
-                    upTime = 3;
+                    upTime = 1;
                 }
             }
             else

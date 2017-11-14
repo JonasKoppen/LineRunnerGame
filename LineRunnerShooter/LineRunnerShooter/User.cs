@@ -93,7 +93,7 @@ namespace LineRunnerShooter
         public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos)
         {
             Vector2 mousePos = mouseState.Position.ToVector2();
-            arm.Update(gameTime, _Position, mousePos, camPos);
+            arm.Update(gameTime, _Position, _MoveMethod.Movedir, camPos);
             Update(gameTime, stateKey);
         }
 
@@ -204,9 +204,11 @@ namespace LineRunnerShooter
             return arm.getBulletsRect();
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             _Position = _StartPos;
+            gravity = -1;
+            _lives--;
         }
     }
 

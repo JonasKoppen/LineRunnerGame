@@ -50,4 +50,16 @@ namespace LineRunnerShooter
             return new Rectangle(Positie.ToPoint(),_texturePos.Size); ;
         }
     }
+
+    class Lava : Block
+    {
+        public Lava(Texture2D texture, Vector2 pos) : base(texture, pos)
+        {
+        }
+
+        public override Rectangle getCollisionRectagle()
+        {
+            return new Rectangle();
+        }
+    }
 }

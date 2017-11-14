@@ -39,6 +39,25 @@ namespace LineRunnerShooter
             }
         }
 
+        public void Update(GameTime gameTime, Vector2 position, int dir, Vector2 camPos)
+        {
+            _position = position;
+            _position.X += 50;
+            _position.Y += 65;
+            if(dir == 0)
+            {
+                angle = (float)(Math.PI);
+            }
+            else if(dir == 1)
+            {
+                angle = 0;
+            }
+            foreach (Bullet b in bullets)
+            {
+                b.Update(camPos, gameTime);
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle sourceRectangle = new Rectangle(0, 0, 250, 195);

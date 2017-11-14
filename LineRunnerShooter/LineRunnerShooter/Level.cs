@@ -81,6 +81,10 @@ namespace LineRunnerShooter
                         case "0 0":
                             {
                                 blockArray[x, y] = new Block(texture[B], new Vector2(x * 100, (y * 50)));
+                                if(B == 2)
+                                {
+                                    blockArray[x, y] = new Lava(texture[B], new Vector2(x * 100, (y * 50)));
+                                }
                                 break;
                             }
                         case "0 255":

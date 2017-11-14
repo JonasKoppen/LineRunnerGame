@@ -375,6 +375,7 @@ namespace LineRunnerShooter
                             orihd.draw(spriteBatch);
                         }
                         held.draw(spriteBatch);
+                        level.Draw(spriteBatch, 0, 0);
                         spriteBatch.End();
                         break;
                     }
