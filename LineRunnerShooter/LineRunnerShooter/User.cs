@@ -66,7 +66,7 @@ namespace LineRunnerShooter
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey)
         {
-            double totalTime = Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds);
+            double totalTime = gameTime.ElapsedGameTime.TotalMilliseconds;
             time += Convert.ToInt32(totalTime);
             if (time > 20)
             {
@@ -147,6 +147,12 @@ namespace LineRunnerShooter
                 _Position.Y += Convert.ToInt16((time / 4) + (gravity / 2)); 
                 gravity++;
             }
+            /*
+            if(canLeft && canRight)
+            {
+                _Position.Y -= 5;
+            }
+            */
 
         }
 
@@ -160,7 +166,7 @@ namespace LineRunnerShooter
         {
             feetCollisionRect.Location = _Position.ToPoint();
             feetCollisionRect.X += 10;
-            feetCollisionRect.Y += _spritePos.Height-10;
+            feetCollisionRect.Y += _spritePos.Height-20;
             return feetCollisionRect;
         }
 
@@ -168,7 +174,7 @@ namespace LineRunnerShooter
         {
             _CollisionRight.Location = _Position.ToPoint();
             _CollisionRight.X += _spritePos.Width - 30;
-            _CollisionRight.Y += _spritePos.Height - 40;
+            _CollisionRight.Y += _spritePos.Height - 60;
             return _CollisionRight;
 
         }
@@ -176,7 +182,7 @@ namespace LineRunnerShooter
         public Rectangle getLeftCollision()
         {
             _CollisionLeft.Location = _Position.ToPoint();
-            _CollisionLeft.Y += _spritePos.Height - 40;
+            _CollisionLeft.Y += _spritePos.Height - 60;
             return _CollisionLeft;
         }
 

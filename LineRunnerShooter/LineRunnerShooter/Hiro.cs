@@ -23,6 +23,7 @@ namespace LineRunnerShooter
             arm = new ARM(armtexture, bullet);
             _JumpHeight = 0;
             _CollisionRect = new Rectangle(100, 0, 100, 200);
+
         }
 
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)
@@ -77,7 +78,7 @@ namespace LineRunnerShooter
         {
             _spritePos = new Rectangle(0, 0, 100, 200);
             spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
-            //spriteBatch.Draw(_texture[0], this.getFeetCollisionRect(), Color.Red);
+            spriteBatch.Draw(_texture[0], this.getLeftCollision(), Color.Red);
             arm.Draw(spriteBatch);
         }
     }

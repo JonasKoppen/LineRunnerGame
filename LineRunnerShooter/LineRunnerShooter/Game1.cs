@@ -400,15 +400,18 @@ namespace LineRunnerShooter
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        level.Draw(spriteBatch, 0, 0);
+                        
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
+
                         foreach (Orih orihd in orihList)
                         {
                             orihd.draw(spriteBatch);
                         }
-                        
                         held.draw(spriteBatch);
+
+                        level.Draw(spriteBatch, 0, 0);
+
                         spriteBatch.End();
                         break;
                     }
@@ -416,11 +419,14 @@ namespace LineRunnerShooter
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        level.Draw(spriteBatch, 0, 0);
+                        
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
+
                         boss.draw(spriteBatch);
                         held.draw(spriteBatch);
+
+                        level.Draw(spriteBatch, 0, 0);
                         spriteBatch.End();
                         break;
                     }
