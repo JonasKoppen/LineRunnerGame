@@ -83,6 +83,7 @@ namespace LineRunnerShooter
                 case 2:
                     {
                         base.Update(gameTime, stateKey);
+                        elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         foreach (Rectangle bullet in heroBullets)
                         {
                             if (!isHit)
@@ -95,7 +96,7 @@ namespace LineRunnerShooter
                             if (elapsedTime > 250)
                             {
                                 elapsedTime = 0;
-                                Attack(player);
+                                Attack(new Vector2(5000,600));
                             }
                             foreach (BulletR b in rockets)
                             {
