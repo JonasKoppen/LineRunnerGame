@@ -38,8 +38,8 @@ namespace LineRunnerShooter
             if (!isFired)
             {
                 Positie = pos;
-                _direction.X = Convert.ToInt16(Math.Cos(angle) * 10);
-                _direction.Y = -Convert.ToInt16(Math.Sin(angle) * 8);
+                _direction.X = Convert.ToInt16(Math.Cos(angle));
+                _direction.Y = -Convert.ToInt16(Math.Sin(angle));
                 isFired = true;
             }
             
@@ -61,7 +61,7 @@ namespace LineRunnerShooter
             viewBox.Location = camPos.ToPoint() - new Point(200,800);
             if (isFired)
             {
-                Positie = Vector2.Add(Positie, _direction);
+                Positie.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.X);
             }
             if (!collisionRect.Intersects(viewBox))
             {

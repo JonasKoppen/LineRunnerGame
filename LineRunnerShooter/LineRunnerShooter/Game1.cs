@@ -323,6 +323,13 @@ namespace LineRunnerShooter
                         {
                             eindLift.activate(held.getFeetCollisionRect());
                         }
+
+                        foreach(Rectangle br in boss.getBulletsRect())
+                        {
+                            held.checkHit(br);
+                        }
+                        
+
                         level.Update(gameTime, held.getFeetCollisionRect());
                         held.Update(gameTime, stateKey, mouseState, held.Location);
 

@@ -205,7 +205,7 @@ namespace LineRunnerShooter
             return isHit;
         }
 
-        public List<Rectangle> getBulletsRect()
+        public virtual List<Rectangle> getBulletsRect()
         {
             return arm.getBulletsRect();
         }

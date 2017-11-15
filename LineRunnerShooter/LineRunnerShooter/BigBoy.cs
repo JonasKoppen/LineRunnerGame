@@ -142,6 +142,16 @@ namespace LineRunnerShooter
 
         }
 
+        public override List<Rectangle> getBulletsRect()
+        {
+            List<Rectangle> rocketsRect = new List<Rectangle>();
+            foreach(BulletR br in rockets)
+            {
+                rocketsRect.Add(br.getCollisionRectagle());
+            }
+            return rocketsRect;
+        }
+
 
 
     }

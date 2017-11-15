@@ -99,6 +99,7 @@ namespace LineRunnerShooter
 
     class MovePlayer : MoveMethod
     {
+        private bool lastSpaceState = false;
         public override void Update(KeyboardState stateKey, bool blockLeft, bool blockRight)
         {
             isJump = false;
@@ -115,13 +116,14 @@ namespace LineRunnerShooter
             {
                 movedir = 2;
             }
-            if (stateKey.IsKeyDown(Keys.Space) && !isShooting)
+            if (stateKey.IsKeyDown(Keys.Space) && !lastSpaceState)
             {
                 isShooting = true;
+                lastSpaceState = true;
             }
             if (stateKey.IsKeyUp(Keys.Space))
             {
-                isShooting = false;
+                lastSpaceState = false;
             }
             if (stateKey.IsKeyDown(Keys.Up))
             {

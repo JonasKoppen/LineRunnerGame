@@ -15,6 +15,7 @@ namespace LineRunnerShooter
         public Vector2 DestPos;
         public Vector2 _direction;
         public bool isFired;
+        public bool isGoingUp;
         private Rectangle collisionRect;
 
         public BulletR(Texture2D texture)
@@ -22,6 +23,7 @@ namespace LineRunnerShooter
             _texture = texture;
             Positie = new Vector2();
             isFired = false;
+            isGoingUp = true;
             collisionRect = new Rectangle(Positie.ToPoint(), new Point(50, 50));
         }
         public BulletR(Texture2D texture, Point size)
@@ -30,6 +32,7 @@ namespace LineRunnerShooter
             Positie = new Vector2();
             isFired = false;
             collisionRect = new Rectangle(Positie.ToPoint(), size);
+            isGoingUp = true;
         }
 
         public  void fire(float angle, Vector2 pos)
@@ -40,6 +43,7 @@ namespace LineRunnerShooter
                 _direction.X = Convert.ToInt16(Math.Cos(angle) * 10);
                 _direction.Y = -Convert.ToInt16(Math.Sin(angle) * 8);
                 isFired = true;
+                isGoingUp = true;
             }
             
         }
@@ -64,11 +68,13 @@ namespace LineRunnerShooter
                 {
                     Positie.X = DestPos.X;
                     _direction.Y = 10;
+                    isGoingUp = false;
                 }
             }
             if (Positie.Y > 1000)
             {
                 isFired = false;
+                isGoingUp = true;
                 Positie = new Vector2(0,0);
             }
         }
@@ -84,7 +90,15 @@ namespace LineRunnerShooter
 
         public Rectangle getCollisionRectagle()
         {
-            collisionRect.Location = Positie.ToPoint();
+            if (isGoingUp)
+            {
+                collisionRect.Location = new Point(0,0);
+            }
+            else
+            {
+                collisionRect.Location = Positie.ToPoint();
+            }
+            
             return collisionRect;
         }
 
