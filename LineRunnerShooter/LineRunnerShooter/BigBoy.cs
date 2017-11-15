@@ -17,6 +17,8 @@ namespace LineRunnerShooter
         private List<BulletR> rockets;
         private int firedRockets;
         private Random r;
+        private int phase;
+        private double elapsedTime;
         public BigBoy(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet, posX)
         {
             
@@ -32,57 +34,91 @@ namespace LineRunnerShooter
             time = 3;
             r = new Random();
             _lives = 5;
+            phase = 0;
         }
 
 
         public void Update(GameTime gameTime, KeyboardState stateKey, Vector2 player, List<Rectangle> heroBullets)
         {
-            base.Update(gameTime, stateKey);
-            bool isHit = false;
-            foreach(Rectangle bullet in heroBullets)
-            {
-                if (!isHit)
-                {
-                    isHit = getCollisionRectagle().Intersects(bullet);
-                }
-            }
-            if (isAlive)
-            {
-                if (true) //gameTime.TotalGameTime.Seconds > time
-                {
-                    time = gameTime.TotalGameTime.Seconds;
-                    attackMode = true;
-                    //firedRockets = 0;
-                }
-                if (attackMode)
-                {
-                    Attack(player);
-                }
-                foreach (BulletR b in rockets)
-                {
-                    b.Update();
-                }
-                if (isHit)
-                {
-                    _lives--;
-                }
-                if (_lives <= 0)
-                {
-                    isAlive = false;
-                }
-            }
-
             
-
+            bool isHit = false;
+            switch (phase)
+            {
+                case 0:
+                    {
+                        if(player.X > 400)
+                        {
+                            phase++;
+                        }
+                        _Position.X = 500;
+                        _Position.Y = 500;
+                        break;
+                    }
+                case 1:
+                    {
+                        //base.Update(gameTime, stateKey);
+                        _Position.X = player.X;
+                        _Position.Y = 300;
+                        elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                        if (player.X > 4700)
+                        {
+                            phase++;
+                            _Position.X = player.X+500;
+                            _Position.Y = 400;
+                            gravity = 0;
+                        }
+                        if(elapsedTime > 1000)
+                        {
+                            elapsedTime = 0;
+                            Attack(player);
+                            Attack(player);
+                            Attack(player);
+                        }
+                        foreach (BulletR b in rockets)
+                        {
+                            b.Update();
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        base.Update(gameTime, stateKey);
+                        foreach (Rectangle bullet in heroBullets)
+                        {
+                            if (!isHit)
+                            {
+                                isHit = getCollisionRectagle().Intersects(bullet);
+                            }
+                        }
+                        if (isAlive)
+                        {
+                            if (elapsedTime > 250)
+                            {
+                                elapsedTime = 0;
+                                Attack(player);
+                            }
+                            foreach (BulletR b in rockets)
+                            {
+                                b.Update();
+                            }
+                            if (isHit)
+                            {
+                                _lives--;
+                            }
+                            if (_lives <= 0)
+                            {
+                                isAlive = false;
+                            }
+                        }
+                        break;
+                    }
+            }
         }
 
         private void Attack(Vector2 player)
         {
             player.X -= 600;
             Vector2 firePos = new Vector2(player.X + r.Next(100, 3000), 0);
-            rockets[firedRockets].fire(_Position, firePos);
-            firedRockets++;
-            firePos = new Vector2(player.X + r.Next(200, 2000), 0);
             rockets[firedRockets].fire(_Position, firePos);
             firedRockets++;
             if(firedRockets >= rockets.Count)

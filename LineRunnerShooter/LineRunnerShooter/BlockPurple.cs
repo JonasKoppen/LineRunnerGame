@@ -20,7 +20,7 @@ namespace LineRunnerShooter
 
         public BlockPurple(Texture2D texture, Vector2 pos) : base(texture, pos)
         {
-            upTime = 3;
+            upTime = 1;
             downTime = 0;
             time = 0;
             isStable = true;

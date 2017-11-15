@@ -116,6 +116,7 @@ namespace LineRunnerShooter
             // TODO: Add your update logic here
             KeyboardState stateKey = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState();
+            /*
             if (stateKey.IsKeyDown(Keys.F1))
             {
                 camPos.X -= 1;
@@ -124,22 +125,37 @@ namespace LineRunnerShooter
             {
                 camPos.X += 1;
             }
-            if (stateKey.IsKeyDown(Keys.F3))
+            */
+            if (stateKey.IsKeyDown(Keys.F5))
             {
                 rotation += .1f;
             }
-            if (stateKey.IsKeyDown(Keys.F4))
+            if (stateKey.IsKeyDown(Keys.F6))
             {
                 rotation -= .1f;
             }
-            if (stateKey.IsKeyDown(Keys.F5))
+            if (stateKey.IsKeyDown(Keys.F7))
             {
                 zoom += .1f;
             }
-            if (stateKey.IsKeyDown(Keys.F6))
+            if (stateKey.IsKeyDown(Keys.F8))
             {
                 zoom -= .1f;
             }
+
+            if (stateKey.IsKeyDown(Keys.F1))
+            {
+                loadLevel1(gameTime);
+            }
+            if (stateKey.IsKeyDown(Keys.F2))
+            {
+                loadLevel2(gameTime);
+            }
+            if (stateKey.IsKeyDown(Keys.F3))
+            {
+                loadLevel3(gameTime);
+            }
+
             base.Update(gameTime);
             switch (currentLevel)
             {
@@ -192,11 +208,6 @@ namespace LineRunnerShooter
                     }
                 case 1:
                     {
-                        if (stateKey.IsKeyDown(Keys.E))
-                        {
-                            loadLevel2(gameTime);
-                        }
-
                         eindLift.activate(held.getFeetCollisionRect());
                         held.PlatformUpdate(startLift.Update(gameTime, held.getFeetCollisionRect()));
                         held.PlatformUpdate(eindLift.Update(gameTime, held.getFeetCollisionRect()));
@@ -356,8 +367,14 @@ namespace LineRunnerShooter
                         }
                         held.draw(spriteBatch);
                         spriteBatch.Draw(_afbeeldingBlokken[0], held.getLeftCollision(), Color.Red);
-                        startLift.Draw(spriteBatch);
-                        eindLift.Draw(spriteBatch);
+                        if (startLift.isActive)
+                        {
+                            startLift.Draw(spriteBatch);
+                        }
+                        else
+                        {
+                            eindLift.Draw(spriteBatch);
+                        }
                         spriteBatch.End();
                         break;
                     }
@@ -465,6 +482,7 @@ namespace LineRunnerShooter
 
         public void loadLevel2(GameTime gameTime)
         {
+            zoom = 1 - 0.5f;
             currentLevel = 2;
             
             orihList = new List<Orih>();
@@ -482,6 +500,7 @@ namespace LineRunnerShooter
 
         public void loadLevel3(GameTime gameTime)
         {
+            zoom = 1 - 0.5f;
             currentLevel = 3;
             boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 5200);
             held.setStartPos();

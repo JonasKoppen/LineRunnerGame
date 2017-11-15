@@ -100,9 +100,13 @@ namespace LineRunnerShooter
             {
                 movedir = 2;
             }
-            if (stateKey.IsKeyDown(Keys.Space))
+            if (stateKey.IsKeyDown(Keys.Space) && !isShooting)
             {
                 isShooting = true;
+            }
+            if (stateKey.IsKeyUp(Keys.Space))
+            {
+                isShooting = false;
             }
             if (stateKey.IsKeyDown(Keys.Up))
             {
