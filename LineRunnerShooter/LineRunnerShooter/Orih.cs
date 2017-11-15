@@ -17,6 +17,7 @@ namespace LineRunnerShooter
         private Rectangle attackBox;
         private bool isAttacking;
         private int lastMove;
+        private Texture2D _Texture;
 
 
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
@@ -31,6 +32,8 @@ namespace LineRunnerShooter
             isAlive = true;
             isAttacking = false;
             _lives = 3;
+            attackBox = new Rectangle(posX, 0, 60, 60);
+            _Texture = textureL;
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {
@@ -45,6 +48,8 @@ namespace LineRunnerShooter
                 if (isAttacking)
                 {
                     Console.WriteLine("Attacing");
+                    attackBox.Location = _Position.ToPoint();
+                    attackBox.Y -= 30;
                 }
                 if (lastMove != _MoveMethod.Movedir)
                 {
@@ -65,20 +70,24 @@ namespace LineRunnerShooter
             {
                 base.draw(spriteBatch);
             }
+            if (isAttacking)
+            {
+                spriteBatch.Draw(_Texture, attackBox, Color.Red);
+            }
         }
 
         public void SeePlayer(Rectangle player)
         {
             Rectangle _ViewRectangle;
-            if(_MoveMethod.Movedir == 1)
+            if (_MoveMethod.Movedir == 1)
             {
-                _ViewRectangle = new Rectangle(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), 300, 200);
+                _ViewRectangle = new Rectangle(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y) + 25, 150, 100);
             }
             else
             {
-                _ViewRectangle = new Rectangle(Convert.ToInt16(_Position.X)-240, Convert.ToInt16(_Position.Y), 300, 200);
+                _ViewRectangle = new Rectangle(Convert.ToInt16(_Position.X) - 240, Convert.ToInt16(_Position.Y) + 25, 150, 100);
             }
-            
+
             if (player.Intersects(_ViewRectangle))
             {
                 seePlayer = true;
@@ -101,29 +110,40 @@ namespace LineRunnerShooter
         {
             isAlive = false;
         }
-    }
 
-    class RobotMove : MoveMethod
-    {
-        private Random r;
-
-        public RobotMove()
+        public Rectangle getAttackRect()
         {
-            r = new Random();
-            movedir = 0;
-        }
+            Rectangle rectOut = new Rectangle();
+            if (isAttacking)
+            {
+                rectOut = attackBox;
+            }
+            return rectOut;
 
-        public override void Update(KeyboardState stateKey, bool moveLeft, bool moveRight)
-        {
-            int move = r.Next(0, 100);
-            if (moveLeft && movedir == 0)
-            {
-                movedir = 1;
-            }
-            if (moveRight && movedir == 1)
-            {
-                 movedir = 0;  
-            }
         }
     }
+        class RobotMove : MoveMethod
+        {
+            private Random r;
+
+            public RobotMove()
+            {
+                r = new Random();
+                movedir = 0;
+            }
+
+            public override void Update(KeyboardState stateKey, bool moveLeft, bool moveRight)
+            {
+                int move = r.Next(0, 100);
+                if (moveLeft && movedir == 0)
+                {
+                    movedir = 1;
+                }
+                if (moveRight && movedir == 1)
+                {
+                    movedir = 0;
+                }
+            }
+        }
+    
 }

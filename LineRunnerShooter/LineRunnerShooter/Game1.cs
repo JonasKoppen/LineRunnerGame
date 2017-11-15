@@ -275,6 +275,7 @@ namespace LineRunnerShooter
                             {
                                 held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
                             }
+                            held.checkHit(orihd.getAttackRect());
                         }
                         if (!held.isGrounded)
                         {

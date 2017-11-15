@@ -13,6 +13,7 @@ namespace LineRunnerShooter
     {
         protected bool jumpAllowed;
         protected int _JumpHeight;
+        private double invincebleTime;
 
 
         public Hiro(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(textureL, textureR, move, bullet)
@@ -23,7 +24,7 @@ namespace LineRunnerShooter
             arm = new ARM(armtexture, bullet);
             _JumpHeight = 0;
             _CollisionRect = new Rectangle(100, 0, 100, 200);
-
+            invincebleTime = 0;
         }
 
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)
@@ -34,7 +35,7 @@ namespace LineRunnerShooter
                 jumpAllowed = true;
             }
             CheckAction();
-
+            invincebleTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
         protected override void MoveHorizontal(Double time)
@@ -80,6 +81,19 @@ namespace LineRunnerShooter
             spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
             spriteBatch.Draw(_texture[0], this.getLeftCollision(), Color.Red);
             arm.Draw(spriteBatch);
+            if(invincebleTime > 20)
+            {
+                spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.Red);
+            }
+        }
+
+        public void checkHit(Rectangle hitObject)
+        {
+            if (_CollisionRect.Intersects(hitObject))
+            {
+                _lives--;
+                invincebleTime = 500;
+            }
         }
     }
 
