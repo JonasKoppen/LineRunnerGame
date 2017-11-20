@@ -211,7 +211,32 @@ namespace LineRunnerShooter
 
         public void checkEnviroments(List<Rectangle> level)
         {
+            bool isGground = false;
+            bool touchLeft = false;
+            bool touchRight = false;
 
+            isGrounded = false;
+            canLeft = false;
+            canRight = false;
+
+            foreach(Rectangle rect in level)
+            {
+                if(rect.Intersects(getFeetCollisionRect()) && !isGground)
+                {
+                    isGground = true;
+                    isGrounded = true;
+                }
+                if (rect.Intersects(getLeftCollision()) && !touchLeft)
+                {
+                    touchLeft = true;
+                    canLeft = true;
+                }
+                if (rect.Intersects(getRightCollision()) && !touchRight)
+                {
+                    touchRight = true;
+                    canRight = true;
+                }
+            }
         }
     }
 

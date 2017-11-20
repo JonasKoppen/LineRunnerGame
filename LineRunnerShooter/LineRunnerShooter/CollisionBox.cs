@@ -22,8 +22,8 @@ namespace LineRunnerShooter
         {
             body = new Rectangle(x, y, w, h - 20);
             feet = new Rectangle(x, y + h - 20, w, 20);
-            left = new Rectangle(x-5, y, w / 2, h-20);
-            right = new Rectangle(x + (w / 2)+5, y, w / 2, h-20);
+            left = new Rectangle(x-5, y, w / 2, h-30);
+            right = new Rectangle(x + (w / 2)+5, y, w / 2, h-30);
         }
 
         public void Update(Point location)

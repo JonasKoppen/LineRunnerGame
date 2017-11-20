@@ -198,16 +198,20 @@ namespace LineRunnerShooter
             return col;
         }
 
-        public List<Rectangle> getRectangles(int x) //geeft de lijst met collisionRectangle terug rond positie x
+        public List<Rectangle> getRectangles() //geeft de lijst met collisionRectangle terug rond positie x, dit is mss voor later
         {
             List<Rectangle> blocks = new List<Rectangle>();
-            if (x < 3) { x = 3; }
-            if (x < blockArray.GetLength(0)) { x = blockArray.GetLength(0) - 4; }
-            for(int i = x - 3; i < x + 3; i++)
+            //if (x < 3) { x = 3; }
+            //if (x < blockArray.GetLength(0)) { x = blockArray.GetLength(0) - 4; }
+            for(int i = 0; i < blockArray.GetLength(0); i++)
             {
                 for(int j = 0; j < blockArray.GetLength(1); j++)
                 {
-                    blocks.Add(blockArray[i, j].getCollisionRectagle());
+                    if(blockArray[i,j] != null)
+                    {
+                        blocks.Add(blockArray[i, j].getCollisionRectagle());
+                    }
+                    
                 }
             }
             return blocks;

@@ -208,13 +208,17 @@ namespace LineRunnerShooter
                     }
                 case 1:
                     {
+                        List<Rectangle> rectList = new List<Rectangle>();
                         eindLift.activate(held.getFeetCollisionRect());
                         held.PlatformUpdate(startLift.Update(gameTime, held.getFeetCollisionRect()));
                         held.PlatformUpdate(eindLift.Update(gameTime, held.getFeetCollisionRect()));
-                        
-                        held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
-                        held.canLeft = level.checkCollision(held.getLeftCollision());
-                        held.canRight = level.checkCollision(held.getRightCollision());
+
+                        rectList = level.getRectangles();
+                        rectList.Add(platform.getCollisionRectagle());
+                        rectList.Add(platform2.getCollisionRectagle());
+                        rectList.Add(startLift.getCollisionRectagle());
+                        rectList.Add(eindLift.getCollisionRectagle());
+                        held.checkEnviroments(rectList);
 
                         foreach (Orih orihd in orihList)
                         {
@@ -227,23 +231,6 @@ namespace LineRunnerShooter
                             {
                                 held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
                             }
-                        }
-
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(platform.getCollisionRectagle());
-                        }
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(platform2.getCollisionRectagle());
-                        }
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(startLift.getCollisionRectagle());
-                        }
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(eindLift.getCollisionRectagle());
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
