@@ -25,8 +25,8 @@ namespace LineRunnerShooter
             time = 0;
             isStable = true;
             isTouched = false;
-            _texturePos = new Rectangle(0, 0, 100, 100);
-            stablePosY = pos.Y;
+            _texturePos = new Rectangle(0, 35, 100, 35);
+            stablePosY = pos.Y +10;
             lastTime = 0;
             collisionRect.Height = 60;
         }
@@ -36,11 +36,11 @@ namespace LineRunnerShooter
         {
             if (isStable)
             {
-                spriteBatch.Draw(_texture, Positie, new Rectangle(0, 0, 100, 100), Color.White);
+                spriteBatch.Draw(_texture, Positie, _texturePos, Color.White);
             }
             else
             {
-                spriteBatch.Draw(_texture, Positie, new Rectangle(100, 0, 100, 100), Color.White);
+                spriteBatch.Draw(_texture, Positie, _texturePos, Color.White);
             }
         }
 
@@ -62,9 +62,11 @@ namespace LineRunnerShooter
                 if (isStable)
                 {
                     Positie.Y = stablePosY;
+                    _texturePos.X = 0;
                 }
                 else
                 {
+                    _texturePos.X = 0;
                     downTime--;
                 }
             }

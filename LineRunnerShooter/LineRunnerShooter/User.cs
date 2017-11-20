@@ -208,6 +208,11 @@ namespace LineRunnerShooter
             gravity = -1;
             _lives--;
         }
+
+        public void checkEnviroments(List<Rectangle> level)
+        {
+
+        }
     }
 
     public abstract class MoveMethod

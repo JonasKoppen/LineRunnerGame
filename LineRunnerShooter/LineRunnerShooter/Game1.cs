@@ -374,7 +374,6 @@ namespace LineRunnerShooter
                             liftSides[i].Draw(spriteBatch);
                         }
                         held.draw(spriteBatch);
-                        spriteBatch.Draw(_afbeeldingBlokken[0], held.getLeftCollision(), Color.Red);
                         if (startLift.isActive)
                         {
                             startLift.Draw(spriteBatch);
