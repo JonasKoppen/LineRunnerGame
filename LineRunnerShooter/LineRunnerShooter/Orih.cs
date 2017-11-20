@@ -23,9 +23,6 @@ namespace LineRunnerShooter
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
         {
             _spritePos = new Rectangle(posX, 0, 60, 200);
-            _CollisionRect = _spritePos;
-            _CollisionRight = new Rectangle(0, 0, 30, 20);
-            _CollisionLeft = new Rectangle(30, 0, 30, 20);
             _Position.X = posX;
             _StartPos.X = posX;
             arm = null;
@@ -34,6 +31,7 @@ namespace LineRunnerShooter
             _lives = 3;
             attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
+            collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {

@@ -33,11 +33,13 @@ namespace LineRunnerShooter
         public bool canRight;               //true = mag naar rechts
         public bool isGrounded;             //true = ik sta op de grond
 
-
+        /*
         protected Rectangle _CollisionRight;   //for move right
         protected Rectangle _CollisionLeft;    //for move left
         protected Rectangle _CollisionRect; //hit box
         protected Rectangle feetCollisionRect; //bepaald isGrounded gebruik voor collisie met de grond
+        */
+        protected CollisionBox collisionBox;
 
         protected ARM arm;
 
@@ -53,15 +55,13 @@ namespace LineRunnerShooter
             time = 0;
             _MoveMethod = move;
             _spritePos = new Rectangle(100, 190, 100, 200);
-            feetCollisionRect = new Rectangle(100, 100, 80, 10);
             isGrounded = false;
-            _CollisionRight = new Rectangle(100, 100, 30, 20);
-            _CollisionLeft = new Rectangle(130, 100, 30, 20);
             canLeft = true;
             canRight = true;
             _lives = 5;
             _StartPos = new Vector2(500, 300);
             slow = 2;
+            collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey)
@@ -87,7 +87,7 @@ namespace LineRunnerShooter
             {
                 gravity = 0;
             }
-            
+            collisionBox.Update(_Position.ToPoint());
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos)
@@ -95,6 +95,7 @@ namespace LineRunnerShooter
             Vector2 mousePos = mouseState.Position.ToVector2();
             arm.Update(gameTime, _Position, _MoveMethod.Movedir, camPos);
             Update(gameTime, stateKey);
+            collisionBox.Update(_Position.ToPoint());
         }
 
         public virtual void UpdateFI(double dt, KeyboardState stateKey)
@@ -108,8 +109,9 @@ namespace LineRunnerShooter
         public virtual void draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
-            spriteBatch.Draw(_texture[0], _CollisionLeft, _spritePos, Color.Red);
-            spriteBatch.Draw(_texture[0], _CollisionRight, _spritePos, Color.Red);
+            //spriteBatch.Draw(_texture[0], collisionBox.Left, _spritePos, Color.Red);
+            //spriteBatch.Draw(_texture[0], collisionBox.Right, _spritePos, Color.Red);
+            //spriteBatch.Draw(_texture[0], collisionBox.Feet, _spritePos, Color.Blue);
         }
 
         protected virtual void MoveHorizontal(double time)
@@ -158,32 +160,22 @@ namespace LineRunnerShooter
 
         public Rectangle getCollisionRectagle()
         {
-            _CollisionRect.Location = _Position.ToPoint();
-            return _CollisionRect;
+            return collisionBox.Body;
         }
 
         public virtual Rectangle getFeetCollisionRect()
         {
-            feetCollisionRect.Location = _Position.ToPoint();
-            feetCollisionRect.X += 10;
-            feetCollisionRect.Y += _spritePos.Height-20;
-            return feetCollisionRect;
+            return collisionBox.Feet;
         }
 
         public Rectangle getRightCollision()
         {
-            _CollisionRight.Location = _Position.ToPoint();
-            _CollisionRight.X += _spritePos.Width - 30;
-            _CollisionRight.Y += _spritePos.Height - 60;
-            return _CollisionRight;
-
+            return collisionBox.Right;
         }
 
         public Rectangle getLeftCollision()
         {
-            _CollisionLeft.Location = _Position.ToPoint();
-            _CollisionLeft.Y += _spritePos.Height - 60;
-            return _CollisionLeft;
+            return collisionBox.Left;
         }
 
         public void PlatformUpdate(int platform)

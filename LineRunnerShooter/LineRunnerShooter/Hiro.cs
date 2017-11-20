@@ -23,8 +23,8 @@ namespace LineRunnerShooter
             _Position.Y = posY;
             arm = new ARM(armtexture, bullet);
             _JumpHeight = 0;
-            _CollisionRect = new Rectangle(100, 0, 100, 200);
             invincebleTime = 0;
+            collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
         }
 
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)
@@ -79,17 +79,17 @@ namespace LineRunnerShooter
         {
             _spritePos = new Rectangle(0, 0, 100, 200);
             spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
-            spriteBatch.Draw(_texture[0], this.getLeftCollision(), Color.Red);
             arm.Draw(spriteBatch);
             if(invincebleTime > 20)
             {
                 spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.Red);
             }
+            //base.draw(spriteBatch);
         }
 
         public void checkHit(Rectangle hitObject)
         {
-            if (_CollisionRect.Intersects(hitObject))
+            if (collisionBox.Body.Intersects(hitObject))
             {
                 _lives--;
                 invincebleTime = 500;
