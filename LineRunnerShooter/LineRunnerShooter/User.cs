@@ -12,7 +12,7 @@ namespace LineRunnerShooter
     class User : ICollide
     {
         //TODO: healt
-        //TODO: vaste schiethoek (met de muis is niet echt ++)
+        //TODO: vaste schiethoek (met de muis is niet echt ++), terug naar schieten met muis, DIT IS EEN PC game dus maak flying ennemys een ennemys op meerdere lagen!!!
         //TODO: Hiro sprite maken
 
         protected int time; //for update 
@@ -180,7 +180,7 @@ namespace LineRunnerShooter
 
         public void PlatformUpdate(int platform)
         {
-            _Position.Y += platform*2; //TODO: first official bug, kan niet verwijderd worden zonder dat dit een probleem geeft
+            _Position.Y += platform; 
         }
 
         public bool getBulletsCollision(Rectangle target)

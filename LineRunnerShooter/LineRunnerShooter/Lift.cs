@@ -13,12 +13,14 @@ namespace LineRunnerShooter
         bool goingUp;
         Vector2 eindPos;
         public bool isActive;
+        int slow;
         public Lift(Texture2D texture, Vector2 startPos, Vector2 eindPos) : base(texture, startPos)
         {
             goingUp = true;
             this.eindPos = eindPos;
             collisionRect = new Rectangle(0, 0, 200, 50);
             _texturePos.Width = 200;
+            slow = 8;
         }
 
         public int Update(GameTime gameTime, Rectangle player)
@@ -28,7 +30,7 @@ namespace LineRunnerShooter
             {
                 if (goingUp)
                 {                 
-                    change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds/8);
+                    change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds/slow);
                     Positie.Y += change;
                 }
                 if ((!player.Intersects(getCollisionRectagle())) || !goingUp )
@@ -41,6 +43,28 @@ namespace LineRunnerShooter
                 isActive = false;
             }
             return change;
+        }
+
+        public void Update(GameTime gameTime, User player)
+        {
+            int change = 0;
+            if (isActive)
+            {
+                if (goingUp)
+                {
+                    change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds / slow);
+                    Positie.Y += change;
+                }
+                if (player.getFeetCollisionRect().Intersects(getCollisionRectagle()))
+                {
+                    player.PlatformUpdate(change);
+                    player.isGrounded = true;
+                }
+            }
+            if (Positie.Y <= eindPos.Y)
+            {
+                isActive = false;
+            }
         }
 
         public void activate(Rectangle player)
@@ -57,6 +81,7 @@ namespace LineRunnerShooter
                 isActive = true;
             }
         }
+        /*
         public int PushUpDown(Rectangle player)
         {
             int uit = 0;
@@ -74,6 +99,7 @@ namespace LineRunnerShooter
             }
             return uit;
         }
+        */
 
         public override void Draw(SpriteBatch spriteBatch) //TODO: dit moet in  1 draw gebeuren
         {
