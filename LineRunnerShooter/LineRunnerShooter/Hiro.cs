@@ -30,6 +30,7 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)
         {
             base.Update(gameTime, stateKey, mouse, camPos);
+            arm.Update(gameTime, _Position,mouse.Position.ToVector2(),camPos);
             if (isGrounded)
             {
                 jumpAllowed = true;

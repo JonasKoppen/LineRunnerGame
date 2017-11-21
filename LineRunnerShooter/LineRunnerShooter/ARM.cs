@@ -60,7 +60,7 @@ namespace LineRunnerShooter
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle sourceRectangle = new Rectangle(0, 0, 250, 195);
+            Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
             Vector2 origin = new Vector2(5, 10);
             foreach (Bullet b in bullets)
             {
@@ -101,6 +101,50 @@ namespace LineRunnerShooter
             }
             return bulletsRect;
         }
+    }
+
+    class RobotARM
+    {
+        private Texture2D pixel;
+        private float angle;
+        private Vector2 _position;
+        bool isAttacking;
+
+        public RobotARM(Texture2D pix)
+        {
+            angle = 0;
+            pixel = pix;
+            _position = new Vector2(200, 240);
+        }
+        public void Update(GameTime gameTime, Vector2 position, int dir)
+        {
+            _position = position;
+            _position.X += 50;
+            _position.Y += 65;
+            if (isAttacking)
+            {
+                angle += (float)((Math.PI / 180)*gameTime.ElapsedGameTime.TotalMilliseconds);
+            }
+            else
+            {
+                angle = (float)(Math.PI / 180) * dir;
+            }
+            isAttacking = false;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
+            Vector2 origin = new Vector2(5, 10);
+            spriteBatch.Draw(pixel, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
+            
+        }
+
+        public void Fire()
+        {
+            isAttacking = true;
+        }
+
     }
 }
 

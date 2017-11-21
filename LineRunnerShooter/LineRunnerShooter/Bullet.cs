@@ -62,6 +62,7 @@ namespace LineRunnerShooter
             if (isFired)
             {
                 Positie.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.X);
+                Positie.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.Y);
             }
             if (!collisionRect.Intersects(viewBox))
             {

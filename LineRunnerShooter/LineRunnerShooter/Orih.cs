@@ -18,6 +18,7 @@ namespace LineRunnerShooter
         private bool isAttacking;
         private int lastMove;
         private Texture2D _Texture;
+        RobotARM robotARM;
 
 
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
@@ -32,12 +33,14 @@ namespace LineRunnerShooter
             attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            robotARM = new RobotARM(bullet);
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {
             if (isAlive)
             {
                 base.Update(gameTime, stateKey);
+                
                 if (isHit)
                 {
                     Console.WriteLine("I am hit");
@@ -46,6 +49,7 @@ namespace LineRunnerShooter
                 if (isAttacking)
                 {
                     Console.WriteLine("Attacing");
+                    robotARM.Fire();
                     attackBox.Location = _Position.ToPoint();
                     attackBox.Y -= 30;
                 }
@@ -58,6 +62,7 @@ namespace LineRunnerShooter
                 {
                     Reset();
                 }
+                robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
             }
         }
 
@@ -67,6 +72,7 @@ namespace LineRunnerShooter
             if (isAlive)
             {
                 base.draw(spriteBatch);
+                robotARM.Draw(spriteBatch);
             }
             if (isAttacking)
             {

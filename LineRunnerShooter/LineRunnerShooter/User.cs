@@ -94,7 +94,6 @@ namespace LineRunnerShooter
         public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos)
         {
             Vector2 mousePos = mouseState.Position.ToVector2();
-            arm.Update(gameTime, _Position, _MoveMethod.Movedir, camPos);
             Update(gameTime, stateKey);
             collisionBox.Update(_Position.ToPoint());
         }

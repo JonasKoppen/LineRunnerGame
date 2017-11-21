@@ -13,8 +13,10 @@ namespace LineRunnerShooter
         Rectangle feet;
         Rectangle left;
         Rectangle right;
+        Rectangle head;
         public Rectangle Body { get { return body; } }
         public Rectangle Feet { get { return feet; } }
+        public Rectangle Head { get { return head; } }
         public Rectangle Left { get { return left; } }
         public Rectangle Right { get { return right; } }
 
@@ -22,6 +24,7 @@ namespace LineRunnerShooter
         {
             body = new Rectangle(x, y, w, h - 20);
             feet = new Rectangle(x, y + h - 20, w, 20);
+            head = new Rectangle(x, y, w, 20);
             left = new Rectangle(x-5, y, w / 2, h-30);
             right = new Rectangle(x + (w / 2)+5, y, w / 2, h-30);
         }
@@ -32,6 +35,8 @@ namespace LineRunnerShooter
 
             feet.Location = location;
             feet.Y += body.Height;
+
+            head.Location = location;
 
             left.Location = location;
             left.X -= 5;
