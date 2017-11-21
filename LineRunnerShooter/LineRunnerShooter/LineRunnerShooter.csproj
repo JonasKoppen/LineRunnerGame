@@ -50,6 +50,7 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="CollisionBox.cs" />
+    <Compile Include="Fyer.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Hiro.cs" />
     <Compile Include="ICollide.cs" />
