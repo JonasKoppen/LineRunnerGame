@@ -14,7 +14,7 @@ namespace LineRunnerShooter
         //TODO: healt
         //TODO: vaste schiethoek (met de muis is niet echt ++), terug naar schieten met muis, DIT IS EEN PC game dus maak flying ennemys een ennemys op meerdere lagen!!!
         //TODO: Hiro sprite maken
-        //TODO: user kan nog door platformen springen van onder naar boven, dus 
+        //TODO: user kan nog door platformen springen van onder naar boven, maar dan kan je niet naar links/rechts, ik ga dit laten zodat je op platforms kunt springen om vijanden te vermijden
 
         protected int time; //for update 
 

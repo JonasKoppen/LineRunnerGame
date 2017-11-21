@@ -168,7 +168,7 @@ namespace LineRunnerShooter
                 case 0:
                     
                     {
-                        if (stateKey.IsKeyDown(Keys.Enter))
+                        if (stateKey.IsKeyDown(Keys.Enter) && !startLift.isActive)
                         {
                             eindLift.activate();
                         }
@@ -205,9 +205,7 @@ namespace LineRunnerShooter
                         startLift.Update(gameTime, held);
                         eindLift.Update(gameTime, held);
 
-                        rectList = level.getRectangles();
-                        rectList.Add(platform.getCollisionRectagle());
-                        rectList.Add(platform2.getCollisionRectagle());
+                        rectList = level.getRectangles();               
                         rectList.Add(startLift.getCollisionRectagle());
                         rectList.Add(eindLift.getCollisionRectagle());
                         held.checkEnviroments(rectList);
@@ -348,8 +346,6 @@ namespace LineRunnerShooter
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         level.Draw(spriteBatch, 0, 0);
-                        platform.Draw(spriteBatch, 1);
-                        platform2.Draw(spriteBatch, 1);
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
                         foreach (Orih orihd in orihList)
@@ -448,7 +444,7 @@ namespace LineRunnerShooter
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 1500));
             platform = new MovingPlatform(_afbeeldingBlokken[0], new Vector2(1500, 300));
             platform2 = new MovingPlatform(_afbeeldingBlokken[0], new Vector2(1550, 300));
-            eindLift = new Lift(_afbeeldingBlokken[0], new Vector2(3000, 950), new Vector2(3000, 100));
+            eindLift = new Lift(_afbeeldingBlokken[0], new Vector2(7400, 900), new Vector2(7400, 100));
         }
 
         public void loadLevel2(GameTime gameTime)
