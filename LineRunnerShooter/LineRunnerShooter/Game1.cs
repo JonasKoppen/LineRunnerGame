@@ -86,6 +86,10 @@ namespace LineRunnerShooter
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyL"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyR"));
 
+            _levelMaps = new List<Texture2D>();
+            _levelMaps.Add(Content.Load<Texture2D>("Map"));
+            _levelMaps.Add(Content.Load<Texture2D>("Map2"));
+            _levelMaps.Add(Content.Load<Texture2D>("Map3"));
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             loadLevel0();
 
@@ -210,9 +214,7 @@ namespace LineRunnerShooter
 
                         foreach (Orih orihd in orihList)
                         {
-                            orihd.isGrounded = level.checkCollision(orihd.getFeetCollisionRect());
-                            orihd.canLeft = level.checkCollision(orihd.getLeftCollision());
-                            orihd.canRight = level.checkCollision(orihd.getRightCollision());
+                            orihd.checkEnviroments(rectList);
                             orihd.SeePlayer(held.getCollisionRectagle());
                             orihd.Update(gameTime, stateKey, held.getBulletsCollision(orihd.getCollisionRectagle()));
                             if (!held.isGrounded)
@@ -235,15 +237,14 @@ namespace LineRunnerShooter
                         startLift.Update(gameTime, held);
                         eindLift.Update(gameTime, held);
 
-                        held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
-                        held.canLeft = level.checkCollision(held.getLeftCollision());
-                        held.canRight = level.checkCollision(held.getRightCollision());
+                        rectList = level.getRectangles();
+                        rectList.Add(startLift.getCollisionRectagle());
+                        rectList.Add(eindLift.getCollisionRectagle());
+                        held.checkEnviroments(rectList);
 
                         foreach (Orih orihd in orihList)
                         {
-                            orihd.isGrounded = level.checkCollision(orihd.getFeetCollisionRect());
-                            orihd.canLeft = level.checkCollision(orihd.getLeftCollision());
-                            orihd.canRight = level.checkCollision(orihd.getRightCollision());
+                            orihd.checkEnviroments(rectList);
                             orihd.SeePlayer(held.getCollisionRectagle());
                             orihd.Update(gameTime, stateKey, held.getBulletsCollision(orihd.getCollisionRectagle()));
                             if (!held.isGrounded)
@@ -252,19 +253,10 @@ namespace LineRunnerShooter
                             }
                             held.checkHit(orihd.getAttackRect());
                         }
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(startLift.getCollisionRectagle());
-                        }
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(eindLift.getCollisionRectagle());
-                            eindLift.activate(held.getFeetCollisionRect());
-                        }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
                         held.Update(gameTime, stateKey, mouseState, held.Location);
-                        
+                        eindLift.activate(held.getFeetCollisionRect());
 
                         if (eindLift.Positie.Y < 200)
                         {
@@ -277,23 +269,14 @@ namespace LineRunnerShooter
                         startLift.Update(gameTime, held);
                         eindLift.Update(gameTime, held);
 
-                        held.isGrounded = level.checkCollision(held.getFeetCollisionRect());
-                        held.canLeft = level.checkCollision(held.getLeftCollision());
-                        held.canRight = level.checkCollision(held.getRightCollision());
+                        rectList = level.getRectangles();
+                        rectList.Add(startLift.getCollisionRectagle());
+                        rectList.Add(eindLift.getCollisionRectagle());
+                        held.checkEnviroments(rectList);
 
-                        boss.canLeft = level.checkCollision(boss.getLeftCollision());
-                        boss.canRight = level.checkCollision(boss.getRightCollision());
-                        boss.isGrounded = level.checkCollision(boss.getFeetCollisionRect());
+                        boss.checkEnviroments(rectList);
                         boss.Update(gameTime, stateKey, held._Position, held.getBulletsRect());
 
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(startLift.getCollisionRectagle());
-                        }
-                        if (!held.isGrounded)
-                        {
-                            held.isGrounded = held.getFeetCollisionRect().Intersects(eindLift.getCollisionRectagle());
-                        }
                         if (!boss.isAlive)
                         {
                             eindLift.activate(held.getFeetCollisionRect());
@@ -458,7 +441,7 @@ namespace LineRunnerShooter
             startLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 2000), new Vector2(100, 950));
             startLift.isActive = true;
 
-            level = new Level(Content.Load<Texture2D>("Map"), _afbeeldingBlokken);
+            level = new Level(_levelMaps[2], _afbeeldingBlokken);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 1600));
@@ -477,7 +460,7 @@ namespace LineRunnerShooter
             orihList.Add( new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 5100));
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 5000));
             held.setStartPos();
-            level = new Level(Content.Load<Texture2D>("Map2"), _afbeeldingBlokken);
+            level = new Level(_levelMaps[1], _afbeeldingBlokken);
 
             startLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 2000), new Vector2(100, 950));
             startLift.isActive = true;
@@ -492,7 +475,7 @@ namespace LineRunnerShooter
             currentLevel = 3;
             boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 5200);
             held.setStartPos();
-            level = new Level(Content.Load<Texture2D>("Map2"), _afbeeldingBlokken);
+            level = new Level(_levelMaps[1], _afbeeldingBlokken);
 
             startLift = new Lift(_afbeeldingBlokken[0], new Vector2(100, 2000), new Vector2(100, 950));
             startLift.isActive = true;

@@ -26,7 +26,7 @@ namespace LineRunnerShooter
             right = new Rectangle(x + (w / 2)+5, y, w / 2, h-30);
         }
 
-        public void Update(Point location)
+        public virtual void Update(Point location)
         {
             body.Location = location;
 
@@ -40,5 +40,26 @@ namespace LineRunnerShooter
             right.X += right.Width+5;
         }
 
+    }
+
+    class RoboCollisionBox : CollisionBox
+    {
+        Rectangle senseLeft; //deze is ter hoogte van de block onder de voeten maar heeft een offset van -X, dit gaan we gebruiken om te zien of de volgende blok er wel is
+        Rectangle senseRight;
+
+        public Rectangle SenseLeft { get { return senseLeft; } }
+        public Rectangle SenseRight { get { return senseRight; } }
+        public RoboCollisionBox(int x, int y, int w, int h) : base(x, y, w, h)
+        {
+            senseLeft = new Rectangle(x - 100, y + h + 10, 20, 20);
+            senseRight = new Rectangle(x +w+100, y + h + 10, 20, 20);
+        }
+
+        public override void Update(Point location)
+        {
+            base.Update(location);
+            senseLeft.Location = location + new Point(-100,Body.Height+10);
+            senseRight.Location = location + new Point(Body.Width + 100, Body.Height + 10);
+        }
     }
 }

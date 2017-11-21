@@ -14,6 +14,7 @@ namespace LineRunnerShooter
         //TODO: healt
         //TODO: vaste schiethoek (met de muis is niet echt ++), terug naar schieten met muis, DIT IS EEN PC game dus maak flying ennemys een ennemys op meerdere lagen!!!
         //TODO: Hiro sprite maken
+        //TODO: user kan nog door platformen springen van onder naar boven, dus 
 
         protected int time; //for update 
 
@@ -209,32 +210,26 @@ namespace LineRunnerShooter
             _lives--;
         }
 
-        public void checkEnviroments(List<Rectangle> level)
+        public virtual void checkEnviroments(List<Rectangle> level)
         {
-            bool isGground = false;
-            bool touchLeft = false;
-            bool touchRight = false;
 
             isGrounded = false;
-            canLeft = false;
-            canRight = false;
+            canLeft = true;
+            canRight = true;
 
             foreach(Rectangle rect in level)
             {
-                if(rect.Intersects(getFeetCollisionRect()) && !isGground)
+                if(rect.Intersects(getFeetCollisionRect()))
                 {
-                    isGground = true;
                     isGrounded = true;
                 }
-                if (rect.Intersects(getLeftCollision()) && !touchLeft)
+                if (rect.Intersects(getLeftCollision()))
                 {
-                    touchLeft = true;
-                    canLeft = true;
+                    canLeft = false;
                 }
-                if (rect.Intersects(getRightCollision()) && !touchRight)
+                if (rect.Intersects(getRightCollision()))
                 {
-                    touchRight = true;
-                    canRight = true;
+                    canRight = false;
                 }
             }
         }
@@ -245,7 +240,7 @@ namespace LineRunnerShooter
         protected int movedir;
         public bool isJump;
         public bool isShooting;
-        public abstract void Update(KeyboardState stateKey, bool moveLeft, bool moveRight);
+        public abstract void Update(KeyboardState stateKey, bool canLeft, bool canRight);
 
         public int Movedir { get { return movedir; } protected set { movedir = value; } }
     }

@@ -31,7 +31,7 @@ namespace LineRunnerShooter
             _lives = 3;
             attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
-            collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {
@@ -119,6 +119,23 @@ namespace LineRunnerShooter
             return rectOut;
 
         }
+
+        public override void checkEnviroments(List<Rectangle> level)
+        {
+            RoboCollisionBox roboBox = collisionBox as RoboCollisionBox;
+            base.checkEnviroments(level);
+            foreach(Rectangle rect in level)
+            {
+                if (rect.Intersects(roboBox.SenseLeft) && canLeft)
+                {
+                    canLeft = false;
+                }
+                if (rect.Intersects(roboBox.SenseRight) && canRight)
+                {
+                    canRight = false;
+                }
+            }
+        }
     }
         class RobotMove : MoveMethod
         {
@@ -130,14 +147,14 @@ namespace LineRunnerShooter
                 movedir = 0;
             }
 
-            public override void Update(KeyboardState stateKey, bool moveLeft, bool moveRight)
+            public override void Update(KeyboardState stateKey, bool canLeft, bool canRight)
             {
-                int move = r.Next(0, 100);
-                if (moveLeft && movedir == 0)
+                int move = r.Next(0, 2);
+                if (canLeft && movedir == 0)
                 {
                     movedir = 1;
                 }
-                if (moveRight && movedir == 1)
+                if (canRight && movedir == 1)
                 {
                     movedir = 0;
                 }
