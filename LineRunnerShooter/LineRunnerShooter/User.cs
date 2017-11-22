@@ -118,18 +118,25 @@ namespace LineRunnerShooter
 
         protected virtual void MoveHorizontal(double time)
         {
-            _Velocity.X = (float)(time / slow);
             switch (_MoveMethod.Movedir)
             {
                 case (0):
-                    _Velocity.X = -_Velocity.X;
+                    _Velocity.X = -(float)(time / slow);
                     _Action = 0;
                     break;
                 case (1):
+                    _Velocity.X = (float)(time / slow);
                     _Action = 1;
                     break;
                 default:
-                    _Velocity.X = 0;
+                    if (Math.Abs(_Velocity.X) < 1)
+                    {
+                        _Velocity.X = 0;
+                    }
+                    else
+                    {
+                        _Velocity.X /= 1.2F;
+                    }
                     _spritePos.X = 0;
                     break;
             }
@@ -147,7 +154,7 @@ namespace LineRunnerShooter
         {
             if (!isGrounded)
             {
-                _Velocity.Y += (float)((time / 400)*9.81); 
+                _Velocity.Y += (float)((time / 400.0)*9.81); 
                 gravity++;
             }
             else { _Velocity.Y = 0; }
@@ -219,13 +226,15 @@ namespace LineRunnerShooter
                 {
                     isGrounded = true;
                 }
-                if (rect.Intersects(getLeftCollision()))
+                if (rect.Intersects(getLeftCollision())&&canLeft)
                 {
                     canLeft = false;
+                    _Position.X += Math.Abs(_Velocity.X)/1.5f;
                 }
-                if (rect.Intersects(getRightCollision()))
+                if (rect.Intersects(getRightCollision())&&canRight)
                 {
                     canRight = false;
+                    _Position.X -= Math.Abs(_Velocity.X)/1.5f;
                 }
             }
         }
