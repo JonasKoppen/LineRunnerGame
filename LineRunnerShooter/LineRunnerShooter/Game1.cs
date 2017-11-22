@@ -122,7 +122,7 @@ namespace LineRunnerShooter
             // TODO: Add your update logic here
             KeyboardState stateKey = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState();
-            mouse = mouseState.Position.ToVector2() + camera.Position;
+            mouse = mouseState.Position.ToVector2()/zoom + camera.Position;
             /*
             if (stateKey.IsKeyDown(Keys.F1))
             {
@@ -197,7 +197,7 @@ namespace LineRunnerShooter
                         startLift.Update(gameTime, held);
                         eindLift.Update(gameTime, held);
 
-                        held.Update(gameTime, stateKey, mouseState, held.Location);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position);
                         camera.Position = new Vector2(0, 200);
                         break;
                     }
@@ -225,7 +225,7 @@ namespace LineRunnerShooter
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, held.Location);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position);
 
                         if(eindLift.Positie.Y < 200)
                         {
@@ -257,7 +257,7 @@ namespace LineRunnerShooter
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, held.Location);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position);
                         eindLift.activate(held.getFeetCollisionRect());
 
                         if (eindLift.Positie.Y < 200)
@@ -292,7 +292,7 @@ namespace LineRunnerShooter
                         
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, held.Location);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position);
 
 
                         if (eindLift.Positie.Y < 200)
