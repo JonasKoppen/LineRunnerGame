@@ -27,11 +27,11 @@ namespace LineRunnerShooter
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
         }
 
-        public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)
+        public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos, Vector2 mouseLoc)
         {
             CheckAction();
             base.Update(gameTime, stateKey, mouse, camPos);
-            arm.Update(gameTime, _Position,mouse.Position.ToVector2(),_Position);
+            arm.Update(gameTime, _Position, mouseLoc);
             if (isGrounded)
             {
                 jumpAllowed = true;

@@ -61,7 +61,7 @@ namespace LineRunnerShooter
 
         }
 
-        public void Update(Vector2 camPos, GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             timeToLive -= gameTime.ElapsedGameTime.TotalMilliseconds;
             if (isFired)

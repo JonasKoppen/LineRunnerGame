@@ -20,7 +20,7 @@ namespace LineRunnerShooter
             this.eindPos = eindPos;
             collisionRect = new Rectangle(0, 0, 200, 50);
             _texturePos.Width = 200;
-            slow = 8;
+            slow = 6;
         }
 
         public int Update(GameTime gameTime, Rectangle player)

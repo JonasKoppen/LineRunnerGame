@@ -50,14 +50,15 @@ namespace LineRunnerShooter
                         {
                             phase++;
                         }
-                        _Position.X = 500;
-                        _Position.Y = 500;
+                        _Position.X = -100;
+                        _Position.Y = 300;
                         break;
                     }
                 case 1:
                     {
                         //base.Update(gameTime, stateKey);
-                        _Position.X = player.X;
+                        if (_Position.X < player.X) { _Position.X = player.X; }
+                        
                         _Position.Y = 300;
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (player.X > 4700)
@@ -82,7 +83,7 @@ namespace LineRunnerShooter
                     }
                 case 2:
                     {
-                        base.Update(gameTime, stateKey);
+                        base.Update(gameTime, stateKey,isHit);
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         foreach (Rectangle bullet in heroBullets)
                         {

@@ -26,23 +26,23 @@ namespace LineRunnerShooter
             bullets.Add(new Bullet(energy));
             bullets.Add(new Bullet(energy));
         }
-        public void Update(GameTime gameTime, Vector2 position, Vector2 mouse, Vector2 camPos)
+        public void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
         {
             _position = position;
             _position.X += 50;
             _position.Y += 65;
 
-            float xVers =  -mouse.X+200;
-            float yVers =  -mouse.Y+200;
+            float xVers =  -mouse.X + _position.X;
+            float yVers =  -mouse.Y + _position.Y;
             angle = (float)Math.Atan2(xVers,yVers) + (float) (Math.PI/2);
 
             foreach(Bullet b in bullets)
             {
-                b.Update(camPos, gameTime);
+                b.Update(gameTime);
             }
         }
 
-        public void Update(GameTime gameTime, Vector2 position, int dir, Vector2 camPos)
+        public void Update(GameTime gameTime, Vector2 position, int dir)
         {
             _position = position;
             _position.X += 50;
@@ -57,7 +57,7 @@ namespace LineRunnerShooter
             }
             foreach (Bullet b in bullets)
             {
-                b.Update(camPos, gameTime);
+                b.Update(gameTime);
             }
         }
 
