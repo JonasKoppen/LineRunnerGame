@@ -22,6 +22,7 @@ namespace LineRunnerShooter
         protected Rectangle _spritePos;     //texture pos
         protected int _Action;              //actioin movement
         public Vector2 _Position;        //position
+        protected Vector2 _Velocity;
         protected Vector2 _StartPos;
         protected MoveMethod _MoveMethod;   //movemethod 
         protected int gravity;
@@ -63,6 +64,7 @@ namespace LineRunnerShooter
             _StartPos = new Vector2(500, 300);
             slow = 2;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            _Velocity = new Vector2(0,0);
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey)
@@ -94,8 +96,8 @@ namespace LineRunnerShooter
         public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos)
         {
             Vector2 mousePos = mouseState.Position.ToVector2();
-            Update(gameTime, stateKey);
             collisionBox.Update(_Position.ToPoint());
+            Update(gameTime, stateKey);
         }
 
         public virtual void UpdateFI(double dt, KeyboardState stateKey)
@@ -103,7 +105,7 @@ namespace LineRunnerShooter
             _MoveMethod.Update(stateKey, canLeft, canRight);
             MoveHorizontal(dt);
             MoveVertical(dt);
-
+            _Position += _Velocity;
         }
 
         public virtual void draw(SpriteBatch spriteBatch)
@@ -116,18 +118,18 @@ namespace LineRunnerShooter
 
         protected virtual void MoveHorizontal(double time)
         {
-            int distance = Convert.ToInt16(time / slow);
+            _Velocity.X = (float)(time / slow);
             switch (_MoveMethod.Movedir)
             {
                 case (0):
-                    _Position.X -= distance;
+                    _Velocity.X = -_Velocity.X;
                     _Action = 0;
                     break;
                 case (1):
-                    _Position.X += distance;
                     _Action = 1;
                     break;
                 default:
+                    _Velocity.X = 0;
                     _spritePos.X = 0;
                     break;
             }
@@ -137,8 +139,7 @@ namespace LineRunnerShooter
         {
             if (!isGrounded)
             {
-                _Position.Y += 1 + (gravity / 2);
-                gravity++;
+                _Velocity.Y += 1;
             }
         }
 
@@ -146,15 +147,11 @@ namespace LineRunnerShooter
         {
             if (!isGrounded)
             {
-                _Position.Y += Convert.ToInt16((time / 4) + (gravity / 2)); 
+                _Velocity.Y += (float)((time / 400)*9.81); 
                 gravity++;
             }
-            /*
-            if(canLeft && canRight)
-            {
-                _Position.Y -= 5;
-            }
-            */
+            else { _Velocity.Y = 0; }
+            if (_Velocity.Y > 20) { _Velocity.Y = 20; }
 
         }
 

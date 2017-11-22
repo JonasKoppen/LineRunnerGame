@@ -106,7 +106,7 @@ namespace LineRunnerShooter
         public void Attack()
         {
             isAttacking = true;
-            slow = 1.75;
+            slow = 2;
             lastMove = _MoveMethod.Movedir;
         }
 

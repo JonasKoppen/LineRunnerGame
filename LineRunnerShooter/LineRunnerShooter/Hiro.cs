@@ -22,31 +22,21 @@ namespace LineRunnerShooter
             _Position.X = posX;
             _Position.Y = posY;
             arm = new ARM(armtexture, bullet);
-            _JumpHeight = 0;
+            _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
         }
 
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos)
         {
+            CheckAction();
             base.Update(gameTime, stateKey, mouse, camPos);
             arm.Update(gameTime, _Position,mouse.Position.ToVector2(),camPos);
             if (isGrounded)
             {
                 jumpAllowed = true;
             }
-            CheckAction();
             invincebleTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-        }
-
-        protected override void MoveHorizontal(Double time)
-        {
-            base.MoveHorizontal(time);
-            if (_JumpHeight > 0)
-            {
-                _Position.Y -= 30 - (10 - _JumpHeight) * 2;
-                _JumpHeight--;
-            }
         }
 
         private void CheckAction()
@@ -62,18 +52,19 @@ namespace LineRunnerShooter
         }
         private void Jump()
         {
-            if ((_JumpHeight <= 0 && isGrounded) || jumpAllowed)
+            if (jumpAllowed)
             {
-                _JumpHeight = 15;
                 isGrounded = false;
                 gravity = 0;
                 jumpAllowed = false;
+                _Velocity.Y = -_JumpHeight;
             }
         }
 
         public void setStartPos()
         {
             _Position = new Vector2(150, 1700);
+            _Velocity = new Vector2(0, 0);
         }
 
         public override void draw(SpriteBatch spriteBatch)
