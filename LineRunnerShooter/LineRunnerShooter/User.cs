@@ -25,7 +25,7 @@ namespace LineRunnerShooter
         protected Vector2 _Velocity;
         protected Vector2 _StartPos;
         protected MoveMethod _MoveMethod;   //movemethod 
-        protected int gravity;
+        protected double gravity;
         protected int _lives;
         protected double slow;
 
@@ -65,6 +65,7 @@ namespace LineRunnerShooter
             slow = 2;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             _Velocity = new Vector2(0,0);
+            gravity = 9.81;
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey)
@@ -85,10 +86,6 @@ namespace LineRunnerShooter
             if (_Position.Y > 3000 && (_Position.X > 500 || _Position.X <0))
             {
                 Reset();
-            }
-            if (isGrounded)
-            {
-                gravity = 0;
             }
             collisionBox.Update(_Position.ToPoint());
         }
@@ -154,8 +151,7 @@ namespace LineRunnerShooter
         {
             if (!isGrounded)
             {
-                _Velocity.Y += (float)((time / 400.0)*9.81); 
-                gravity++;
+                _Velocity.Y += (float)((time / 400.0)*gravity); 
             }
             else { _Velocity.Y = 0; }
             if (_Velocity.Y > 20) { _Velocity.Y = 20; }
@@ -209,7 +205,6 @@ namespace LineRunnerShooter
         public virtual void Reset()
         {
             _Position = _StartPos;
-            gravity = -1;
             _lives--;
         }
 
@@ -219,6 +214,8 @@ namespace LineRunnerShooter
             isGrounded = false;
             canLeft = true;
             canRight = true;
+
+            bool hitHead = false;
 
             foreach(Rectangle rect in level)
             {
@@ -235,6 +232,11 @@ namespace LineRunnerShooter
                 {
                     canRight = false;
                     _Position.X -= Math.Abs(_Velocity.X)/1.5f;
+                }
+                if(rect.Intersects(collisionBox.Head) && !hitHead)
+                {
+                    hitHead = true;
+                    _Velocity.Y = Math.Abs(_Velocity.Y);
                 }
             }
         }

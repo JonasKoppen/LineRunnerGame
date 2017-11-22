@@ -24,15 +24,18 @@ namespace LineRunnerShooter
             bullets.Add(new Bullet(energy));
             bullets.Add(new Bullet(energy));
             bullets.Add(new Bullet(energy));
+            bullets.Add(new Bullet(energy));
         }
         public void Update(GameTime gameTime, Vector2 position, Vector2 mouse, Vector2 camPos)
         {
             _position = position;
             _position.X += 50;
             _position.Y += 65;
+
             float xVers =  -mouse.X+200;
             float yVers =  -mouse.Y+200;
             angle = (float)Math.Atan2(xVers,yVers) + (float) (Math.PI/2);
+
             foreach(Bullet b in bullets)
             {
                 b.Update(camPos, gameTime);
@@ -62,23 +65,27 @@ namespace LineRunnerShooter
         {
             Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
             Vector2 origin = new Vector2(5, 10);
+
             foreach (Bullet b in bullets)
             {
                 b.Draw(spriteBatch);
             }
+
             spriteBatch.Draw(pixel, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
         }
 
         public void Fire()
         {
             //bullet.fire(angle, _position);
+            Console.WriteLine("checking bullet");
             int i = 0;
             while((i != -1))
             {
-                Console.WriteLine(i);
+                Console.WriteLine("searching");
                 if (!bullets[i].isFired)
                 {
                     bullets[i].fire(angle, _position);
+                    Console.WriteLine("bullet Fired");
                     i = -1;
                 }
                 else
@@ -87,6 +94,7 @@ namespace LineRunnerShooter
                     if(bullets.Count <= i)
                     {
                         i = -1;
+                        Console.WriteLine("bullet not available");
                     }
                 }
             }
@@ -127,7 +135,7 @@ namespace LineRunnerShooter
             }
             else
             {
-                angle = (float)(Math.PI / 180) * dir;
+                angle = (float)((Math.PI) * (dir-1));
             }
             isAttacking = false;
         }
@@ -136,7 +144,7 @@ namespace LineRunnerShooter
         {
             Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
             Vector2 origin = new Vector2(5, 10);
-            spriteBatch.Draw(pixel, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
+            spriteBatch.Draw(pixel, _position, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
             
         }
 

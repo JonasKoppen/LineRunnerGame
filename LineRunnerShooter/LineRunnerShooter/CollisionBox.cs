@@ -23,8 +23,8 @@ namespace LineRunnerShooter
         public CollisionBox(int x, int y, int w, int h)
         {
             body = new Rectangle(x, y, w, h - 20);
-            feet = new Rectangle(x, y + h - 20, w, 20);
-            head = new Rectangle(x, y, w, 20);
+            feet = new Rectangle(x+10, y + h - 20, w-20, 20);
+            head = new Rectangle(x+10, y, w-20, 20);
             left = new Rectangle(x-5, y, w / 2, h-30);
             right = new Rectangle(x + (w / 2)+5, y, w / 2, h-30);
         }
@@ -34,9 +34,11 @@ namespace LineRunnerShooter
             body.Location = location;
 
             feet.Location = location;
+            feet.X += 10;
             feet.Y += body.Height;
 
             head.Location = location;
+            head.X += 10;
 
             left.Location = location;
             left.X -= 5;

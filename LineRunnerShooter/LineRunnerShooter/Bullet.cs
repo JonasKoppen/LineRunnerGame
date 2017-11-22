@@ -16,6 +16,7 @@ namespace LineRunnerShooter
         public bool isFired;
         private Rectangle collisionRect;
         private Rectangle viewBox;
+        private double timeToLive;
 
         public Bullet(Texture2D texture)
         {
@@ -23,7 +24,8 @@ namespace LineRunnerShooter
             Positie = new Vector2();
             isFired = false;
             collisionRect = new Rectangle(Positie.ToPoint(), new Point(50, 50));
-            viewBox = new Rectangle(0, 0, 2000, 2000);
+            viewBox = new Rectangle(0, 0, 1000, 1000);
+            timeToLive = 0;
         }
         public Bullet(Texture2D texture, Point size)
         {
@@ -31,16 +33,18 @@ namespace LineRunnerShooter
             Positie = new Vector2();
             isFired = false;
             collisionRect = new Rectangle(Positie.ToPoint(), size);
+            timeToLive = 0;
         }
 
-        public  void fire(float angle, Vector2 pos)
+        public void fire(float angle, Vector2 pos)
         {
             if (!isFired)
             {
                 Positie = pos;
-                _direction.X = Convert.ToInt16(Math.Cos(angle));
-                _direction.Y = -Convert.ToInt16(Math.Sin(angle));
+                _direction.X = (float)(Math.Cos(angle));
+                _direction.Y = -(float)(Math.Sin(angle));
                 isFired = true;
+                timeToLive = 1000;
             }
             
         }
@@ -52,22 +56,23 @@ namespace LineRunnerShooter
                 _direction.X = 0;
                 _direction.Y = 10;
                 isFired = true;
+                timeToLive = 1000;
             }
 
         }
 
         public void Update(Vector2 camPos, GameTime gameTime)
         {
-            viewBox.Location = camPos.ToPoint() - new Point(200,800);
+            timeToLive -= gameTime.ElapsedGameTime.TotalMilliseconds;
             if (isFired)
             {
                 Positie.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.X);
                 Positie.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.Y);
             }
-            if (!collisionRect.Intersects(viewBox))
+            if (timeToLive <0)
             {
                 isFired = false;
-                Positie = new Vector2();
+                Positie = new Vector2(1000,1000);
             }
         }
 

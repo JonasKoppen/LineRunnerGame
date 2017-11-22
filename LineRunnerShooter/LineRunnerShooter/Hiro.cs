@@ -31,7 +31,7 @@ namespace LineRunnerShooter
         {
             CheckAction();
             base.Update(gameTime, stateKey, mouse, camPos);
-            arm.Update(gameTime, _Position,mouse.Position.ToVector2(),camPos);
+            arm.Update(gameTime, _Position,mouse.Position.ToVector2(),_Position);
             if (isGrounded)
             {
                 jumpAllowed = true;
@@ -55,7 +55,6 @@ namespace LineRunnerShooter
             if (jumpAllowed)
             {
                 isGrounded = false;
-                gravity = 0;
                 jumpAllowed = false;
                 _Velocity.Y = -_JumpHeight;
             }

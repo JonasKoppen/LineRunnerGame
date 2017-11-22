@@ -29,6 +29,7 @@ namespace LineRunnerShooter
         Lift startLift;
         Lift eindLift;
         List<LiftSide> liftSides;
+        Vector2 mouse;
 
         public Game1() //https://stackoverflow.com/questions/720429/how-do-i-set-the-window-screen-size-in-xna Set Window Size
         {
@@ -77,6 +78,7 @@ namespace LineRunnerShooter
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsSideR"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsStreight"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("intro")); //10
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("CrossHair")); 
 
             _afbeeldingEnemys = new List<Texture2D>();
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyL"));
@@ -120,6 +122,7 @@ namespace LineRunnerShooter
             // TODO: Add your update logic here
             KeyboardState stateKey = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState();
+            mouse = mouseState.Position.ToVector2() + camera.Position;
             /*
             if (stateKey.IsKeyDown(Keys.F1))
             {
@@ -195,7 +198,7 @@ namespace LineRunnerShooter
                         eindLift.Update(gameTime, held);
 
                         held.Update(gameTime, stateKey, mouseState, held.Location);
-
+                        camera.Position = new Vector2(0, 200);
                         break;
                     }
                 case 1:
@@ -228,6 +231,7 @@ namespace LineRunnerShooter
                         {
                             loadLevel2(gameTime);
                         }
+                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
                     }
                 case 2:
@@ -260,6 +264,7 @@ namespace LineRunnerShooter
                         {
                             loadLevel3(gameTime);
                         }
+                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
                     }
                 case 3:
@@ -294,6 +299,7 @@ namespace LineRunnerShooter
                         {
                             loadLevel0();
                         }
+                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
                     }
             }
@@ -323,7 +329,7 @@ namespace LineRunnerShooter
             {
                 case 0:
                     {
-                        camera.Position = new Vector2(0, 200);
+                        
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         for (int i = 0; i < liftSides.Count; i++)
                         {
@@ -338,12 +344,12 @@ namespace LineRunnerShooter
                         {
                             eindLift.Draw(spriteBatch);
                         }
-                        spriteBatch.End();
+                        
                         break;
                     }
                 case 1:
                     {
-                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                        
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         level.Draw(spriteBatch, 0, 0);
                         startLift.Draw(spriteBatch, 1);
@@ -354,7 +360,7 @@ namespace LineRunnerShooter
                         }
                         held.draw(spriteBatch);
                         level.Draw(spriteBatch, 0, 0);
-                        spriteBatch.End();
+                        
                         break;
                     }
                 case 2:
@@ -373,7 +379,7 @@ namespace LineRunnerShooter
 
                         level.Draw(spriteBatch, 0, 0);
 
-                        spriteBatch.End();
+                        
                         break;
                     }
                 case 3:
@@ -388,23 +394,23 @@ namespace LineRunnerShooter
                         held.draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
-                        spriteBatch.End();
+                        
                         break;
                     }
+
             }
 
+            spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
+            spriteBatch.End();
+
             // TODO: Add your drawing code here
-            
+
             //Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Draw(gameTime);
         }
 
         public Vector2 cameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
         {
-            if(camer.Intersects(item))
-            {
-
-            }
             return new Vector2(held.Location.X - 700, camPos.Y);
         }
 
