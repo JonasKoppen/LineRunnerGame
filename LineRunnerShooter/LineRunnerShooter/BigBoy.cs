@@ -66,7 +66,7 @@ namespace LineRunnerShooter
                             phase++;
                             _Position.X = player.X+500;
                             _Position.Y = 400;
-                            gravity = 0;
+                            isGrounded = false;
                         }
                         if(elapsedTime > 1000)
                         {
