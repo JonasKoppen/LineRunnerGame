@@ -31,6 +31,13 @@ namespace LineRunnerShooter
             isHazard = hazard;
         }
 
+        public Block(Texture2D texture, Vector2 pos, Vector2 textPos)
+        {
+            _texture = texture;
+            Positie = pos;
+            _texturePos = new Rectangle(textPos.ToPoint(), new Point(100,50));
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Positie ,_texturePos, Color.Gold);

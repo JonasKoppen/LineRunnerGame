@@ -14,44 +14,13 @@ namespace LineRunnerShooter
         private int yDim = 6;
         private Rectangle endCollsion = new Rectangle(500, 0, 10, 500);
 
-        public int[,] tileArray = new int[,]
-        {
-            {1,1,1,1,1,1 },
-            {0,0,0,0,0,0 },
-            {0,0,0,0,0,0 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,1,1 },
-            {0,0,0,1,1,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,1,0,1 },
-            {0,0,0,1,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,2,0,1 },
-            {0,0,0,2,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,3,0,1 },
-            {0,0,0,3,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,2,0,0,1 },
-            {0,0,2,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,3,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {0,0,0,0,0,1 },
-            {1,1,1,1,1,1 },
-        };
+        public int[,] tileArray;
 
         private Block[,] blockArray;
 
         public Level(){
-            xDim = tileArray.GetLength(0);
-            yDim = tileArray.GetLength(1);
+            xDim = 12;
+            yDim = 6;
             blockArray = new Block[xDim, yDim];
             }
 
@@ -59,6 +28,7 @@ namespace LineRunnerShooter
         {   //gebruik Texture 2D colors array als level editor: https://stackoverflow.com/questions/10127871/how-can-i-read-image-pixels-values-as-rgb-into-2d-array // http://www.riemers.net/eng/Tutorials/XNA/Csharp/Series2D/Texture_to_Colors.php
             xDim = map.Width;
             yDim = map.Height;
+            tileArray = new int[xDim,yDim];
             blockArray = new Block[xDim, yDim];
             Color[] colors1D = new Color[map.Width * map.Height];
             map.GetData(colors1D);
@@ -66,6 +36,7 @@ namespace LineRunnerShooter
             {
                 for (int y = 0; y < map.Height; y++)
                 {
+                    tileArray[x, y] = 0;
                     String colorCode = colors1D[x + y * map.Width].R.ToString() + " "
                         + colors1D[x + y * map.Width].G.ToString() + "";
                     //+ colors1D[x + y * map.Width].B.ToString() + ""; // IDEE: gebruik blauw als extra informatie om mee te geven aan de builder (offset data) Alfa is ook bruikbaar
@@ -80,6 +51,7 @@ namespace LineRunnerShooter
                             }
                         case "0 0":
                             {
+                                tileArray[x,y] = 1;
                                 blockArray[x, y] = new Block(texture[B], new Vector2(x * 100, (y * 50)));
                                 if(B == 2)
                                 {
