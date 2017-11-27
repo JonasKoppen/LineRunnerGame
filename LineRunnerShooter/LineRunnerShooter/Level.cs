@@ -24,11 +24,11 @@ namespace LineRunnerShooter
             blockArray = new Block[xDim, yDim];
             }
 
-        public Level(Texture2D map, List<Texture2D> texture) 
+        public Level(Texture2D map, List<Texture2D> texture)
         {   //gebruik Texture 2D colors array als level editor: https://stackoverflow.com/questions/10127871/how-can-i-read-image-pixels-values-as-rgb-into-2d-array // http://www.riemers.net/eng/Tutorials/XNA/Csharp/Series2D/Texture_to_Colors.php
             xDim = map.Width;
             yDim = map.Height;
-            tileArray = new int[xDim,yDim];
+            tileArray = new int[xDim, yDim];
             blockArray = new Block[xDim, yDim];
             Color[] colors1D = new Color[map.Width * map.Height];
             map.GetData(colors1D);
@@ -43,7 +43,8 @@ namespace LineRunnerShooter
                     int B = colors1D[x + y * map.Width].B;
                     int alfa = colors1D[x + y * map.Width].A;
                     Console.WriteLine(colorCode);
-                    switch (colorCode){
+                    switch (colorCode)
+                    {
                         case "255 255":
                             {
                                 // white pixel
@@ -51,11 +52,15 @@ namespace LineRunnerShooter
                             }
                         case "0 0":
                             {
-                                tileArray[x,y] = 1;
-                                blockArray[x, y] = new Block(texture[B], new Vector2(x * 100, (y * 50)));
-                                if(B == 2)
+                                blockArray[x, y] = new Block(texture[B], new Vector2(x * 100, (y * 50)),new Vector2(100,50));
+                                if (B == 2)
                                 {
                                     blockArray[x, y] = new Lava(texture[B], new Vector2(x * 100, (y * 50)));
+                                }
+                                else
+                                {
+                                    tileArray[x, y] = 1;
+
                                 }
                                 break;
                             }
@@ -77,7 +82,58 @@ namespace LineRunnerShooter
                     }
                 }
             }
-            
+
+            for (int x = 1; x < map.Width-1; x++)
+            {
+                for (int y = 1; y < map.Height-1; y++)
+                {
+                    if(tileArray[x,y] == 1)
+                    {
+                        if(tileArray[x+1, y] == 1 && tileArray[x-1, y] == 1 && tileArray[x, y+1] == 1 && tileArray[x, y-1] == 1) //Middle
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100,50));
+                        }
+                        else if (tileArray[x + 1, y] == 0 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 1) //Right
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(200, 50));
+                        }
+                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 0 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 1) // left
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(0, 50));
+                        }
+                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 0 && tileArray[x, y - 1] == 1) //Down 
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 100));
+                        }
+                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 0) //UP
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 0));
+                        }
+                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 0 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 0) //UP LEFT
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(0, 0));
+                        }
+                        else if (tileArray[x + 1, y] == 0 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 0) //UP RIGht
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(200, 0));
+                        }
+                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 0 && tileArray[x, y + 1] == 0 && tileArray[x, y - 1] == 1) //DOWN LEFT
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(0, 100));
+                        }
+                        else if (tileArray[x + 1, y] == 0 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 0 && tileArray[x, y - 1] == 1) //DOWN RIGHT
+                        {
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(200, 100));
+                        }
+                        else
+                        {
+                            
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 50));
+                            
+                        }
+                    }
+                }
+            }
         }
 
 

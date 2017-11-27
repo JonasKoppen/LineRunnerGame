@@ -67,7 +67,7 @@ namespace LineRunnerShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _afbeeldingBlokken = new List<Texture2D>();
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("RetroBlock")); //0
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformSpriteSheet")); //0
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RotPlat")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lava"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("DreadBlock"));

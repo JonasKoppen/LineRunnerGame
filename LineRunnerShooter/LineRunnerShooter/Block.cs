@@ -40,7 +40,7 @@ namespace LineRunnerShooter
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Positie ,_texturePos, Color.Gold);
+            spriteBatch.Draw(_texture, Positie ,_texturePos, Color.White);
             //spriteBatch.Draw(_texture, getCollisionRectagle(), Color.Red); //Check collision block locations
         }
 
