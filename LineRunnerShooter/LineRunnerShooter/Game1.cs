@@ -67,7 +67,7 @@ namespace LineRunnerShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _afbeeldingBlokken = new List<Texture2D>();
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformSpriteSheet")); //0
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformSpritSheet2")); //0
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RotPlat")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lava"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("DreadBlock"));
@@ -412,7 +412,7 @@ namespace LineRunnerShooter
 
         public Vector2 cameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
         {
-            return new Vector2(held.Location.X - 700, camPos.Y);
+            return new Vector2(held.Location.X - 700, held.Location.Y-400);
         }
 
         public void loadLevel0()
