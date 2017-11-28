@@ -69,7 +69,7 @@ namespace LineRunnerShooter
             _afbeeldingBlokken = new List<Texture2D>();
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformSpritSheet2")); //0
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RotPlat")); 
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lava"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("lava2"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("DreadBlock"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsCornerL"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsCornerR")); //5
