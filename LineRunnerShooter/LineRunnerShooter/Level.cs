@@ -101,10 +101,6 @@ namespace LineRunnerShooter
                         {
                             blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(0, 50));
                         }
-                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 0 && tileArray[x, y - 1] == 1) //Down 
-                        {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 100));
-                        }
                         else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 0) //UP
                         {
                             blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 0));
@@ -117,19 +113,9 @@ namespace LineRunnerShooter
                         {
                             blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(200, 0));
                         }
-                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 0 && tileArray[x, y + 1] == 0 && tileArray[x, y - 1] == 1) //DOWN LEFT
-                        {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(0, 100));
-                        }
-                        else if (tileArray[x + 1, y] == 0 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 0 && tileArray[x, y - 1] == 1) //DOWN RIGHT
-                        {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(200, 100));
-                        }
                         else
-                        {
-                            
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 50));
-                            
+                        {   
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 50));   
                         }
                     }
                 }
