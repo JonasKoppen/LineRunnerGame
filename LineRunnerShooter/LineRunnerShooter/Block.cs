@@ -20,14 +20,14 @@ namespace LineRunnerShooter
         {
             _texture = texture;
             Positie = pos;
-            _texturePos = new Rectangle(0,0, 100,50);
+            _texturePos = new Rectangle(0,0, 100,100);
         }
 
         public Block(Texture2D texture, Vector2 pos, bool hazard)
         {
             _texture = texture;
             Positie = pos;
-            _texturePos = new Rectangle(0, 0, 100, 50);
+            _texturePos = new Rectangle(0, 0, 100, 100);
             isHazard = hazard;
         }
 
@@ -35,7 +35,7 @@ namespace LineRunnerShooter
         {
             _texture = texture;
             Positie = pos;
-            _texturePos = new Rectangle(textPos.ToPoint(), new Point(100,50));
+            _texturePos = new Rectangle(textPos.ToPoint(), new Point(100,100));
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

@@ -52,15 +52,22 @@ namespace LineRunnerShooter
                             }
                         case "0 0":
                             {
-                                blockArray[x, y] = new Block(texture[B], new Vector2(x * 100, (y * 50)),new Vector2(100,50));
+                                blockArray[x, y] = new Block(texture[B], new Vector2(x * 100, (y * 50)), new Vector2(100, 50));
                                 if (B == 2)
                                 {
-                                    blockArray[x, y] = new Lava(texture[B], new Vector2(x * 100, (y * 50)));
+                                    blockArray[x, y] = new Lava(texture[2], new Vector2(x * 100, (y * 50)));
                                 }
-                                else
+                                else if (B == 0)
                                 {
                                     tileArray[x, y] = 1;
-
+                                }
+                                else if (B == 100)
+                                {
+                                    tileArray[x, y] = 2;
+                                }
+                                else if (B == 200)
+                                {
+                                    tileArray[x, y] = 3;
                                 }
                                 break;
                             }
@@ -82,41 +89,37 @@ namespace LineRunnerShooter
                     }
                 }
             }
-
+            Random r = new Random();
             for (int x = 1; x < map.Width-1; x++)
             {
                 for (int y = 1; y < map.Height-1; y++)
                 {
-                    if(tileArray[x,y] == 1)
+                    if(tileArray[x,y] != 0)
                     {
-                        if(tileArray[x+1, y] == 1 && tileArray[x-1, y] == 1 && tileArray[x, y+1] == 1 && tileArray[x, y-1] == 1) //Middle
+                        if(tileArray[x+1, y] != 0 && tileArray[x-1, y] != 0 && tileArray[x, y-1] != 0) //Center
                         {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100,50));
+                            if(tileArray[x,y] == 1)
+                            {
+                                blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(300 + (r.Next(0, 4) * 100), 0));
+                            }
+                            else
+                            {
+                                blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(400, (100 * (tileArray[x, y] - 1))));
+                            }
                         }
-                        else if (tileArray[x + 1, y] == 0 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 1) //Right
+                        else if (tileArray[x + 1, y] != 0 && tileArray[x - 1, y] == 0 && tileArray[x, y - 1] != 0) //side Left
                         {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(200, 50));
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(300, (100 * (tileArray[x, y] - 1))));
                         }
-                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 0 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 1) // left
+                        else if (tileArray[x + 1, y] != 0 && tileArray[x - 1, y] == 0 && tileArray[x, y - 1] != 0) //side Right
                         {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(0, 50));
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(500, (100 * (tileArray[x, y] - 1))));
                         }
-                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 0) //UP
+                        else if (tileArray[x + 1, y] != 0 && tileArray[x - 1, y] == 0 && tileArray[x, y - 1] != 0) //side Right
                         {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 0));
+                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(500, (100 * (tileArray[x, y] - 1))));
                         }
-                        else if (tileArray[x + 1, y] == 1 && tileArray[x - 1, y] == 0 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 0) //UP LEFT
-                        {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(0, 0));
-                        }
-                        else if (tileArray[x + 1, y] == 0 && tileArray[x - 1, y] == 1 && tileArray[x, y + 1] == 1 && tileArray[x, y - 1] == 0) //UP RIGht
-                        {
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(200, 0));
-                        }
-                        else
-                        {   
-                            blockArray[x, y] = new Block(texture[0], new Vector2(x * 100, (y * 50)), new Vector2(100, 50));   
-                        }
+
                     }
                 }
             }
