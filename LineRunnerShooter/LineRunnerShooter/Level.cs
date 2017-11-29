@@ -176,6 +176,11 @@ namespace LineRunnerShooter
                     MovingPlatform mp = b as MovingPlatform;
                     mp.Update(gameTime,player,5);
                 }
+                if(b is Lava)
+                {
+                    Lava bl = b as Lava;
+                    bl.Update(gameTime);
+                }
             }
         }
 

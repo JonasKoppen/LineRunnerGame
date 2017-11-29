@@ -34,13 +34,10 @@ namespace LineRunnerShooter
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(_texture, Positie, _texturePos, Color.White);
             if (isStable)
             {
-                spriteBatch.Draw(_texture, Positie, _texturePos, Color.White);
-            }
-            else
-            {
-                spriteBatch.Draw(_texture, Positie, _texturePos, Color.White);
+                
             }
         }
 
@@ -66,7 +63,7 @@ namespace LineRunnerShooter
                 }
                 else
                 {
-                    _texturePos.X = 0;
+                    _texturePos.X = 100;
                     downTime--;
                 }
             }

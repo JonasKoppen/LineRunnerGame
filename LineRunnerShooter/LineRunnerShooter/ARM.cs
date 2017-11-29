@@ -131,7 +131,7 @@ namespace LineRunnerShooter
             _position.Y += 65;
             if (isAttacking)
             {
-                angle += (float)((Math.PI / 180)*gameTime.ElapsedGameTime.TotalMilliseconds);
+                angle += (float)((Math.PI / 180)*gameTime.ElapsedGameTime.TotalMilliseconds*2);
             }
             else
             {

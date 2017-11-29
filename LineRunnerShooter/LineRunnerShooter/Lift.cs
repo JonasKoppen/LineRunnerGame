@@ -18,7 +18,7 @@ namespace LineRunnerShooter
         {
             goingUp = true;
             this.eindPos = eindPos;
-            collisionRect = new Rectangle(0, 0, 200, 50);
+            collisionRect = new Rectangle(0, 0, 200, 100);
             _texturePos.Width = 200;
             slow = 6;
         }
@@ -105,9 +105,7 @@ namespace LineRunnerShooter
         {
             base.Draw(spriteBatch);
             
-            Positie.X += 100;
-            spriteBatch.Draw(_texture, Positie, Color.Yellow);
-            Positie.X -= 100;
+            
             
         }
     }

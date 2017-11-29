@@ -60,8 +60,23 @@ namespace LineRunnerShooter
 
     class Lava : Block
     {
+        int dir = 1;
         public Lava(Texture2D texture, Vector2 pos) : base(texture, pos)
         {
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            double shiftX = gameTime.ElapsedGameTime.TotalMilliseconds / 8;
+            _texturePos.X += (int)(shiftX *dir);
+            if(_texturePos.X > 180)
+            {
+                dir = -1;
+            }
+            if (_texturePos.X < 20)
+            {
+                dir = 1;
+            }
         }
 
         public override Rectangle getCollisionRectagle()
