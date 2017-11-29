@@ -35,10 +35,6 @@ namespace LineRunnerShooter
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_texture, Positie, _texturePos, Color.White);
-            if (isStable)
-            {
-                
-            }
         }
 
         public void Update(GameTime gameTime, Rectangle player)
@@ -78,7 +74,7 @@ namespace LineRunnerShooter
         {
             if (!isStable)
             {
-                Positie.Y += Convert.ToInt16(dt/4);
+                Positie.Y += (float)(dt/5);
                 if (downTime <= 0)
                 {
                     isTouched = false;

@@ -114,6 +114,9 @@ namespace LineRunnerShooter
         public override void Reset()
         {
             isAlive = false;
+            gravity = 0;
+            maxSpeed = 0;
+            _Position = new Vector2(500, 6000);
         }
 
         public Rectangle getAttackRect()

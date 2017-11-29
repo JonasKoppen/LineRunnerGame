@@ -172,7 +172,7 @@ namespace LineRunnerShooter
 
         public virtual Rectangle getFeetCollisionRect()
         {
-            return collisionBox.Feet;
+            return collisionBox.UnderFeet;
         }
 
         public Rectangle getRightCollision()
@@ -226,13 +226,16 @@ namespace LineRunnerShooter
 
             foreach(Rectangle rect in level)
             {
-                if(rect.Intersects(getFeetCollisionRect()))
+                
+                if(rect.Intersects(collisionBox.UnderFeet))
                 {
                     isGrounded = true;
-                    if (rect.Intersects(collisionBox.Body))
-                    {
-                        _Position.Y += 10;
-                    }
+                }
+                if (rect.Intersects(collisionBox.Feet) && isGrounded) //TODO: Lift glitcht weer
+                {
+                    _Position.Y -= 1;
+                    _Velocity.Y = 0;
+                    //isGrounded = true;
                 }
                 if (rect.Intersects(getLeftCollision())&&canLeft)
                 {
