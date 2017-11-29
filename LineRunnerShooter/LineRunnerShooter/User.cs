@@ -62,7 +62,7 @@ namespace LineRunnerShooter
             canRight = true;
             _lives = 5;
             _StartPos = new Vector2(500, 300);
-            slow = 20;
+            slow = 30;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             _Velocity = new Vector2(0,0);
             gravity = 9.81;
@@ -139,6 +139,10 @@ namespace LineRunnerShooter
                     }
                     _spritePos.X = 0;
                     break;
+            }
+            if (!isGrounded)
+            {
+                _Velocity.X = _Velocity.X * 0.95f;
             }
         }
 
@@ -225,16 +229,20 @@ namespace LineRunnerShooter
                 if(rect.Intersects(getFeetCollisionRect()))
                 {
                     isGrounded = true;
+                    if (rect.Intersects(collisionBox.Body))
+                    {
+                        _Position.Y += 10;
+                    }
                 }
                 if (rect.Intersects(getLeftCollision())&&canLeft)
                 {
                     canLeft = false;
-                    _Position.X += Math.Abs(_Velocity.X)/1.5f;
+                    _Position.X += Math.Abs(_Velocity.X);
                 }
                 if (rect.Intersects(getRightCollision())&&canRight)
                 {
                     canRight = false;
-                    _Position.X -= Math.Abs(_Velocity.X)/1.5f;
+                    _Position.X -= Math.Abs(_Velocity.X);
                 }
                 if(rect.Intersects(collisionBox.Head) && !hitHead)
                 {

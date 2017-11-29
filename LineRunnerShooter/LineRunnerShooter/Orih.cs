@@ -34,6 +34,7 @@ namespace LineRunnerShooter
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotARM(bullet);
+            maxSpeed = 8;
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {
@@ -56,7 +57,7 @@ namespace LineRunnerShooter
                 if (lastMove != _MoveMethod.Movedir)
                 {
                     isAttacking = false;
-                    slow = 2;
+                    maxSpeed = 8;
                 }
                 if (_lives <= 0)
                 {
@@ -106,7 +107,7 @@ namespace LineRunnerShooter
         public void Attack()
         {
             isAttacking = true;
-            slow = 2;
+            maxSpeed = 20;
             lastMove = _MoveMethod.Movedir;
         }
 
