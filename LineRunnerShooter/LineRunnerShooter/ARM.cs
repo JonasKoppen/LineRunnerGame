@@ -128,7 +128,7 @@ namespace LineRunnerShooter
         {
             _position = position;
             _position.X += 50;
-            _position.Y += 65;
+            _position.Y += 50;
             if (isAttacking)
             {
                 angle += (float)((Math.PI / 180)*gameTime.ElapsedGameTime.TotalMilliseconds*2);
@@ -151,6 +151,31 @@ namespace LineRunnerShooter
         public void Fire()
         {
             isAttacking = true;
+        }
+
+        public Rectangle attackBox()
+        {
+            int size = 80;
+            Rectangle attack = new Rectangle(0,0,size,size);
+
+            if(Math.Cos(angle) > 0 && Math.Sin(angle) > 0)
+            {
+                attack.Location = _position.ToPoint() + new Point(0, -size);
+            }
+            else if (Math.Cos(angle) <= 0 && Math.Sin(angle) > 0)
+            {
+                attack.Location = _position.ToPoint() + new Point(-size, -size);
+            }
+            else if (Math.Cos(angle) <= 0 && Math.Sin(angle) <= 0)
+            {
+                attack.Location = _position.ToPoint() + new Point(-size, 0);
+            }
+            else if (Math.Cos(angle) > 0 && Math.Sin(angle) <= 0)
+            {
+                attack.Location = _position.ToPoint();
+            }
+
+            return attack;
         }
 
     }

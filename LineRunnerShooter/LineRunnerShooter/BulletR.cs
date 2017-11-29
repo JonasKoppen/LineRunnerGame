@@ -71,7 +71,7 @@ namespace LineRunnerShooter
                     isGoingUp = false;
                 }
             }
-            if (Positie.Y > 1000)
+            if (Positie.Y > 3000)
             {
                 isFired = false;
                 isGoingUp = true;

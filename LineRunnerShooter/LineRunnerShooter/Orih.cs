@@ -36,6 +36,21 @@ namespace LineRunnerShooter
             robotARM = new RobotARM(bullet);
             maxSpeed = 8;
         }
+        public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armpix, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
+        {
+            _spritePos = new Rectangle(posX, 0, 60, 200);
+            _Position.X = posX;
+            _StartPos.X = posX;
+            arm = null;
+            isAlive = true;
+            isAttacking = false;
+            _lives = 3;
+            attackBox = new Rectangle(posX, 0, 60, 60);
+            _Texture = textureL;
+            collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            robotARM = new RobotARM(armpix);
+            maxSpeed = 8;
+        }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
         {
             if (isAlive)
@@ -77,7 +92,7 @@ namespace LineRunnerShooter
             }
             if (isAttacking)
             {
-                spriteBatch.Draw(_Texture, attackBox, Color.Red);
+                spriteBatch.Draw(_Texture, getAttackRect(), Color.Red);
             }
         }
 
@@ -124,7 +139,7 @@ namespace LineRunnerShooter
             Rectangle rectOut = new Rectangle();
             if (isAttacking)
             {
-                rectOut = attackBox;
+                rectOut = robotARM.attackBox();
             }
             return rectOut;
 
