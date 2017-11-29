@@ -14,6 +14,8 @@ namespace LineRunnerShooter
         protected double time;
         int state;
         bool isRotating;
+        int redTime;
+        int greenTime;
         public BlockRed(Texture2D texture, Vector2 pos) : base(texture, pos)
         {
             isActive = true;
@@ -22,6 +24,20 @@ namespace LineRunnerShooter
             isRotating = false;
             _texturePos = new Rectangle(100, 0, 100, 100);
             collisionRect.Height = 60;
+            redTime = 2000;
+            greenTime = 4000;
+        }
+
+        public BlockRed(Texture2D texture, Vector2 pos, int red, int green) : base(texture, pos)
+        {
+            isActive = true;
+            time = 3;
+            state = 2;
+            isRotating = true;
+            _texturePos = new Rectangle(100, 0, 100, 100);
+            collisionRect.Height = 60;
+            redTime = red;
+            greenTime = green;
         }
 
         public override Rectangle getCollisionRectagle()
@@ -44,12 +60,19 @@ namespace LineRunnerShooter
                 spriteBatch.Draw(_texture, Positie,_texturePos, Color.White);    
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime) //TODO: check of dit beter kan, ziet er rommelig uit
         {
-            time += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if(time > 2000)
+            time -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            if(time <0)
             {
-                time = 0;
+                if (isActive)
+                {
+                    time = redTime;
+                }
+                else
+                {
+                    time = greenTime;
+                }
                 isRotating = true; //trigger voor rotatie animatie
             }
             if (isRotating)

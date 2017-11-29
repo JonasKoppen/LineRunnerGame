@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
-    class Lift : Block
+    class Lift : Block //TODO: add reset function zodat ik die liften niet altijd opnieuw moet aanmaken
     {
         bool goingUp;
         Vector2 eindPos;
@@ -20,7 +20,7 @@ namespace LineRunnerShooter
             this.eindPos = eindPos;
             collisionRect = new Rectangle(0, 0, 200, 100);
             _texturePos.Width = 200;
-            slow = 6;
+            slow = 3;
         }
 
         public int Update(GameTime gameTime, Rectangle player)

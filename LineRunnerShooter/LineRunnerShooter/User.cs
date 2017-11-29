@@ -83,7 +83,7 @@ namespace LineRunnerShooter
             }
 
             UpdateFI(totalTime, stateKey);
-            if (_Position.Y > 2000 && (_Position.X >300))
+            if (_Position.Y > 3000 && (_Position.X >300))
             {
                 Reset();
             }

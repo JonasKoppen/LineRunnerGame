@@ -434,7 +434,7 @@ namespace LineRunnerShooter
             eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 700), new Vector2(100, -100));
             currentLevel = 0;
         }
-        public void loadLevel1(GameTime gameTime)
+        public void loadLevel1(GameTime gameTime) //TODO: Maak van level 1 een vriendelijke introductie level
         {
 
             zoom = 1 - 0.5f;
@@ -442,7 +442,7 @@ namespace LineRunnerShooter
 
             orihList = new List<Orih>();
 
-            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000), new Vector2(100, 950));
+            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
             level = new Level(_levelMaps[2], _afbeeldingBlokken);
@@ -452,7 +452,7 @@ namespace LineRunnerShooter
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 1500));
             platform = new MovingPlatform(_afbeeldingBlokken[0], new Vector2(1500, 300));
             platform2 = new MovingPlatform(_afbeeldingBlokken[0], new Vector2(1550, 300));
-            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900), new Vector2(7400, 100));
+            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
         }
 
         public void loadLevel2(GameTime gameTime)
@@ -466,10 +466,10 @@ namespace LineRunnerShooter
             held.setStartPos();
             level = new Level(_levelMaps[1], _afbeeldingBlokken);
 
-            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000), new Vector2(100, 950));
+            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900), new Vector2(7400, 100));
+            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
 
         }
 
@@ -481,10 +481,10 @@ namespace LineRunnerShooter
             held.setStartPos();
             level = new Level(_levelMaps[1], _afbeeldingBlokken);
 
-            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000), new Vector2(100, 950));
+            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900), new Vector2(7400, 100));
+            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
         }
     }
 }
