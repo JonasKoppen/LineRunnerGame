@@ -28,7 +28,7 @@ namespace LineRunnerShooter
         protected double gravity;
         protected int _lives;
         protected double slow;
-
+        protected double maxSpeed;
 
 
         public bool canLeft;                //true = mag naar links
@@ -62,10 +62,11 @@ namespace LineRunnerShooter
             canRight = true;
             _lives = 5;
             _StartPos = new Vector2(500, 300);
-            slow = 2;
+            slow = 20;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             _Velocity = new Vector2(0,0);
             gravity = 9.81;
+            maxSpeed = 15;
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey)
@@ -115,14 +116,16 @@ namespace LineRunnerShooter
 
         protected virtual void MoveHorizontal(double time)
         {
+            double speed = Math.Abs(_Velocity.X) + time/slow;
+            if(speed > maxSpeed) { speed = maxSpeed; }
             switch (_MoveMethod.Movedir)
             {
                 case (0):
-                    _Velocity.X = -(float)(time / slow);
+                    _Velocity.X = -(float)(speed);
                     _Action = 0;
                     break;
                 case (1):
-                    _Velocity.X = (float)(time / slow);
+                    _Velocity.X = (float)(speed);
                     _Action = 1;
                     break;
                 default:
