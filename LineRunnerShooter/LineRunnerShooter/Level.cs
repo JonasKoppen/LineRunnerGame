@@ -83,7 +83,7 @@ namespace LineRunnerShooter
                             }
                         case "100 0":
                             {
-                                blockArray[x, y] = new MovingPlatform(texture[0], new Vector2(x * 100, (y * 100)), B, 255 - alfa);
+                                blockArray[x, y] = new Z_MovingPlatform(texture[0], new Vector2(x * 100, (y * 100)), B, 255 - alfa);
                                 break;
                             }
                     }
@@ -171,9 +171,9 @@ namespace LineRunnerShooter
                     BlockRed br = b as BlockRed;
                     br.Update(gameTime);
                 }
-                if(b is MovingPlatform)
+                if(b is Z_MovingPlatform)
                 {
-                    MovingPlatform mp = b as MovingPlatform;
+                    Z_MovingPlatform mp = b as Z_MovingPlatform;
                     mp.Update(gameTime,player,5);
                 }
                 if(b is Lava)

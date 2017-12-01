@@ -57,7 +57,8 @@
     <Compile Include="Level.cs" />
     <Compile Include="Lift.cs" />
     <Compile Include="LiftSide.cs" />
-    <Compile Include="MovingPlatform.cs" />
+    <Compile Include="PhysicsBox.cs" />
+    <Compile Include="Z_MovingPlatform.cs" />
     <Compile Include="Orih.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
