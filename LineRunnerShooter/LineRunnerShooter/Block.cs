@@ -84,4 +84,33 @@ namespace LineRunnerShooter
             return new Rectangle();
         }
     }
+
+    class Target : Block
+    {
+        bool isShot;
+        int _value;
+        public Target(Texture2D texture, Vector2 pos, int value) : base(texture, pos)
+        {
+            _value = value;
+            isShot = false;
+        }
+
+        public void Update() //Collision with bullets
+        {
+            if (false)
+            {
+                isShot = true;
+            }
+        }
+
+        public int getPoints()
+        {
+            int points = 0;
+            if (isShot)
+            {
+                points = _value;
+            }
+            return points;
+        }
+    }
 }

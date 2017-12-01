@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
-namespace LineRunnerShooter
+namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !! 
 {
     /// <summary>
     /// This is the main type for your game.
