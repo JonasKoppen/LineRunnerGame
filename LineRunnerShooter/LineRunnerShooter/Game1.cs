@@ -326,7 +326,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             var viewMatrix = camera.GetViewMatrix();
             //_camera.Position = new Vector2(theHero.position.X - 200, theHero.position.Y - 300);// new Vector2(theHero.position.X + 200, theHero.position.Y+400);
@@ -360,6 +360,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         
                         spriteBatch.Begin(transformMatrix: viewMatrix);
+                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(50, -300,8000,2500), Color.White);
                         level.Draw(spriteBatch, 0, 0);
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
@@ -376,7 +377,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        
+                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(50, -300, 8000, 2500), Color.White);
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
 
@@ -395,7 +396,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        
+                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(50, -300, 8000, 2500), Color.White);
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
 
