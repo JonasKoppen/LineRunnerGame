@@ -81,11 +81,7 @@ namespace LineRunnerShooter
                                 blockArray[x, y] = new BlockPurple(texture[1], new Vector2(x * 100, (y * 100)));
                                 break;
                             }
-                        case "100 0":
-                            {
-                                blockArray[x, y] = new MovingPlatform(texture[0], new Vector2(x * 100, (y * 100)), B, 255 - alfa);
-                                break;
-                            }
+                        
                     }
                 }
             }
@@ -171,11 +167,7 @@ namespace LineRunnerShooter
                     BlockRed br = b as BlockRed;
                     br.Update(gameTime);
                 }
-                if(b is MovingPlatform)
-                {
-                    MovingPlatform mp = b as MovingPlatform;
-                    mp.Update(gameTime,player,5);
-                }
+                
                 if(b is Lava)
                 {
                     Lava bl = b as Lava;

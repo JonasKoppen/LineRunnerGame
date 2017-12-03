@@ -24,8 +24,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         Hiro held;
         //Orih orih;
         List<Orih> orihList;
-        MovingPlatform platform;
-        MovingPlatform platform2;
+ 
         Lift startLift;
         Lift eindLift;
         List<LiftSide> liftSides;
@@ -450,8 +449,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 1600));
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 1500));
-            platform = new MovingPlatform(_afbeeldingBlokken[0], new Vector2(1500, 300));
-            platform2 = new MovingPlatform(_afbeeldingBlokken[0], new Vector2(1550, 300));
+           
             eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
         }
 
