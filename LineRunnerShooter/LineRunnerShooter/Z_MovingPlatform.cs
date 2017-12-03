@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LineRunnerShooter
 {
-    class MovingPlatform : Block
+    class Z_MovingPlatform : Block //TODO: moving platforms zijn onhold gezet tot de rest in orde is
     {
         bool goingUp;
         bool isStatic;
@@ -17,7 +17,7 @@ namespace LineRunnerShooter
         int baseCounter; // aantal cycles tot verandering van richting
         int baseSlow; //Speed of going up and down, groter = slower
 
-        public MovingPlatform(Texture2D texture, Vector2 pos) : base(texture, pos)
+        public Z_MovingPlatform(Texture2D texture, Vector2 pos) : base(texture, pos)
         {
             baseCounter = 20;
             baseSlow = 50;
@@ -25,7 +25,7 @@ namespace LineRunnerShooter
             stateTimer = 500;
             goingUp = false;
         }
-        public MovingPlatform(Texture2D texture, Vector2 pos, int counter, int slow) : base(texture, pos)
+        public Z_MovingPlatform(Texture2D texture, Vector2 pos, int counter, int slow) : base(texture, pos)
         {
             baseCounter = counter;
             slow = slow * 2;
