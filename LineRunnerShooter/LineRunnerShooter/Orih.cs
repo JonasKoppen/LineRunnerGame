@@ -11,7 +11,7 @@ namespace LineRunnerShooter
 {
     class Orih : User
     {
-        //TODO: attack modes: spinning arms, shooting
+        //TODO: attack modes: spinning arms (done), shooting
         public bool isAlive;
         public bool seePlayer;
         private Rectangle attackBox;

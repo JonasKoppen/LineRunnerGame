@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
-    class Lift : Block //TODO: add reset function zodat ik die liften niet altijd opnieuw moet aanmaken
+    class Lift : Block //TODO: add reset function zodat ik die liften niet altijd opnieuw moet aanmaken, liften kunnen nu gereset worden vooral handig met de tutorial
     {
         bool goingUp;
         Vector2 eindPos;
@@ -65,6 +65,16 @@ namespace LineRunnerShooter
             {
                 isActive = false;
             }
+        }
+
+        public void setPos(Vector2 loc)
+        {
+            Positie = loc;
+        }
+
+        public void setDest(Vector2 dest)
+        {
+            eindPos = dest;
         }
 
         public void activate(Rectangle player)

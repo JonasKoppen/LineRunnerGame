@@ -12,9 +12,9 @@ namespace LineRunnerShooter
     class User : ICollide
     {
         //TODO: healt
-        //TODO: vaste schiethoek (met de muis is niet echt ++), terug naar schieten met muis, DIT IS EEN PC game dus maak flying ennemys een ennemys op meerdere lagen!!!
+        //TODO: Add 360 shooting requirement
         //TODO: Hiro sprite maken
-        //TODO: user kan nog door platformen springen van onder naar boven, maar dan kan je niet naar links/rechts, ik ga dit laten zodat je op platforms kunt springen om vijanden te vermijden
+        //TODO: user kan nog door platformen springen van onder naar boven, maar dan kan je niet naar links/rechts, Dit is op de moment dus niet meer mogelijk, mss wel best zo iets toelaten
 
         protected int time; //for update 
 
