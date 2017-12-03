@@ -49,13 +49,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         /// </summary>
         protected override void Initialize()
         {
-            
-
-            // TODO: Add your initialization logic here
             camera = new Camera(GraphicsDevice.Viewport);
             base.Initialize();
-            currentLevel = 0;
-            
+            currentLevel = 0;         
         }
 
         /// <summary>
@@ -103,7 +99,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             loadLevel0();
 
-            // TODO: use this.Content to load your game content here TODO: slaag afbeeldingen op in variabelen
+            // TODO: slaag afbeeldingen op in variabelen
 
         }
 
@@ -413,7 +409,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
             spriteBatch.End();
 
-            // TODO: Add your drawing code here
 
             //Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Draw(gameTime);

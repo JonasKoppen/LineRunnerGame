@@ -92,7 +92,7 @@ namespace LineRunnerShooter
             }
             if (isAttacking)
             {
-                spriteBatch.Draw(_Texture, getAttackRect(), Color.Red);
+                //spriteBatch.Draw(_Texture, getAttackRect(), Color.Red);
             }
         }
 
