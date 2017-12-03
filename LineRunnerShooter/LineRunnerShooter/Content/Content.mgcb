@@ -49,6 +49,12 @@
 /processorParam:TextureFormat=Color
 /build:BigGuyR.png
 
+#begin boss.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:boss.mp3
+
 #begin CrossHair.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -97,6 +103,12 @@
 /processorParam:TextureFormat=Color
 /build:intro.png
 
+#begin introS.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:introS.mp3
+
 #begin Lava.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -120,6 +132,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:lava2.png
+
+#begin level.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:level.mp3
 
 #begin lift.png
 /importer:TextureImporter
@@ -288,6 +306,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:platformsStreight.png
+
+#begin RatchetBackgrond.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:RatchetBackgrond.png
 
 #begin RetroBlock.png
 /importer:TextureImporter

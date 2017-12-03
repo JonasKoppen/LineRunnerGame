@@ -93,7 +93,7 @@ namespace LineRunnerShooter
 
         public virtual void MoveVertical(double time)
         {
-            if (!isGrounded)
+            if (!false)
             {
                 _Velocity.Y += (float)((time / 400.0) * gravity);
             }

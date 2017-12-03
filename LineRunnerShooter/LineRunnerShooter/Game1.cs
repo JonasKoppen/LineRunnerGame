@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
@@ -19,6 +20,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<Texture2D> _afbeeldingBlokken;
         List<Texture2D> _afbeeldingEnemys;
         List<Texture2D> _levelMaps;
+        List<Song> music; //http://www.gamefromscratch.com/post/2015/07/25/MonoGame-Tutorial-Audio.aspx
         int currentLevel;
         Level level;
         Hiro held;
@@ -78,7 +80,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsStreight"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("intro")); //10
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("CrossHair"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lift"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lift")); 
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("RatchetBackgrond"));
 
             _afbeeldingEnemys = new List<Texture2D>();
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyL"));
@@ -92,6 +95,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _levelMaps.Add(Content.Load<Texture2D>("Map"));
             _levelMaps.Add(Content.Load<Texture2D>("Map2"));
             _levelMaps.Add(Content.Load<Texture2D>("Map3"));
+
+            music = new List<Song>();
+            music.Add(Content.Load<Song>("introS"));
+            music.Add(Content.Load<Song>("level"));
+            music.Add(Content.Load<Song>("boss"));
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             loadLevel0();
 
@@ -432,6 +440,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             startLift.isActive = true;
             eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 700), new Vector2(100, -100));
             currentLevel = 0;
+            MediaPlayer.Play(music[0]);
         }
         public void loadLevel1(GameTime gameTime) //TODO: Maak van level 1 een vriendelijke introductie level
         {
@@ -451,6 +460,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 1500));
            
             eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
+            MediaPlayer.Play(music[1]);
         }
 
         public void loadLevel2(GameTime gameTime)
@@ -468,7 +478,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             startLift.isActive = true;
 
             eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
-
+            
         }
 
         public void loadLevel3(GameTime gameTime)
@@ -483,6 +493,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             startLift.isActive = true;
 
             eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
+            MediaPlayer.Play(music[2]);
         }
     }
 }
