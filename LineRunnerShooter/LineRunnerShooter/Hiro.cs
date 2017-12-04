@@ -9,6 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LineRunnerShooter
 {
+    /*
+     * The hero of the game, probobly most complex class the game has (players are so much work, why can they just not simply move left and right, why do players require the hero of the game to run and shoot his way through?)
+     * Is the only thing that can jump, Goes invinceble (onaantastbaar, mss beter even translate erbij pakken) when hit
+     * 
+     * 
+     */ 
     class Hiro : User
     {
         protected bool jumpAllowed;

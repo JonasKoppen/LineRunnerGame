@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * Blocks are the foundation of the game, the level(builder) wil use them for making the level, not much happens here after construction is complete
+     * The Lava class is like the Block but without the collionRectangle but with an animation wich requires an update method
+     * The target block has also no collisoin rect, but will be shootable, if destroyed it wil return points.
+     */ 
     class Block : ICollide
     {
         public Texture2D _texture;
         public Vector2 Positie;
-        protected Rectangle collisionRect;
         protected Rectangle _texturePos;
         public bool isHazard { get; private set; }
 
@@ -21,14 +25,6 @@ namespace LineRunnerShooter
             _texture = texture;
             Positie = pos;
             _texturePos = new Rectangle(0,0, 100,100);
-        }
-
-        public Block(Texture2D texture, Vector2 pos, bool hazard)
-        {
-            _texture = texture;
-            Positie = pos;
-            _texturePos = new Rectangle(0, 0, 100, 100);
-            isHazard = hazard;
         }
 
         public Block(Texture2D texture, Vector2 pos, Vector2 textPos)
@@ -53,7 +49,6 @@ namespace LineRunnerShooter
 
         public virtual Rectangle getCollisionRectagle()
         {
-            
             return new Rectangle(Positie.ToPoint(),_texturePos.Size); ;
         }
     }

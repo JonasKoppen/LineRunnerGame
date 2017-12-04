@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LineRunnerShooter
+namespace LineRunnerShooter //No idea why this thing even exist
 {
     interface ICollide
     {

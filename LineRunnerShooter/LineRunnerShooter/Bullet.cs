@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * Bullet class, contains different bullet types (not all are realy a bullet but naming is not a priority)
+     * A bullet requires a position, collisionRectangle (1 will do),  a state and a TimeToLive (because working with vision boxes is not a good idea, trust me, I tried)
+     * should add destroy on blockhit
+     */ 
     class Bullet
     {
         public Texture2D _texture;

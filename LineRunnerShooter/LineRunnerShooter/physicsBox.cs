@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * Warning!! 
+     * This class is contains some deseases (bad english), do not touch until it is finished (or at least working)
+     * 
+     */
     class PhysicsBox
     {
         protected double time; //for update 

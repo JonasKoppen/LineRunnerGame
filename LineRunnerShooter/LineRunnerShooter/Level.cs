@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * The level class is the heart of the game, it build everything from an image file, pixel per pixel, well 1 pixel = 1 block, look to the switch case for wich color wich block is
+     * Maybe I will add enemy placement, but it wil come after the game is in beta form (which it is not, it is alfa, i think, it is playable, but misses a lot and some code are a bit to big (to much for 1 method)
+     * 
+     */ 
     class Level : ICollide
     {
         public int xDim = 12;

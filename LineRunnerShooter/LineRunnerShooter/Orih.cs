@@ -9,6 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LineRunnerShooter
 {
+    /*
+     * The enemy class
+     * beter shoot them before they see you and rush forward
+     * 
+     * 
+     */ 
     class Orih : User
     {
         //TODO: attack modes: spinning arms (done), shooting

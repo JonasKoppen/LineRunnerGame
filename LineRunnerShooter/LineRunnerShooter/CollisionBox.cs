@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * The famous collision box, keeps other things a bit more clean
+     * 
+     * 
+     */  
     class CollisionBox
     {
         Rectangle body;

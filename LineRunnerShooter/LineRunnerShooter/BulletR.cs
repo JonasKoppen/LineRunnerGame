@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * Like bullets but made for the boss to work like rockets, should add explosion on ground hit
+     * 
+     */
     class BulletR
     {
         public Texture2D _texture;

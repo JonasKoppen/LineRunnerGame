@@ -7,7 +7,44 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace LineRunnerShooter
+    /*
+     * Explenation:
+     * The A.R.M. onderhoud de variatie in wapens voor de player en enemy, kan gaan van melee (wat dan zelf een collisiebox terug geeft) tot een wapen dat een lijst van bullets terug geeft.
+     * 
+     * 
+     * 
+     * 
+     */ 
+
 {
+    abstract class ARMBluePrint
+    {
+        private Texture2D _texture;
+        private float angle;
+        private Vector2 _position;
+        public List<Bullet> bullets;
+
+        public ARMBluePrint(Texture2D pix)
+        {
+            _texture = pix;
+        }
+
+        public abstract void Update(GameTime gameTime, Vector2 position);
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
+            Vector2 origin = new Vector2(5, 10);
+            spriteBatch.Draw(_texture, _position, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
+            foreach (Bullet b in bullets)
+            {
+                b.Draw(spriteBatch);
+            }
+        }
+        public abstract void Fire();
+
+        public abstract List<Bullet> getBullets();
+    }
+
     class ARM
     {
         private Texture2D pixel;
@@ -22,7 +59,6 @@ namespace LineRunnerShooter
             _position = new Vector2(200, 240);
             bullets = new List<Bullet>();
             bullets.Add(new Bullet(energy)); //First gun can only fire 1 bullet, make a variation with more bullets and selection key
-
         }
         public void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
         {
@@ -109,7 +145,7 @@ namespace LineRunnerShooter
         }
     }
 
-    class RobotARM
+    class RobotARM //Dit is een melee attack
     {
         private Texture2D pixel;
         private float angle;

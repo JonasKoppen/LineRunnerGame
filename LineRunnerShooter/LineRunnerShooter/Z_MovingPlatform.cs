@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LineRunnerShooter
 {
+    // This class is an idea, will be added if there is time, it works, but implementation is not ready and it works with an old way of thinking (just add X to position every Y seconds), update to velocity!
     class Z_MovingPlatform : Block //TODO: moving platforms zijn onhold gezet tot de rest in orde is
     {
         bool goingUp;

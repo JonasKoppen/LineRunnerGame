@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * The red platform cycles between active and non-active mode, active means you can stand on it, non-active means you fall through it
+     * beautifull animation made by me :)
+     * Also works with counters wich tick every x milliseconds
+     * 
+     */
     class BlockRed : Block,ICollide
     {
         private bool isActive;
@@ -23,7 +29,6 @@ namespace LineRunnerShooter
             state = 2;
             isRotating = false;
             _texturePos = new Rectangle(100, 0, 100, 100);
-            collisionRect.Height = 60;
             redTime = 2000;
             greenTime = 4000;
         }
@@ -35,7 +40,6 @@ namespace LineRunnerShooter
             state = 2;
             isRotating = true;
             _texturePos = new Rectangle(100, 0, 100, 100);
-            collisionRect.Height = 60;
             redTime = red;
             greenTime = green;
         }

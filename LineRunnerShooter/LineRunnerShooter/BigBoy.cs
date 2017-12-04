@@ -9,6 +9,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LineRunnerShooter
 {
+    /*
+     * Big Boy is the first boss of this game, his actions are seperated in 3 fases, first he waits for the player to reach a certain point, then he follows the player and attack him with rockets, 
+     * he can not be hit, last phase is that he drops on the battleground and starts rushing around and keep spamming the rockets
+     * after his death, the lift will work, so you cannot escape by running away
+     * 
+     */ 
     class BigBoy : Orih
     {
         //TODO: More scripted actions: begin when hiro is on X, enter battle scene on X, ...

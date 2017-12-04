@@ -9,6 +9,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace LineRunnerShooter
 {
+
+    /*
+     * the Fyer is a work in progress, I hope it gets done by the release, but i fear it will not
+     * 
+     * 
+     * 
+     */
+     
     class Fyer : User //TODO: flyer of turret zodat er een challenge is om op meerdere nivea's te schieten
     {
         public Fyer(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet) : base(textureL, textureR, move, bullet)

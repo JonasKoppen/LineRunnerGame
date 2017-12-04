@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * This thing can only go up and will only be used for the end en begin of each level
+     * 
+     */ 
     class Lift : Block //TODO: add reset function zodat ik die liften niet altijd opnieuw moet aanmaken, liften kunnen nu gereset worden vooral handig met de tutorial
     {
         bool goingUp;
@@ -19,7 +23,6 @@ namespace LineRunnerShooter
         {
             goingUp = true;
             this.eindPos = eindPos;
-            collisionRect = new Rectangle(0, 0, 200, 100);
             _texturePos.Width = 200;
             slow = 3;
             time = 0;

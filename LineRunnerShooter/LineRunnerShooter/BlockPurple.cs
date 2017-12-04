@@ -8,6 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LineRunnerShooter
 {
+    /*
+     * This platforms will fall if you touch them, so be quick
+     * the platforms work with a counter wich ticks every time the game has run more than 1000 milliseconds (or an other number, wich can be modified later probably, should add it???
+     * 
+     */ 
     class BlockPurple : Block
     {
         int upTime;
@@ -28,7 +33,6 @@ namespace LineRunnerShooter
             _texturePos = new Rectangle(0, 35, 100, 35);
             stablePosY = pos.Y +10;
             lastTime = 0;
-            collisionRect.Height = 60;
         }
         
 
