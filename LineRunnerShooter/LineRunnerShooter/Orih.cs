@@ -186,9 +186,9 @@ namespace LineRunnerShooter
                 }
             }
 
-        public override void Update(KeyboardState keyState, MouseState mouseState, bool canLeft, bool canRight)
+        public override void Update(KeyboardState keyState, MouseState mouseState, bool _canLeft, bool _canRight)
         {
-            throw new NotImplementedException();
+            Update(_canLeft, _canRight);
         }
     }
     
