@@ -32,6 +32,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<LiftSide> liftSides;
         Vector2 mouse;
 
+        int intro = 0;
+        double lastEnter =0;
+
         public Game1() //https://stackoverflow.com/questions/720429/how-do-i-set-the-window-screen-size-in-xna Set Window Size
         {
             graphics = new GraphicsDeviceManager(this);
@@ -78,14 +81,19 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("CrossHair"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lift")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RatchetBackgrond"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("introTitle"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); //15
+
 
             _afbeeldingEnemys = new List<Texture2D>();
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyL"));
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyL")); //0
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyR"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("ARM"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("energyBall"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyL"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyR"));
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyR")); //5
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuyHDL")); 
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuyHDR"));
 
             _levelMaps = new List<Texture2D>();
             _levelMaps.Add(Content.Load<Texture2D>("Map"));
@@ -176,7 +184,16 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 case 0:
                     
                     {
-                        if (stateKey.IsKeyDown(Keys.Enter) && !startLift.isActive)
+                        if(stateKey.IsKeyDown(Keys.Enter) && !startLift.isActive && lastEnter<0)
+                        {
+                            intro++;
+                            lastEnter = 100;
+                        }
+                        if (stateKey.IsKeyUp(Keys.Enter))
+                        {
+                            lastEnter = -1;
+                        }
+                        if (stateKey.IsKeyDown(Keys.Enter) && intro > 2)
                         {
                             eindLift.activate();
                         }
@@ -336,6 +353,19 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         
                         spriteBatch.Begin(transformMatrix: viewMatrix);
+                        
+                        switch (intro)
+                        {
+                            case 0:
+                                spriteBatch.Draw(_afbeeldingBlokken[14], new Rectangle(500, 250, 600, 600), Color.White);
+                                break;
+                            case 1:
+                                spriteBatch.Draw(_afbeeldingBlokken[15], new Rectangle(500, 250, 600, 600), Color.White);
+                                break;
+                            default:
+                                spriteBatch.Draw(_afbeeldingBlokken[14], new Rectangle(500, 250, 600, 600), Color.White);
+                                break;
+                        }
                         for (int i = 0; i < liftSides.Count; i++)
                         {
                             liftSides[i].Draw(spriteBatch);
@@ -424,6 +454,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             //TODO: explenation picture
             zoom = 1;
             orihList = new List<Orih>();
+
             held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
             level = new Level();
             liftSides = new List<LiftSide>();
@@ -452,8 +483,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             level = new Level(_levelMaps[2], _afbeeldingBlokken);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
-            orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 1600));
-            orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 1500));
+            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6],new Rectangle(0,0,100,200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
+            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
            
             eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
@@ -465,7 +496,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             currentLevel = 2;
             
             orihList = new List<Orih>();
-            orihList.Add( new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5100));
+            orihList.Add( new Orih(_afbeeldingEnemys[6], _afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5100));
             orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5000));
             held.setStartPos();
             level = new Level(_levelMaps[1], _afbeeldingBlokken);
