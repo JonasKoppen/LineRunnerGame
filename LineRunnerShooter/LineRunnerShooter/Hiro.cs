@@ -97,11 +97,11 @@ namespace LineRunnerShooter
 
             isJump = false;
             isShooting = false;
-            if (stateKey.IsKeyDown(Keys.Left) && canLeft)
+            if (stateKey.IsKeyDown(Keys.Q) && canLeft)
             {
                 movedir = 0;
             }
-            else if (stateKey.IsKeyDown(Keys.Right) && canRight)
+            else if (stateKey.IsKeyDown(Keys.D) && canRight)
             {
                 movedir = 1;
             }
@@ -114,11 +114,11 @@ namespace LineRunnerShooter
                 isShooting = true;
                 lastSpaceState = true;
             }
-            if (stateKey.IsKeyUp(Keys.Space))
+            if (stateKey.IsKeyUp(Keys.Z))
             {
                 lastSpaceState = false;
             }
-            if (stateKey.IsKeyDown(Keys.Up))
+            if (stateKey.IsKeyDown(Keys.Z))
             {
                 isJump = true;
             }
