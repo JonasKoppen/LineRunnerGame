@@ -14,6 +14,7 @@ namespace LineRunnerShooter
         Vector2 eindPos;
         public bool isActive;
         int slow;
+        double time;
         public Lift(Texture2D texture, Vector2 startPos, Vector2 eindPos) : base(texture, startPos)
         {
             goingUp = true;
@@ -21,6 +22,7 @@ namespace LineRunnerShooter
             collisionRect = new Rectangle(0, 0, 200, 100);
             _texturePos.Width = 200;
             slow = 3;
+            time = 0;
         }
 
         public int Update(GameTime gameTime, Rectangle player)
@@ -48,6 +50,16 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime, User player)
         {
             int change = 0;
+            time += gameTime.ElapsedGameTime.TotalMilliseconds;
+            if(time > 150)
+            {
+                time = 0;
+                _texturePos.X += 200;
+                if(_texturePos.X >= 800)
+                {
+                    _texturePos.X = 0;
+                }
+            }
             if (isActive)
             {
                 if (goingUp)

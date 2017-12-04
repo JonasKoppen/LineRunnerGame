@@ -358,7 +358,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X*0.25), -300,6500,2500), Color.White);
                         level.Draw(spriteBatch, 0, 0);
-                        startLift.Draw(spriteBatch, 1);
+                        startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
                         foreach (Orih orihd in orihList)
                         {
@@ -374,7 +374,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
-                        startLift.Draw(spriteBatch, 1);
+                        startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
                         foreach (Orih orihd in orihList)
@@ -393,7 +393,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
-                        startLift.Draw(spriteBatch, 1);
+                        startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
                         boss.draw(spriteBatch);
