@@ -283,7 +283,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         held.checkEnviroments(rectList);
 
                         boss.checkEnviroments(rectList);
-                        boss.Update(gameTime, stateKey, held._Position, held.getBulletsRect());
+                        boss.Update(gameTime, stateKey, held.getCollisionRectagle(), held.getBulletsRect());
 
                         if (!boss.isAlive)
                         {
@@ -416,7 +416,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public Vector2 cameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
         {
-            return new Vector2(held.Location.X - 700, held.Location.Y-400);
+            return new Vector2(held.Location.X - 700, held.Location.Y-600);
         }
 
         public void loadLevel0()
@@ -481,7 +481,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             zoom = 1 - 0.5f;
             currentLevel = 3;
-            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[3], 5200);
+            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5200);
             held.setStartPos();
             level = new Level(_levelMaps[1], _afbeeldingBlokken);
 

@@ -19,7 +19,7 @@ namespace LineRunnerShooter
         private Random r;
         private int phase;
         private double elapsedTime;
-        public BigBoy(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet, posX)
+        public BigBoy(Texture2D textureL, Texture2D textureR, MoveMethod move,Texture2D armpix, Texture2D bullet, int posX) : base(textureL, textureR, move,armpix, bullet, posX)
         {
             
             rockets = new List<BulletR>();
@@ -38,7 +38,7 @@ namespace LineRunnerShooter
         }
 
 
-        public void Update(GameTime gameTime, KeyboardState stateKey, Vector2 player, List<Rectangle> heroBullets)
+        public void Update(GameTime gameTime, KeyboardState stateKey, Rectangle player, List<Rectangle> heroBullets)
         {
             
             bool isHit = false;
@@ -52,6 +52,7 @@ namespace LineRunnerShooter
                         }
                         _Position.X = -100;
                         _Position.Y = 300;
+                        robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
                         break;
                     }
                 case 1:
@@ -71,14 +72,16 @@ namespace LineRunnerShooter
                         if(elapsedTime > 1000)
                         {
                             elapsedTime = 0;
-                            Attack(player);
-                            Attack(player);
-                            Attack(player);
+                            Attack(player.Location.ToVector2());
+                            Attack(player.Location.ToVector2());
+                            Attack(player.Location.ToVector2());
                         }
                         foreach (BulletR b in rockets)
                         {
                             b.Update();
                         }
+                        robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
+                        
                         break;
                     }
                 case 2:
@@ -111,6 +114,8 @@ namespace LineRunnerShooter
                             {
                                 isAlive = false;
                             }
+                            SeePlayer(player);
+
                         }
                         break;
                     }

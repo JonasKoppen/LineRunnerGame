@@ -18,7 +18,7 @@ namespace LineRunnerShooter
         private bool isAttacking;
         private int lastMove;
         private Texture2D _Texture;
-        RobotARM robotARM;
+        protected RobotARM robotARM;
 
 
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
