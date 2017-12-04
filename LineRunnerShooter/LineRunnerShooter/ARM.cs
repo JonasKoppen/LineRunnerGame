@@ -21,8 +21,8 @@ namespace LineRunnerShooter
             pixel = pix;
             _position = new Vector2(200, 240);
             bullets = new List<Bullet>();
-            bullets.Add(new Bullet(energy)); //First gun can only fire 1 bullet
-            
+            bullets.Add(new Bullet(energy)); //First gun can only fire 1 bullet, make a variation with more bullets and selection key
+
         }
         public void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
         {
