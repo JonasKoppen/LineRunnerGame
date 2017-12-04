@@ -329,7 +329,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             
             camera.Rotation = rotation;
             camera.Zoom = zoom;
-            
+            camPos = cameraPos(camera.Focus, held.getCollisionRectagle());
             switch (currentLevel)
             {
                 case 0:
@@ -356,7 +356,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(50, -300,8000,2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X*0.25), -300,6500,2500), Color.White);
                         level.Draw(spriteBatch, 0, 0);
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
@@ -373,7 +373,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(50, -300, 8000, 2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
 
@@ -392,7 +392,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(50, -300, 8000, 2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch, 1);
                         eindLift.Draw(spriteBatch);
 
