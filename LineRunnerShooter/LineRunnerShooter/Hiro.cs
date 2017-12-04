@@ -30,6 +30,7 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos, Vector2 mouseLoc)
         {
             CheckAction();
+            _MoveMethod.Update(stateKey, mouse, canLeft, canRight);
             base.Update(gameTime, stateKey, mouse, camPos);
             arm.Update(gameTime, _Position, mouseLoc);
             if (isGrounded)
@@ -91,8 +92,9 @@ namespace LineRunnerShooter
     class MovePlayer : MoveMethod
     {
         private bool lastSpaceState = false;
-        public override void Update(KeyboardState stateKey, bool canLeft, bool canRight)
+        public override void Update(KeyboardState stateKey, MouseState mouseState, bool canLeft, bool canRight)
         {
+
             isJump = false;
             isShooting = false;
             if (stateKey.IsKeyDown(Keys.Left) && canLeft)
@@ -107,7 +109,7 @@ namespace LineRunnerShooter
             {
                 movedir = 2;
             }
-            if (stateKey.IsKeyDown(Keys.Space) && !lastSpaceState)
+            if ((mouseState.LeftButton == ButtonState.Pressed) && !lastSpaceState) //http://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
             {
                 isShooting = true;
                 lastSpaceState = true;

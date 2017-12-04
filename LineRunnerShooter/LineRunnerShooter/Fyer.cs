@@ -29,7 +29,8 @@ namespace LineRunnerShooter
 
     class FlyerMethod : MoveMethod
     {
-        public override void Update(KeyboardState stateKey, bool canLeft, bool canRight)
+
+        public override void Update(KeyboardState keyState, MouseState mouseState, bool canLeft, bool canRight)
         {
             throw new NotImplementedException();
         }

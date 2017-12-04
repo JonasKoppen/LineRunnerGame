@@ -83,7 +83,7 @@ namespace LineRunnerShooter
                 }
             }
 
-            UpdateFI(totalTime, stateKey);
+            UpdateFI(totalTime);
             if (_Position.Y > 3000 && (_Position.X >300))
             {
                 Reset();
@@ -98,9 +98,9 @@ namespace LineRunnerShooter
             Update(gameTime, stateKey);
         }
 
-        public virtual void UpdateFI(double dt, KeyboardState stateKey)
+        public virtual void UpdateFI(double dt)
         {
-            _MoveMethod.Update(stateKey, canLeft, canRight);
+            
             MoveHorizontal(dt);
             MoveVertical(dt);
             _Position += _Velocity;
@@ -261,8 +261,9 @@ namespace LineRunnerShooter
         protected int movedir;
         public bool isJump;
         public bool isShooting;
-        public abstract void Update(KeyboardState stateKey, bool canLeft, bool canRight);
 
         public int Movedir { get { return movedir; } protected set { movedir = value; } }
+
+        public abstract void Update(KeyboardState keyState, MouseState mouseState, bool canLeft, bool canRight);
     }
 }

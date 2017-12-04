@@ -55,6 +55,7 @@ namespace LineRunnerShooter
         {
             if (isAlive)
             {
+                _MoveMethod.Update(stateKey, new MouseState(), canLeft, canRight);
                 base.Update(gameTime, stateKey);
                 
                 if (isHit)
@@ -172,7 +173,7 @@ namespace LineRunnerShooter
                 movedir = 0;
             }
 
-            public override void Update(KeyboardState stateKey, bool canLeft, bool canRight)
+            public void Update(bool canLeft, bool canRight)
             {
                 int move = r.Next(0, 2);
                 if (canLeft && movedir == 0)
@@ -184,6 +185,11 @@ namespace LineRunnerShooter
                     movedir = 0;
                 }
             }
+
+        public override void Update(KeyboardState keyState, MouseState mouseState, bool canLeft, bool canRight)
+        {
+            throw new NotImplementedException();
         }
+    }
     
 }
