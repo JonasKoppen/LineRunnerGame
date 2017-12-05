@@ -137,7 +137,7 @@ namespace LineRunnerShooter
             {
                 _spritePos.Y = 200;
             }
-            if(_MoveMethod.Movedir == 2)
+            if(_MoveMethod.Movedir == 2 || (!isGrounded))
             {
                 if(_spritePos.X < 900 || _spritePos.X >= 1300)
                 {

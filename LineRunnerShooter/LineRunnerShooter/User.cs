@@ -15,6 +15,7 @@ namespace LineRunnerShooter
         //TODO: Add 360 shooting requirement
         //TODO: Hiro sprite maken
         //TODO: user kan nog door platformen springen van onder naar boven, maar dan kan je niet naar links/rechts, Dit is op de moment dus niet meer mogelijk, mss wel best zo iets toelaten
+        //TODO: maak users een paar pixels kleiner (zodat er geen collisieprobleem is
 
         protected int time; //for update 
 
