@@ -17,11 +17,11 @@ namespace LineRunnerShooter
     {
         public Texture2D _texture;
         public Vector2 Positie;
-        public Vector2 _direction;
-        public bool isFired;
+        public Vector2 _direction; //speed is always constant here so, no velocity
+        public bool isFired; //is it active
         private Rectangle collisionRect;
-        private Rectangle viewBox;
-        private double timeToLive;
+        private double timeToLive; //works better than with
+        private int damage;
 
         public Bullet(Texture2D texture)
         {
@@ -29,7 +29,6 @@ namespace LineRunnerShooter
             Positie = new Vector2();
             isFired = false;
             collisionRect = new Rectangle(Positie.ToPoint(), new Point(50, 50));
-            viewBox = new Rectangle(0, 0, 1000, 1000);
             timeToLive = 0;
         }
         public Bullet(Texture2D texture, Point size)
@@ -76,8 +75,7 @@ namespace LineRunnerShooter
             }
             if (timeToLive <0)
             {
-                isFired = false;
-                Positie = new Vector2(1000,1000);
+                hitTarget();
             }
         }
 
@@ -96,10 +94,11 @@ namespace LineRunnerShooter
             return collisionRect;
         }
 
-        public void HitTarge()
+        public int hitTarget() //aka the reset function, returns the damage
         {
             isFired = false;
-            Positie = new Vector2();
+            Positie = new Vector2(100,5000);
+            return damage;
         }
     }
 }

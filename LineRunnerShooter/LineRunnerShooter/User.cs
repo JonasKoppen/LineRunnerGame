@@ -202,7 +202,7 @@ namespace LineRunnerShooter
                 if (target.Intersects(b.getCollisionRectagle()))
                 {
                     isHit = true;
-                    b.HitTarge();
+                    b.hitTarget();
                 }
             }
             return isHit;

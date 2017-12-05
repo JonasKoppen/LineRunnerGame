@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace LineRunnerShooter
 {
     /*
-     * Like bullets but made for the boss to work like rockets, should add explosion on ground hit
+     * Like bullets but made for the boss to work like rockets, should add explosion on ground hit, this one is scripted , can be used for the Annihilator
      * 
      */
     class BulletR
@@ -20,6 +20,7 @@ namespace LineRunnerShooter
         public Vector2 _direction;
         public bool isFired;
         public bool isGoingUp;
+        public bool isExploding;
         private Rectangle collisionRect;
 
         public BulletR(Texture2D texture)
@@ -96,14 +97,26 @@ namespace LineRunnerShooter
         {
             if (isGoingUp)
             {
-                collisionRect.Location = new Point(0,0);
+                collisionRect.Location = new Point(0, 0);
             }
             else
             {
                 collisionRect.Location = Positie.ToPoint();
             }
-            
+
             return collisionRect;
+        }
+
+        public List<Rectangle> getDamageZone()
+        {
+            List<Rectangle> damageZone = new List<Rectangle>();
+            if (isGoingUp)
+            {
+                damageZone.Add(new Rectangle());
+            }
+            //else with rocket size, and an other else clause with the rocket on explosion
+            
+            return damageZone;
         }
 
         public void HitTarge()
