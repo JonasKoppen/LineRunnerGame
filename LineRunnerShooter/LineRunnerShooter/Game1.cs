@@ -23,7 +23,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<Song> music; //http://www.gamefromscratch.com/post/2015/07/25/MonoGame-Tutorial-Audio.aspx
         int currentLevel;
         Level level;
-        Hiro held;
+        Hiro2 held;
         //Orih orih;
         List<Orih> orihList;
  
@@ -94,6 +94,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyR")); //5
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuyHDL")); 
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuyHDR"));
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("SpShSmallGuy"));
+
 
             _levelMaps = new List<Texture2D>();
             _levelMaps.Add(Content.Load<Texture2D>("Map"));
@@ -455,7 +457,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             zoom = 1;
             orihList = new List<Orih>();
 
-            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
+            held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
             level = new Level();
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
@@ -482,7 +484,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             level = new Level(_levelMaps[2], _afbeeldingBlokken);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
-            held = new Hiro(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
+            held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
             orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6],new Rectangle(0,0,100,200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
             orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
            

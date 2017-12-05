@@ -76,11 +76,7 @@ namespace LineRunnerShooter
             if (time > 20)
             {
                 time = 0;
-                _spritePos.X += 100;
-                if (_spritePos.X > 700)
-                {
-                    _spritePos.X = 0;
-                }
+                spritePosUpdate();
             }
 
             UpdateFI(totalTime);
@@ -89,6 +85,15 @@ namespace LineRunnerShooter
                 Reset();
             }
             collisionBox.Update(_Position.ToPoint());
+        }
+
+        protected virtual void spritePosUpdate()
+        {
+            _spritePos.X += 100;
+            if (_spritePos.X > 700)
+            {
+                _spritePos.X = 0;
+            }
         }
 
         public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos)
@@ -137,7 +142,6 @@ namespace LineRunnerShooter
                     {
                         _Velocity.X /= 1.2F;
                     }
-                    _spritePos.X = 0;
                     break;
             }
             if (!isGrounded)
