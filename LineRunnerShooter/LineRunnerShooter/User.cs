@@ -210,11 +210,12 @@ namespace LineRunnerShooter
             }
             return isHit;
         }
-
+        /*
         public virtual List<Rectangle> getBulletsRect()
         {
             return arm.getBulletsRect();
         }
+        */
 
         public virtual void Reset()
         {
@@ -261,6 +262,16 @@ namespace LineRunnerShooter
                 }
                 
             }
+        }
+
+        public void isHit(List<Bullet> bullets)
+        {
+
+        }
+
+        public List<Rectangle> getBulletsRect()
+        {
+            return arm.getBulletsRect();
         }
     }
 

@@ -233,6 +233,11 @@ namespace LineRunnerShooter
                 }
             }
         }
+
+        public List<Bullet> getBullets()
+        {
+            return arm.getBullets();
+        }
     }
 
     class MovePlayer : MoveMethod

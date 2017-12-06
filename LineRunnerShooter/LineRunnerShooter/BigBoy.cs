@@ -155,7 +155,7 @@ namespace LineRunnerShooter
 
         }
 
-        public override List<Rectangle> getBulletsRect()
+        public List<Rectangle> getBulletsRect()
         {
             List<Rectangle> rocketsRect = new List<Rectangle>();
             foreach(BulletR br in rockets)
