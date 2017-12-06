@@ -137,13 +137,12 @@ namespace LineRunnerShooter
             {
                 _spritePos.Y = 200;
             }
-            if(_MoveMethod.Movedir == 2 || (!isGrounded))
+            if (_MoveMethod.Movedir == 2 || (!isGrounded))
             {
-                if(_spritePos.X < 900 || _spritePos.X >= 1300)
+                if (_spritePos.X < 900 || _spritePos.X >= 1300)
                 {
                     _spritePos.X = 900;
-                }
-                
+                }   
             }
             else
             {
@@ -217,6 +216,12 @@ namespace LineRunnerShooter
                 _lives--;
                 invincebleTime = 500;
             }
+        }
+
+        protected override void takeDamage(int damage)
+        {
+            base.takeDamage(damage);
+            invincebleTime = 500;
         }
 
         public override void checkEnviroments(List<Rectangle> level)

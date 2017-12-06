@@ -13,6 +13,24 @@ namespace LineRunnerShooter
      * A bullet requires a position, collisionRectangle (1 will do),  a state and a TimeToLive (because working with vision boxes is not a good idea, trust me, I tried)
      * should add destroy on blockhit
      */ 
+
+    abstract class BulletBlueprint
+    {
+        Texture2D _texture;
+        Vector2 Positie;
+        Vector2 size;
+
+        bool isFired;
+        int damage;
+
+        public bool isFromHero { get; private set; }
+
+        public Rectangle getCollisionRect()
+        {
+
+        }
+
+    }
     class Bullet
     {
         public Texture2D _texture;
@@ -101,6 +119,14 @@ namespace LineRunnerShooter
             isFired = false;
             Positie = new Vector2(100,5000);
             return damage;
+        }
+    }
+
+    class Melee : Bullet
+    {
+        public Melee(Texture2D texture) : base(texture) //gives an empty texture, draw wordt nooit aangeroepen
+        {
+            
         }
     }
 }

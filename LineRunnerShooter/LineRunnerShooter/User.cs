@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
-    class User : ICollide
+    class User : ICollide 
     {
         //TODO: healt
         //TODO: Add 360 shooting requirement
@@ -264,9 +264,21 @@ namespace LineRunnerShooter
             }
         }
 
-        public void isHit(List<Bullet> bullets)
+        public void checkHit(List<Bullet> bullets)
         {
+            for (int i = 0; i < bullets.Count; i++)
+            {
+                if (collisionBox.Body.Intersects(bullets[i].getCollisionRectagle()))
+                {
+                    takeDamage(bullets[i].hitTarget());
+                }
+            }
 
+        }
+
+        protected virtual void takeDamage(int damage)
+        {
+            _lives -= damage;
         }
 
         public List<Rectangle> getBulletsRect()
