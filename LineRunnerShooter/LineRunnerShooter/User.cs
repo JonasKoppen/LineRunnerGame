@@ -259,6 +259,7 @@ namespace LineRunnerShooter
                     hitHead = true;
                     _Velocity.Y = Math.Abs(_Velocity.Y);
                 }
+                
             }
         }
     }

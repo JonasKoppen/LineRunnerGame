@@ -218,6 +218,21 @@ namespace LineRunnerShooter
                 invincebleTime = 500;
             }
         }
+
+        public override void checkEnviroments(List<Rectangle> level)
+        {
+            base.checkEnviroments(level);
+            foreach(Rectangle rect in level)
+            {
+                foreach (Bullet b in arm.getBullets())
+                {
+                    if (b.getCollisionRectagle().Intersects(rect))
+                    {
+                        b.hitTarget();
+                    }
+                }
+            }
+        }
     }
 
     class MovePlayer : MoveMethod

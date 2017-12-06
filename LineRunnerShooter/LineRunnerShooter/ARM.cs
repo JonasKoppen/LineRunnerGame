@@ -45,7 +45,7 @@ namespace LineRunnerShooter
         public abstract List<Bullet> getBullets();
     }
 
-    class ARM
+    class ARM 
     {
         private Texture2D pixel;
         private float angle;
@@ -144,6 +144,12 @@ namespace LineRunnerShooter
             }
             return bulletsRect;
         }
+
+        public List<Bullet> getBullets()
+        {
+            return bullets;
+        }
+
     }
 
     class RobotARM //Dit is een melee attack
