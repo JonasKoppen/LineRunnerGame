@@ -63,12 +63,13 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
         {
             _position = position;
-            _position.X += 50;
+            _position.X += 40;
             _position.Y += 65;
 
             float xVers =  -mouse.X + _position.X;
             float yVers =  -mouse.Y + _position.Y;
             angle = (float)Math.Atan2(xVers,yVers) + (float) (Math.PI/2);
+            Console.WriteLine(angle);
 
             foreach(Bullet b in bullets)
             {
@@ -162,7 +163,7 @@ namespace LineRunnerShooter
         {
             _position = position;
             _position.X += 50;
-            _position.Y += 50;
+            _position.Y += 70 + ((dir-1) * -20);
             if (isAttacking)
             {
                 angle += (float)((Math.PI / 180)*gameTime.ElapsedGameTime.TotalMilliseconds*2);

@@ -22,6 +22,7 @@ namespace LineRunnerShooter
         private Rectangle collisionRect;
         private double timeToLive; //works better than with
         private int damage;
+        public int owner { get; private set; }
 
         public Bullet(Texture2D texture)
         {
@@ -30,6 +31,7 @@ namespace LineRunnerShooter
             isFired = false;
             collisionRect = new Rectangle(Positie.ToPoint(), new Point(50, 50));
             timeToLive = 0;
+            owner = 1;
         }
         public Bullet(Texture2D texture, Point size)
         {

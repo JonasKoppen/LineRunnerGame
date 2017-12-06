@@ -143,6 +143,7 @@ namespace LineRunnerShooter
                 {
                     _spritePos.X = 900;
                 }
+                
             }
             else
             {
@@ -150,6 +151,11 @@ namespace LineRunnerShooter
                 {
                     _spritePos.X = 0;
                 }
+            }
+
+            if (!isGrounded)
+            {
+                _spritePos.X = 0;
             }
         }
 
@@ -182,12 +188,25 @@ namespace LineRunnerShooter
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
-            arm.Draw(spriteBatch);
-            if (invincebleTime > 20)
+            if(_spritePos.Y == 0)
             {
-                spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.Red);
+                spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
+                arm.Draw(spriteBatch);
+                if (invincebleTime > 20)
+                {
+                    spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.Red);
+                }
             }
+            else
+            {
+                arm.Draw(spriteBatch);
+                spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
+                if (invincebleTime > 20)
+                {
+                    spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.Red);
+                }
+            }
+            
             //base.draw(spriteBatch);
         }
 

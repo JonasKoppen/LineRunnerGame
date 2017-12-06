@@ -57,7 +57,7 @@ namespace LineRunnerShooter
                             phase++;
                         }
                         _Position.X = -100;
-                        _Position.Y = 300;
+                        _Position.Y = 1000;
                         robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
                         break;
                     }
@@ -66,13 +66,13 @@ namespace LineRunnerShooter
                         //base.Update(gameTime, stateKey);
                         if (_Position.X < player.X) { _Position.X = player.X; }
                         
-                        _Position.Y = 300;
+                        _Position.Y = 1000;
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (player.X > 4700)
                         {
                             phase++;
                             _Position.X = player.X+500;
-                            _Position.Y = 400;
+                            _Position.Y = 1000;
                             isGrounded = false;
                         }
                         if(elapsedTime > 1000)

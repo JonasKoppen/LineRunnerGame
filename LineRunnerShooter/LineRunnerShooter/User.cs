@@ -13,9 +13,10 @@ namespace LineRunnerShooter
     {
         //TODO: healt
         //TODO: Add 360 shooting requirement
-        //TODO: Hiro sprite maken
+        //TODO: bad guy sprite maken
         //TODO: user kan nog door platformen springen van onder naar boven, maar dan kan je niet naar links/rechts, Dit is op de moment dus niet meer mogelijk, mss wel best zo iets toelaten
         //TODO: maak users een paar pixels kleiner (zodat er geen collisieprobleem is
+        //TODO: rename user to character
 
         protected int time; //for update 
 
@@ -81,7 +82,7 @@ namespace LineRunnerShooter
             }
 
             UpdateFI(totalTime);
-            if (_Position.Y > 3000 && (_Position.X >300))
+            if (_Position.Y > 2500 && (_Position.X >300))
             {
                 Reset();
             }
@@ -114,6 +115,7 @@ namespace LineRunnerShooter
 
         public virtual void draw(SpriteBatch spriteBatch)
         {
+
             spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
             //spriteBatch.Draw(_texture[0], collisionBox.Left, _spritePos, Color.Red);
             //spriteBatch.Draw(_texture[0], collisionBox.Right, _spritePos, Color.Red);
