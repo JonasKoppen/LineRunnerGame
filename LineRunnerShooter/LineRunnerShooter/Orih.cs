@@ -183,11 +183,12 @@ namespace LineRunnerShooter
                 }
             }
         }
-
+        /*
         public List<Bullet> getBullets()
         {
-            return robotARM.g
+            return new NotImplementedException();
         }
+        */
     }
         class RobotMove : MoveMethod
         {

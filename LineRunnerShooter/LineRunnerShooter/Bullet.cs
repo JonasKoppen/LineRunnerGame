@@ -14,49 +14,73 @@ namespace LineRunnerShooter
      * should add destroy on blockhit
      */ 
 
-    abstract class BulletBlueprint
+    interface IBullet
     {
-        Texture2D _texture;
-        Vector2 Positie;
-        Vector2 size;
+        int OwnerId { get; }
+        Rectangle CollisionRect { get; }
+        int hitTarget();
+        int hitTarget(Rectangle target);
 
-        bool isFired;
-        int damage;
 
-        public bool isFromHero { get; private set; }
+    }
 
-        public Rectangle getCollisionRect()
+    abstract class BulletBlueprint : IBullet
+    {
+        private Texture2D _texture;
+        protected Vector2 Positie;
+        protected Vector2 _size;
+
+        protected bool isFired;
+        protected int _damage;
+
+        public Rectangle CollisionRect { get {return new Rectangle(Positie.ToPoint(), _size.ToPoint()); } }
+
+        public int OwnerId { get; private set; }
+
+        public BulletBlueprint(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner)
         {
+            _texture = texture;
+            Positie = pos;
+            _size = size;
+            isFired = false;
+            _damage = damage;
+            OwnerId = owner;
+        }
 
+        public virtual int hitTarget()
+        {
+            return _damage;
+        }
+        public virtual int hitTarget(Rectangle item)
+        {
+            int dam = 0;
+            if (item.Intersects(CollisionRect))
+            {
+                dam = _damage;
+            }
+            return dam;
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            if (isFired)
+            {
+                spriteBatch.Draw(_texture, Positie, Color.White);
+            }
         }
 
     }
-    class Bullet
+    class Bullet : BulletBlueprint
     {
-        public Texture2D _texture;
-        public Vector2 Positie;
         public Vector2 _direction; //speed is always constant here so, no velocity
-        public bool isFired; //is it active
-        private Rectangle collisionRect;
         private double timeToLive; //works better than with
-        private int damage;
-        public int owner { get; private set; }
 
-        public Bullet(Texture2D texture)
+        public Bullet(Texture2D texture) : base(texture, new Vector2(0,0), new Vector2(50,50), 1, 1)
         {
-            _texture = texture;
-            Positie = new Vector2();
-            isFired = false;
-            collisionRect = new Rectangle(Positie.ToPoint(), new Point(50, 50));
             timeToLive = 0;
-            owner = 1;
         }
-        public Bullet(Texture2D texture, Point size)
+        public Bullet(Texture2D texture, Point size) : base(texture, new Vector2(0, 0), size.ToVector2(), 1, 1)
         {
-            _texture = texture;
-            Positie = new Vector2();
-            isFired = false;
-            collisionRect = new Rectangle(Positie.ToPoint(), size);
             timeToLive = 0;
         }
 
@@ -99,34 +123,17 @@ namespace LineRunnerShooter
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (isFired)
-            {
-                spriteBatch.Draw(_texture, Positie, Color.White);
-            }
-            
-        }
-
-        public Rectangle getCollisionRectagle()
-        {
-            collisionRect.Location = Positie.ToPoint();
-            return collisionRect;
-        }
-
-        public int hitTarget() //aka the reset function, returns the damage
+        public override int hitTarget() //aka the reset function, returns the damage
         {
             isFired = false;
-            Positie = new Vector2(100,5000);
-            return damage;
+            return hitTarget();
         }
     }
 
-    class Melee : Bullet
+    class Melee : BulletBlueprint
     {
-        public Melee(Texture2D texture) : base(texture) //gives an empty texture, draw wordt nooit aangeroepen
+        public Melee(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner) : base(texture, pos, size, damage, owner)
         {
-            
         }
     }
 }
