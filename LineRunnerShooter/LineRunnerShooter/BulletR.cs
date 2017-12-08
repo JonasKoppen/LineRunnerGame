@@ -12,34 +12,21 @@ namespace LineRunnerShooter
      * Like bullets but made for the boss to work like rockets, should add explosion on ground hit, this one is scripted , can be used for the Annihilator
      * 
      */
-    class BulletR
+    class BulletR : BulletBlueprint
     {
-        public Texture2D _texture;
-        public Vector2 Positie;
         public Vector2 DestPos;
         public Vector2 _direction;
-        public bool isFired;
         public bool isGoingUp;
         public bool isExploding;
-        private Rectangle collisionRect;
 
-        public BulletR(Texture2D texture)
+        public BulletR(Texture2D texture) : base(texture, new Vector2(0, 0), new Vector2(50, 50), 1, 2)
         {
-            _texture = texture;
-            Positie = new Vector2();
-            isFired = false;
-            isGoingUp = true;
-            collisionRect = new Rectangle(Positie.ToPoint(), new Point(50, 50));
-        }
-        public BulletR(Texture2D texture, Point size)
-        {
-            _texture = texture;
-            Positie = new Vector2();
-            isFired = false;
-            collisionRect = new Rectangle(Positie.ToPoint(), size);
             isGoingUp = true;
         }
-
+        public BulletR(Texture2D texture, Point size) : base(texture, new Vector2(0,0), size.ToVector2(), 1, 2)
+        {
+            isGoingUp = true;
+        }
         public  void fire(float angle, Vector2 pos)
         {
             if (!isFired)
@@ -84,35 +71,23 @@ namespace LineRunnerShooter
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            if (isFired)
-            {
-                spriteBatch.Draw(_texture, Positie, Color.White);
-            }
-            
-        }
-
         public Rectangle getCollisionRectagle()
         {
-            if (isGoingUp)
+            Rectangle collision = new Rectangle(0,0,1,1);
+            if(isFired && !isGoingUp)
             {
-                collisionRect.Location = new Point(0, 0);
-            }
-            else
-            {
-                collisionRect.Location = Positie.ToPoint();
+                collision = CollisionRect;
             }
 
-            return collisionRect;
+            return collision;
         }
 
-        public List<Rectangle> getDamageZone()
+        public Rectangle getDamageZone() //brede collisionbox
         {
-            List<Rectangle> damageZone = new List<Rectangle>();
+            Rectangle damageZone = new Rectangle();
             if (isGoingUp)
             {
-                damageZone.Add(new Rectangle());
+                
             }
             //else with rocket size, and an other else clause with the rocket on explosion
             

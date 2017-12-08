@@ -229,9 +229,9 @@ namespace LineRunnerShooter
             base.checkEnviroments(level);
             foreach(Rectangle rect in level)
             {
-                foreach (Bullet b in arm.getBullets())
+                foreach (BulletBlueprint b in arm.getBullets())
                 {
-                    if (b.getCollisionRectagle().Intersects(rect))
+                    if (b.CollisionRect.Intersects(rect))
                     {
                         b.hitTarget();
                     }

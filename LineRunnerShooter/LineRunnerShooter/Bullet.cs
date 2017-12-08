@@ -30,7 +30,8 @@ namespace LineRunnerShooter
         protected Vector2 Positie;
         protected Vector2 _size;
 
-        protected bool isFired;
+        public bool isFired { get; set; }
+
         protected int _damage;
 
         public Rectangle CollisionRect { get {return new Rectangle(Positie.ToPoint(), _size.ToPoint()); } }
@@ -126,7 +127,7 @@ namespace LineRunnerShooter
         public override int hitTarget() //aka the reset function, returns the damage
         {
             isFired = false;
-            return hitTarget();
+            return base.hitTarget();
         }
     }
 

@@ -138,9 +138,9 @@ namespace LineRunnerShooter
         public List<Rectangle> getBulletsRect()
         {
             List<Rectangle> bulletsRect = new List<Rectangle>();
-            foreach (Bullet b in bullets)
+            foreach (BulletBlueprint b in bullets)
             {
-                bulletsRect.Add(b.getCollisionRectagle());
+                bulletsRect.Add(b.CollisionRect);
             }
             return bulletsRect;
         }

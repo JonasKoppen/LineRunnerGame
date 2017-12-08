@@ -200,9 +200,9 @@ namespace LineRunnerShooter
         public bool getBulletsCollision(Rectangle target)
         {
             bool isHit = false;
-            foreach (Bullet b in arm.bullets)
+            foreach (BulletBlueprint b in arm.bullets)
             {
-                if (target.Intersects(b.getCollisionRectagle()))
+                if (target.Intersects(b.CollisionRect))
                 {
                     isHit = true;
                     b.hitTarget();
@@ -264,11 +264,11 @@ namespace LineRunnerShooter
             }
         }
 
-        public void checkHit(List<Bullet> bullets)
+        public void checkHit(List<BulletBlueprint> bullets)
         {
             for (int i = 0; i < bullets.Count; i++)
             {
-                if (collisionBox.Body.Intersects(bullets[i].getCollisionRectagle()))
+                if (collisionBox.Body.Intersects(bullets[i].CollisionRect))
                 {
                     takeDamage(bullets[i].hitTarget());
                 }
