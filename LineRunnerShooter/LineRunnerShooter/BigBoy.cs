@@ -92,7 +92,7 @@ namespace LineRunnerShooter
                     }
                 case 2:
                     {
-                        base.Update(gameTime, stateKey,bullets);
+                        base.Update(gameTime, stateKey, bullets);
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (isAlive)
                         {

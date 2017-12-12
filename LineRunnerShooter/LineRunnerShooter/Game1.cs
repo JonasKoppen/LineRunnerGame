@@ -221,7 +221,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         startLift.Update(gameTime, held);
                         eindLift.Update(gameTime, held);
 
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
+                        List<BulletBlueprint> hi = new List<BulletBlueprint>();
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, hi);
                         camera.Position = new Vector2(0, 200);
                         break;
                     }

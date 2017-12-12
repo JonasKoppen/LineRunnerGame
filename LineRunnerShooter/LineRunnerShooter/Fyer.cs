@@ -24,11 +24,6 @@ namespace LineRunnerShooter
 
         }
 
-        public void Update(GameTime gameTime, KeyboardState stateKey, Vector2 locHeld)
-        {
-            
-        }
-
         public override void MoveVertical(double time)
         {
             

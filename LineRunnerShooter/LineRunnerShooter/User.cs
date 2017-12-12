@@ -199,7 +199,7 @@ namespace LineRunnerShooter
         /*
         public virtual List<Rectangle> getBulletsRect()
         {
-            return arm.getBulletsRect();
+            
         }
         */
 
