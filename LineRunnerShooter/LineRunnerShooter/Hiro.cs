@@ -228,19 +228,13 @@ namespace LineRunnerShooter
             //base.draw(spriteBatch);
         }
 
-        public void checkHit(Rectangle hitObject)
-        {
-            if (collisionBox.Body.Intersects(hitObject))
-            {
-                _lives--;
-                invincebleTime = 500;
-            }
-        }
-
         protected override void takeDamage(int damage)
         {
-            base.takeDamage(damage);
-            invincebleTime = 500;
+            if(invincebleTime < 1)
+            {
+                base.takeDamage(damage);
+            }
+            invincebleTime = 1000;
         }
 
         public override void checkEnviroments(List<Rectangle> level)

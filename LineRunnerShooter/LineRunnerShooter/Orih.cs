@@ -165,7 +165,7 @@ namespace LineRunnerShooter
             }
         }
         
-        public List<BulletBlueprint> getBullets()
+        public virtual List<BulletBlueprint> getBullets()
         {
             return robotARM.getBullets();
         }

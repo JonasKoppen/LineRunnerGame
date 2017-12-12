@@ -18,10 +18,12 @@ namespace LineRunnerShooter
         public Vector2 _direction;
         public bool isGoingUp;
         public bool isExploding;
+        private int damage;
 
         public BulletR(Texture2D texture) : base(texture, new Vector2(0, 0), new Vector2(50, 50), 1, 2)
         {
             isGoingUp = true;
+            damage = _damage;
         }
         public BulletR(Texture2D texture, Point size) : base(texture, new Vector2(0,0), size.ToVector2(), 1, 2)
         {
@@ -63,6 +65,14 @@ namespace LineRunnerShooter
                     isGoingUp = false;
                 }
             }
+            if(isFired && !isGoingUp)
+            {
+                _damage = 0;
+            }
+            else
+            {
+                _damage = damage;
+            }
             if (Positie.Y > 3000)
             {
                 isFired = false;
@@ -98,6 +108,17 @@ namespace LineRunnerShooter
         {
             isFired = false;
             Positie = new Vector2();
+        }
+
+        public override int hitTarget(Rectangle item)
+        {
+            int damage = 0;
+            if(isFired && !isGoingUp)
+            {
+                damage = base.hitTarget(item);
+            }
+            Console.WriteLine("hi");
+            return damage;
         }
     }
 }

@@ -322,15 +322,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         {
                             eindLift.activate(held.getFeetCollisionRect());
                         }
-
-                        foreach(Rectangle br in boss.getBulletsRect())
-                        {
-                            held.checkHit(br);
-                        }
                         
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.getBullets());
 
 
                         if (eindLift.Positie.Y < 200)
@@ -453,6 +448,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             }
 
             spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
+            spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString()), (camPos + new Vector2(100,100)), Color.NavajoWhite);
+            spriteBatch.End();
+            spriteBatch.Begin();
+            spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString()), (camPos + new Vector2(100, 100)), Color.NavajoWhite);
             spriteBatch.End();
 
 

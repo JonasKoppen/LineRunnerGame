@@ -45,6 +45,8 @@ namespace LineRunnerShooter
         */
         protected CollisionBox collisionBox;
 
+        public int Lives { get { return _lives; } }
+
         public Vector2 Location { get { return _Position; } }
 
         public User(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet)
@@ -250,7 +252,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public void checkHit(List<BulletBlueprint> bullets)
+        public virtual void checkHit(List<BulletBlueprint> bullets)
         {
             if(bullets != null)
             {

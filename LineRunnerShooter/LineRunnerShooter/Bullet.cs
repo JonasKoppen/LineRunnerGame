@@ -50,6 +50,7 @@ namespace LineRunnerShooter
 
         public virtual int hitTarget()
         {
+            isFired = false;
             return _damage;
         }
         public virtual int hitTarget(Rectangle item)
@@ -58,6 +59,7 @@ namespace LineRunnerShooter
             if (item.Intersects(CollisionRect) && isFired)
             {
                 dam = _damage;
+                isFired = false;
             }
             return dam;
         }

@@ -156,6 +156,14 @@ namespace LineRunnerShooter
             return rocketsRect;
         }
 
+        public override List<BulletBlueprint> getBullets()
+        {
+            List<BulletBlueprint> bullets = new List<BulletBlueprint>();
+            bullets.AddRange(rockets);
+            bullets.AddRange(robotARM.getBullets());
+            return bullets;
+        }
+
 
 
     }
