@@ -90,8 +90,8 @@ namespace LineRunnerShooter
             if (!isFired)
             {
                 Positie = pos;
-                _direction.X = (float)(Math.Cos(angle));
-                _direction.Y = -(float)(Math.Sin(angle));
+                _direction.X = (float)(Math.Cos(angle) * 1.5);
+                _direction.Y = -(float)(Math.Sin(angle) * 1.5);
                 isFired = true;
                 timeToLive = 1000;
             }

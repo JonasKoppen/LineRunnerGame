@@ -45,8 +45,6 @@ namespace LineRunnerShooter
         */
         protected CollisionBox collisionBox;
 
-        protected SingleShotARM arm;
-
         public Vector2 Location { get { return _Position; } }
 
         public User(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet)
@@ -196,20 +194,6 @@ namespace LineRunnerShooter
         {
             _Position.Y += platform; 
         }
-
-        public bool getBulletsCollision(Rectangle target)
-        {
-            bool isHit = false;
-            foreach (BulletBlueprint b in arm.bullets)
-            {
-                if (target.Intersects(b.CollisionRect))
-                {
-                    isHit = true;
-                    b.hitTarget();
-                }
-            }
-            return isHit;
-        }
         /*
         public virtual List<Rectangle> getBulletsRect()
         {
@@ -279,11 +263,6 @@ namespace LineRunnerShooter
         protected virtual void takeDamage(int damage)
         {
             _lives -= damage;
-        }
-
-        public List<Rectangle> getBulletsRect()
-        {
-            return arm.getBulletsRect();
         }
     }
 

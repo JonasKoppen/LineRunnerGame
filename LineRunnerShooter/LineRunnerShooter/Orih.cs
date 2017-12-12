@@ -32,7 +32,6 @@ namespace LineRunnerShooter
             _spritePos = new Rectangle(posX, 0, 60, 200);
             _Position.X = posX;
             _StartPos.X = posX;
-            arm = null;
             isAlive = true;
             isAttacking = false;
             _lives = 3;
@@ -47,7 +46,6 @@ namespace LineRunnerShooter
             _spritePos = new Rectangle(posX, 0, 60, 200);
             _Position.X = posX;
             _StartPos.X = posX;
-            arm = null;
             isAlive = true;
             isAttacking = false;
             _lives = 3;
@@ -62,7 +60,6 @@ namespace LineRunnerShooter
             _spritePos = spritePos;
             _Position.X = posX;
             _StartPos.X = posX;
-            arm = null;
             isAlive = true;
             isAttacking = false;
             _lives = 3;

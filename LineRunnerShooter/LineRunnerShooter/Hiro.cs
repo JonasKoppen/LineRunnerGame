@@ -15,19 +15,24 @@ namespace LineRunnerShooter
      * 
      * 
      */ 
+
+        /*
     class Hiro : User
     {
         protected bool jumpAllowed;
         protected int _JumpHeight;
         private double invincebleTime;
+        ShotARM SingleShotArm;
+        ShotARM TripleShotArm;
 
 
         public Hiro(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(textureL, textureR, move, bullet)
         {
-            _spritePos = new Rectangle(0, 0, 100, 200);
+            _spritePos = new Rectangle(0, 0, 100, 195);
             _Position.X = posX;
             _Position.Y = posY;
-            arm = new SingleShotARM(armtexture, bullet);
+            SingleShotArm = new ShotARM(armtexture, bullet,1);
+            TripleShotArm = new ShotARM(armtexture, bullet,3);
             _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
@@ -94,12 +99,14 @@ namespace LineRunnerShooter
             }
         }
     }
-
+    */
     class Hiro2 : User
     {
         protected bool jumpAllowed;
         protected int _JumpHeight;
         private double invincebleTime;
+        List<ARMBluePrint> arsenal;
+        int selectedARM = 1;
 
 
         public Hiro2(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(textureL, textureR, move, bullet)
@@ -107,7 +114,9 @@ namespace LineRunnerShooter
             _spritePos = new Rectangle(0, 0, 100, 200);
             _Position.X = posX;
             _Position.Y = posY;
-            arm = new SingleShotARM(armtexture, bullet);
+            arsenal = new List<ARMBluePrint>();
+            arsenal.Add(new ShotARM(armtexture, bullet,1));
+            arsenal.Add( new ShotARM(armtexture, bullet,3));
             _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
@@ -118,7 +127,7 @@ namespace LineRunnerShooter
             CheckAction();
             _MoveMethod.Update(stateKey, mouse, canLeft, canRight);
             base.Update(gameTime, stateKey, mouse, camPos);
-            arm.Update(gameTime, _Position, mouseLoc);
+            arsenal[selectedARM].Update(gameTime, _Position, mouseLoc);
             if (isGrounded)
             {
                 jumpAllowed = true;
@@ -162,7 +171,7 @@ namespace LineRunnerShooter
         {
             if (_MoveMethod.isShooting)
             {
-                arm.Fire();
+                arsenal[selectedARM].Fire();
             }
             if (_MoveMethod.isJump)
             {
@@ -190,7 +199,7 @@ namespace LineRunnerShooter
             if(_spritePos.Y == 0)
             {
                 spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
-                arm.Draw(spriteBatch);
+                arsenal[selectedARM].Draw(spriteBatch);
                 if (invincebleTime > 20)
                 {
                     spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.Red);
@@ -198,7 +207,7 @@ namespace LineRunnerShooter
             }
             else
             {
-                arm.Draw(spriteBatch);
+                arsenal[selectedARM].Draw(spriteBatch);
                 spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
                 if (invincebleTime > 20)
                 {
@@ -229,7 +238,7 @@ namespace LineRunnerShooter
             base.checkEnviroments(level);
             foreach(Rectangle rect in level)
             {
-                foreach (BulletBlueprint b in arm.getBullets())
+                foreach (BulletBlueprint b in arsenal[selectedARM].getBullets())
                 {
                     if (b.CollisionRect.Intersects(rect))
                     {
@@ -241,7 +250,7 @@ namespace LineRunnerShooter
 
         public List<Bullet> getBullets()
         {
-            return arm.getBullets();
+            return arsenal[selectedARM].getBullets();
         }
     }
 

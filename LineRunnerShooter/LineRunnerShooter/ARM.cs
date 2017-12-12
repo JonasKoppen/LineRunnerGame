@@ -20,8 +20,8 @@ namespace LineRunnerShooter
     abstract class ARMBluePrint
     {
         private Texture2D _texture;
-        private float angle;
-        private Vector2 _position;
+        protected float angle;
+        protected Vector2 _position;
         public List<Bullet> bullets;
 
         public ARMBluePrint(Texture2D pix)
@@ -29,7 +29,7 @@ namespace LineRunnerShooter
             _texture = pix;
         }
 
-        public abstract void Update(GameTime gameTime, Vector2 position);
+        public abstract void Update(GameTime gameTime, Vector2 position, Vector2 mouse);
         public void Draw(SpriteBatch spriteBatch)
         {
             Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
@@ -45,22 +45,23 @@ namespace LineRunnerShooter
         public abstract List<Bullet> getBullets();
     }
 
-    class SingleShotARM //only has 1 bullet active 
+    class ShotARM : ARMBluePrint //only has 1 bullet active 
     {
-        private Texture2D pixel;
-        private float angle;
-        private Vector2 _position;
-        public List<Bullet> bullets;
 
-        public SingleShotARM(Texture2D pix, Texture2D energy)
+        public ShotARM(Texture2D pix, Texture2D energy, int amountBullets) : base(pix)
         {
             angle = 0;
-            pixel = pix;
             _position = new Vector2(200, 240);
             bullets = new List<Bullet>();
-            bullets.Add(new Bullet(energy)); //First gun can only fire 1 bullet, make a variation with more bullets and selection key
+            if(amountBullets > 0)
+            {
+                for(int i = 0; i < amountBullets; i++)
+                {
+                    bullets.Add(new Bullet(energy)); //First gun can only fire 1 bullet, make a variation with more bullets and selection key
+                } 
+            }
         }
-        public void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
+        public override void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
         {
             _position = position;
             _position.X += 40;
@@ -96,20 +97,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
-            Vector2 origin = new Vector2(5, 10);
-
-            foreach (Bullet b in bullets)
-            {
-                b.Draw(spriteBatch);
-            }
-
-            spriteBatch.Draw(pixel, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
-        }
-
-        public void Fire()
+        public override void Fire()
         {
             //bullet.fire(angle, _position);
             Console.WriteLine("checking bullet");
@@ -145,12 +133,14 @@ namespace LineRunnerShooter
             return bulletsRect;
         }
 
-        public List<Bullet> getBullets()
+        public override List<Bullet> getBullets()
         {
             return bullets;
         }
 
     }
+
+
 
     class RobotMeleeARM //Dit is een melee attack
     {
