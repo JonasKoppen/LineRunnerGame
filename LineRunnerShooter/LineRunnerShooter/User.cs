@@ -45,7 +45,7 @@ namespace LineRunnerShooter
         */
         protected CollisionBox collisionBox;
 
-        protected ARM arm;
+        protected SingleShotARM arm;
 
         public Vector2 Location { get { return _Position; } }
 

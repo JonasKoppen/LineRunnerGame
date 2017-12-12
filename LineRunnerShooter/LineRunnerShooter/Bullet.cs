@@ -55,7 +55,7 @@ namespace LineRunnerShooter
         public virtual int hitTarget(Rectangle item)
         {
             int dam = 0;
-            if (item.Intersects(CollisionRect))
+            if (item.Intersects(CollisionRect) && isFired)
             {
                 dam = _damage;
             }
@@ -131,10 +131,52 @@ namespace LineRunnerShooter
         }
     }
 
-    class Melee : BulletBlueprint
+    class MeleeBullet : BulletBlueprint
     {
-        public Melee(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner) : base(texture, pos, size, damage, owner)
+
+        private float _angle;
+        public MeleeBullet(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner) : base(texture, pos, size, damage, owner)
         {
         }
+        public void Update(float angle, Vector2 pos, bool isAttacking)
+        {
+            _angle = angle;
+            Positie = pos;
+            isFired = isAttacking;
+        }
+
+        public Rectangle getCollisonBox()
+        {
+            Rectangle attack = new Rectangle(new Point(), _size.ToPoint());
+            int size = Convert.ToInt16(_size.X);    //We gaan er vanuit dat de collisionbox een vierkant is, kan aangepast worden naar rectangle
+            if (Math.Cos(_angle) > 0 && Math.Sin(_angle) > 0)
+            {
+                attack.Location = Positie.ToPoint() + new Point(0, -size);
+            }
+            else if (Math.Cos(_angle) <= 0 && Math.Sin(_angle) > 0)
+            {
+                attack.Location = Positie.ToPoint() + new Point(-size, -size);
+            }
+            else if (Math.Cos(_angle) <= 0 && Math.Sin(_angle) <= 0)
+            {
+                attack.Location = Positie.ToPoint() + new Point(-size, 0);
+            }
+            else if (Math.Cos(_angle) > 0 && Math.Sin(_angle) <= 0)
+            {
+                attack.Location = Positie.ToPoint();
+            }
+            return attack;
+        }
+
+        public override int hitTarget(Rectangle item)
+        {
+            int damage = 0;
+            if (item.Intersects(getCollisonBox()) && isFired)
+            {
+                damage = _damage;
+            }
+            return damage;
+        }
+
     }
 }

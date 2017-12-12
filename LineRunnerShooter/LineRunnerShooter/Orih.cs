@@ -24,7 +24,7 @@ namespace LineRunnerShooter
         private bool isAttacking;
         private int lastMove;
         private Texture2D _Texture;
-        protected RobotARM robotARM;
+        protected RobotMeleeARM robotARM;
 
 
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
@@ -39,7 +39,7 @@ namespace LineRunnerShooter
             attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
-            robotARM = new RobotARM(bullet);
+            robotARM = new RobotMeleeARM(bullet);
             maxSpeed = 8;
         }
         public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armpix, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
@@ -54,7 +54,7 @@ namespace LineRunnerShooter
             attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
-            robotARM = new RobotARM(armpix);
+            robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
         }
         public Orih(Texture2D textureL, Texture2D textureR,Rectangle spritePos, MoveMethod move, Texture2D armpix, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
@@ -69,7 +69,7 @@ namespace LineRunnerShooter
             attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
-            robotARM = new RobotARM(armpix);
+            robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
         }
         public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)

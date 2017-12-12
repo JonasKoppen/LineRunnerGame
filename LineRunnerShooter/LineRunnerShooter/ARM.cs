@@ -45,14 +45,14 @@ namespace LineRunnerShooter
         public abstract List<Bullet> getBullets();
     }
 
-    class ARM 
+    class SingleShotARM //only has 1 bullet active 
     {
         private Texture2D pixel;
         private float angle;
         private Vector2 _position;
         public List<Bullet> bullets;
 
-        public ARM(Texture2D pix, Texture2D energy)
+        public SingleShotARM(Texture2D pix, Texture2D energy)
         {
             angle = 0;
             pixel = pix;
@@ -152,18 +152,20 @@ namespace LineRunnerShooter
 
     }
 
-    class RobotARM //Dit is een melee attack
+    class RobotMeleeARM //Dit is een melee attack
     {
         private Texture2D pixel;
         private float angle;
         private Vector2 _position;
         bool isAttacking;
+        private MeleeBullet meleeBullet;
 
-        public RobotARM(Texture2D pix)
+        public RobotMeleeARM(Texture2D pix)
         {
             angle = 0;
             pixel = pix;
             _position = new Vector2(200, 240);
+            meleeBullet = new MeleeBullet(pix, _position,new Vector2(80,80),1,2);
         }
         public void Update(GameTime gameTime, Vector2 position, int dir)
         {
@@ -179,6 +181,7 @@ namespace LineRunnerShooter
                 angle = (float)((Math.PI) * (dir-1));
             }
             isAttacking = false;
+            meleeBullet.Update(angle, _position, isAttacking);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -196,27 +199,7 @@ namespace LineRunnerShooter
 
         public Rectangle attackBox()
         {
-            int size = 80;
-            Rectangle attack = new Rectangle(0,0,size,size);
-
-            if(Math.Cos(angle) > 0 && Math.Sin(angle) > 0)
-            {
-                attack.Location = _position.ToPoint() + new Point(0, -size);
-            }
-            else if (Math.Cos(angle) <= 0 && Math.Sin(angle) > 0)
-            {
-                attack.Location = _position.ToPoint() + new Point(-size, -size);
-            }
-            else if (Math.Cos(angle) <= 0 && Math.Sin(angle) <= 0)
-            {
-                attack.Location = _position.ToPoint() + new Point(-size, 0);
-            }
-            else if (Math.Cos(angle) > 0 && Math.Sin(angle) <= 0)
-            {
-                attack.Location = _position.ToPoint();
-            }
-
-            return attack;
+            return meleeBullet.getCollisonBox();
         }
 
     }

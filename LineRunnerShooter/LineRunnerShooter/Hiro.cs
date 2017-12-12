@@ -27,7 +27,7 @@ namespace LineRunnerShooter
             _spritePos = new Rectangle(0, 0, 100, 200);
             _Position.X = posX;
             _Position.Y = posY;
-            arm = new ARM(armtexture, bullet);
+            arm = new SingleShotARM(armtexture, bullet);
             _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
@@ -107,7 +107,7 @@ namespace LineRunnerShooter
             _spritePos = new Rectangle(0, 0, 100, 200);
             _Position.X = posX;
             _Position.Y = posY;
-            arm = new ARM(armtexture, bullet);
+            arm = new SingleShotARM(armtexture, bullet);
             _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
