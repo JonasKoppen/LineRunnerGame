@@ -15,35 +15,35 @@ namespace LineRunnerShooter
      */ 
     class Block : ICollide
     {
-        public Texture2D _texture;
-        public Vector2 Positie;
+        public Vector2 Positie; //Make property
         protected Rectangle _texturePos;
+        protected int _textureNum;
         public bool isHazard { get; private set; }
 
-        public Block(Texture2D texture, Vector2 pos)
+        public Block(int texture, Vector2 pos)
         {
-            _texture = texture;
+            _textureNum = texture;
             Positie = pos;
-            _texturePos = new Rectangle(0,0, 100,100);
+            _texturePos = new Rectangle(0, 0, 100, 100);
         }
 
-        public Block(Texture2D texture, Vector2 pos, Vector2 textPos)
+        public Block(int texture, Vector2 pos, Vector2 textPos)
         {
-            _texture = texture;
+            _textureNum = texture;
             Positie = pos;
             _texturePos = new Rectangle(textPos.ToPoint(), new Point(100,100));
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Positie ,_texturePos, Color.White);
+            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie ,_texturePos, Color.White);
             //spriteBatch.Draw(_texture, getCollisionRectagle(), Color.Red); //Check collision block locations
         }
 
         public void Draw(SpriteBatch spriteBatch, int i)
         {
-            spriteBatch.Draw(_texture, Positie, Color.Yellow);
-            spriteBatch.Draw(_texture, getCollisionRectagle(), Color.Red); //Check collision block locations
+            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie, Color.Yellow);
+            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], getCollisionRectagle(), Color.Red); //Check collision block locations
 
         }
 
@@ -56,7 +56,7 @@ namespace LineRunnerShooter
     class Lava : Block
     {
         int dir = 1;
-        public Lava(Texture2D texture, Vector2 pos) : base(texture, pos)
+        public Lava(int texture, Vector2 pos) : base(texture, pos)
         {
         }
 
@@ -84,17 +84,35 @@ namespace LineRunnerShooter
     {
         bool isShot;
         int _value;
-        public Target(Texture2D texture, Vector2 pos, int value) : base(texture, pos)
+        Rectangle hitBox;
+        public Target(int texture, Vector2 pos, int value) : base(texture, pos)
         {
+            _texturePos.Size = new Point(100, 100);
             _value = value;
             isShot = false;
+            hitBox = new Rectangle(pos.ToPoint(), _texturePos.Size);
         }
 
-        public void Update() //Collision with bullets
+        public void Update(List<BulletBlueprint> bullets) //Collision with bullets
         {
-            if (false)
+            if (!isShot) //als het object al neergeschoten is moeten we niet nog is controleren op collisie
             {
-                isShot = true;
+                foreach (BulletBlueprint B in bullets)
+                {
+                    if (B.hitTarget(hitBox) > 0)
+                    {
+                        isShot = true;
+                    }
+                }
+            }
+            
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (!isShot)
+            {
+                base.Draw(spriteBatch);
             }
         }
 

@@ -19,7 +19,6 @@ namespace LineRunnerShooter
     {
         //TODO: More scripted actions: begin when hiro is on X, enter battle scene on X, ...
         //TODO: More attack modes + smaller hitbox, only face => hiro needs the challange to aim
-        private bool attackMode;
         private List<BulletR> rockets;
         private int firedRockets;
         private Random r;

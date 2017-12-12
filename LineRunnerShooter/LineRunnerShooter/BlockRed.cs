@@ -22,7 +22,7 @@ namespace LineRunnerShooter
         bool isRotating;
         int redTime;
         int greenTime;
-        public BlockRed(Texture2D texture, Vector2 pos) : base(texture, pos)
+        public BlockRed(Vector2 pos) : base(1, pos)
         {
             isActive = true;
             time = 3;
@@ -33,7 +33,7 @@ namespace LineRunnerShooter
             greenTime = 4000;
         }
 
-        public BlockRed(Texture2D texture, Vector2 pos, int red, int green) : base(texture, pos)
+        public BlockRed(Vector2 pos, int red, int green) : base(1, pos)
         {
             isActive = true;
             time = 3;
@@ -61,7 +61,7 @@ namespace LineRunnerShooter
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(_texture, Positie,_texturePos, Color.White);    
+                spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie,_texturePos, Color.White);    
         }
 
         public void Update(GameTime gameTime) //TODO: check of dit beter kan, ziet er rommelig uit

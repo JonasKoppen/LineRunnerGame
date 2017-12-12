@@ -11,7 +11,7 @@ namespace LineRunnerShooter
     class LiftSide : Block
     {
         double slow; 
-        public LiftSide(Texture2D texture, Vector2 pos, bool isRight) : base(texture, pos)
+        public LiftSide(int texture, Vector2 pos, bool isRight) : base(texture, pos)
         {
             _texturePos.X = isRight ? 100 : 0;
             _texturePos.Height = 200;

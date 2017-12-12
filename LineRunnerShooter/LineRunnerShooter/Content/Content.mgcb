@@ -439,6 +439,13 @@
 /processorParam:TextureFormat=Color
 /build:TestGuyHDR.png
 
+#begin textFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:textFont.spritefont
+
 #begin TheRobotL.png
 /importer:TextureImporter
 /processor:TextureProcessor

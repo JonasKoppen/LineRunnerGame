@@ -45,7 +45,7 @@ namespace LineRunnerShooter
         public abstract List<BulletBlueprint> getBullets();
     }
 
-    class ShotARM : ARMBluePrint //only has 1 bullet active 
+    class ShotARM : ARMBluePrint //only has X active bullets
     {
 
         public ShotARM(Texture2D pix, Texture2D energy, int amountBullets) : base(pix)

@@ -23,7 +23,7 @@ namespace LineRunnerShooter
         float stablePosY;
         double lastTime;
 
-        public BlockPurple(Texture2D texture, Vector2 pos) : base(texture, pos)
+        public BlockPurple(Vector2 pos) : base(1, pos)
         {
             upTime = 1;
             downTime = 0;
@@ -38,7 +38,7 @@ namespace LineRunnerShooter
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Positie, _texturePos, Color.White);
+            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie, _texturePos, Color.White);
         }
 
         public void Update(GameTime gameTime, Rectangle player)

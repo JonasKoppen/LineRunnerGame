@@ -52,6 +52,7 @@
     <Compile Include="CollisionBox.cs" />
     <Compile Include="Fyer.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="General.cs" />
     <Compile Include="Hiro.cs" />
     <Compile Include="ICollide.cs" />
     <Compile Include="Level.cs" />

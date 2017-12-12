@@ -10,6 +10,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
+    /// 
+    //http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts Text
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -31,6 +33,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         Lift eindLift;
         List<LiftSide> liftSides;
         Vector2 mouse;
+
+        public static SpriteFont font;
 
         int intro = 0;
         double lastEnter =0;
@@ -65,6 +69,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            General.font = Content.Load<SpriteFont>("textFont");
 
             _afbeeldingBlokken = new List<Texture2D>();
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformSpritSheet2")); //0
@@ -106,6 +112,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             music.Add(Content.Load<Song>("introS"));
             music.Add(Content.Load<Song>("level"));
             music.Add(Content.Load<Song>("boss"));
+
+            General._afbeeldingBlokken = _afbeeldingBlokken;
+            General._afbeeldingEnemys = _afbeeldingEnemys;
+            General._levelMaps = _levelMaps;
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             loadLevel0();
 
@@ -463,12 +473,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
             {
-                liftSides.Add(new LiftSide(_afbeeldingBlokken[10], new Vector2(0, i), false));
-                liftSides.Add(new LiftSide(_afbeeldingBlokken[10], new Vector2(300, i), true));
+                liftSides.Add(new LiftSide(10, new Vector2(0, i), false));
+                liftSides.Add(new LiftSide(10, new Vector2(300, i), true));
             }
-            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 1500), new Vector2(100, 700));
+            startLift = new Lift(12, new Vector2(100, 1500), new Vector2(100, 700));
             startLift.isActive = true;
-            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 700), new Vector2(100, -100));
+            eindLift = new Lift(12, new Vector2(100, 700), new Vector2(100, -100));
             currentLevel = 0;
             MediaPlayer.Play(music[0]);
         }
@@ -480,7 +490,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             orihList = new List<Orih>();
 
-            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
             level = new Level(_levelMaps[2], _afbeeldingBlokken);
@@ -489,7 +499,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6],new Rectangle(0,0,100,200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
             orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
            
-            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
         }
 
@@ -504,10 +514,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held.setStartPos();
             level = new Level(_levelMaps[1], _afbeeldingBlokken);
 
-            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             
         }
 
@@ -519,10 +529,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held.setStartPos();
             level = new Level(_levelMaps[1], _afbeeldingBlokken);
 
-            startLift = new Lift(_afbeeldingBlokken[12], new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(_afbeeldingBlokken[12], new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[2]);
         }
     }
