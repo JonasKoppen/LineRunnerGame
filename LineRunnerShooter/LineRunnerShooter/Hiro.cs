@@ -122,17 +122,26 @@ namespace LineRunnerShooter
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
         }
 
-        public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos, Vector2 mouseLoc)
+        public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos, Vector2 mouseLoc, List<BulletBlueprint> bullets)
         {
             CheckAction();
             _MoveMethod.Update(stateKey, mouse, canLeft, canRight);
-            base.Update(gameTime, stateKey, mouse, camPos);
+            base.Update(gameTime, stateKey, mouse, camPos, bullets);
             arsenal[selectedARM].Update(gameTime, _Position, mouseLoc);
             if (isGrounded)
             {
                 jumpAllowed = true;
             }
             invincebleTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            if ((_MoveMethod as MovePlayer).nextWeapon)
+            {
+                selectedARM++;
+                if (selectedARM > 1)
+                {
+                    selectedARM = 0;
+                }
+                (_MoveMethod as MovePlayer).nextWeapon = false;
+            }
         }
 
         protected override void spritePosUpdate()
@@ -248,7 +257,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public List<Bullet> getBullets()
+        public List<BulletBlueprint> getBullets()
         {
             return arsenal[selectedARM].getBullets();
         }
@@ -257,6 +266,7 @@ namespace LineRunnerShooter
     class MovePlayer : MoveMethod
     {
         private bool lastSpaceState = false;
+        public bool nextWeapon;
         public override void Update(KeyboardState stateKey, MouseState mouseState, bool canLeft, bool canRight)
         {
 
@@ -286,6 +296,10 @@ namespace LineRunnerShooter
             if (stateKey.IsKeyDown(Keys.Z))
             {
                 isJump = true;
+            }
+            if(!nextWeapon && stateKey.IsKeyDown(Keys.E))
+            {
+                nextWeapon = true;
             }
 
         }

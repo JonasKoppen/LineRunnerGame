@@ -22,7 +22,7 @@ namespace LineRunnerShooter
         private Texture2D _texture;
         protected float angle;
         protected Vector2 _position;
-        public List<Bullet> bullets;
+        public List<BulletBlueprint> bullets;
 
         public ARMBluePrint(Texture2D pix)
         {
@@ -42,7 +42,7 @@ namespace LineRunnerShooter
         }
         public abstract void Fire();
 
-        public abstract List<Bullet> getBullets();
+        public abstract List<BulletBlueprint> getBullets();
     }
 
     class ShotARM : ARMBluePrint //only has 1 bullet active 
@@ -52,7 +52,7 @@ namespace LineRunnerShooter
         {
             angle = 0;
             _position = new Vector2(200, 240);
-            bullets = new List<Bullet>();
+            bullets = new List<BulletBlueprint>();
             if(amountBullets > 0)
             {
                 for(int i = 0; i < amountBullets; i++)
@@ -107,7 +107,7 @@ namespace LineRunnerShooter
                 Console.WriteLine("searching");
                 if (!bullets[i].isFired)
                 {
-                    bullets[i].fire(angle, _position);
+                    (bullets[i] as Bullet).fire(angle, _position);
                     Console.WriteLine("bullet Fired");
                     i = -1;
                 }
@@ -133,8 +133,9 @@ namespace LineRunnerShooter
             return bulletsRect;
         }
 
-        public override List<Bullet> getBullets()
+        public override List<BulletBlueprint> getBullets()
         {
+
             return bullets;
         }
 

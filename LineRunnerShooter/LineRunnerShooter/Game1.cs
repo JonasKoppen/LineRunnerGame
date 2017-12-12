@@ -221,7 +221,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         startLift.Update(gameTime, held);
                         eindLift.Update(gameTime, held);
 
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
                         camera.Position = new Vector2(0, 200);
                         break;
                     }
@@ -241,7 +241,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         {
                             orihd.checkEnviroments(rectList);
                             orihd.SeePlayer(held.getCollisionRectagle());
-                            orihd.Update(gameTime, stateKey, held.getBulletsCollision(orihd.getCollisionRectagle()));
+                            orihd.Update(gameTime, stateKey, held.getBullets());
                             if (!held.isGrounded)
                             {
                                 held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
@@ -249,7 +249,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
 
                         if(eindLift.Positie.Y < 200)
                         {
@@ -272,7 +272,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         {
                             orihd.checkEnviroments(rectList);
                             orihd.SeePlayer(held.getCollisionRectagle());
-                            orihd.Update(gameTime, stateKey, held.getBulletsCollision(orihd.getCollisionRectagle()));
+                            orihd.Update(gameTime, stateKey, held.getBullets());
                             if (!held.isGrounded)
                             {
                                 held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
@@ -281,7 +281,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
                         eindLift.activate(held.getFeetCollisionRect());
 
                         if (eindLift.Positie.Y < 200)
@@ -302,7 +302,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         held.checkEnviroments(rectList);
 
                         boss.checkEnviroments(rectList);
-                        boss.Update(gameTime, stateKey, held.getCollisionRectagle(), held.getBulletsRect());
+                        boss.Update(gameTime, stateKey, held.getCollisionRectagle(), held.getBullets());
 
                         if (!boss.isAlive)
                         {
@@ -316,7 +316,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse);
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
 
 
                         if (eindLift.Positie.Y < 200)

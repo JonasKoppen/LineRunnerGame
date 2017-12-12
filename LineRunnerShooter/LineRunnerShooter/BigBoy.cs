@@ -44,7 +44,7 @@ namespace LineRunnerShooter
         }
 
 
-        public void Update(GameTime gameTime, KeyboardState stateKey, Rectangle player, List<Rectangle> heroBullets)
+        public void Update(GameTime gameTime, KeyboardState stateKey, Rectangle player, List<BulletBlueprint> bullets)
         {
             
             bool isHit = false;
@@ -92,15 +92,8 @@ namespace LineRunnerShooter
                     }
                 case 2:
                     {
-                        base.Update(gameTime, stateKey,isHit);
+                        base.Update(gameTime, stateKey,bullets);
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                        foreach (Rectangle bullet in heroBullets)
-                        {
-                            if (!isHit)
-                            {
-                                isHit = getCollisionRectagle().Intersects(bullet);
-                            }
-                        }
                         if (isAlive)
                         {
                             if (elapsedTime > 250)

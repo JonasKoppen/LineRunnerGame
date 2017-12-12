@@ -69,7 +69,7 @@ namespace LineRunnerShooter
             maxSpeed = 15;
         }
 
-        public virtual void Update(GameTime gameTime, KeyboardState stateKey)
+        public virtual void Update(GameTime gameTime, KeyboardState stateKey, List<BulletBlueprint> bullets)
         {
             double totalTime = gameTime.ElapsedGameTime.TotalMilliseconds;
             time += Convert.ToInt32(totalTime);
@@ -85,6 +85,8 @@ namespace LineRunnerShooter
                 Reset();
             }
             collisionBox.Update(_Position.ToPoint());
+
+            checkHit(bullets);
         }
 
         protected virtual void spritePosUpdate()
@@ -96,11 +98,11 @@ namespace LineRunnerShooter
             }
         }
 
-        public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos)
+        public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos, List<BulletBlueprint> bullets)
         {
             Vector2 mousePos = mouseState.Position.ToVector2();
             collisionBox.Update(_Position.ToPoint());
-            Update(gameTime, stateKey);
+            Update(gameTime, stateKey, bullets);
         }
 
         public virtual void UpdateFI(double dt)
@@ -250,11 +252,17 @@ namespace LineRunnerShooter
 
         public void checkHit(List<BulletBlueprint> bullets)
         {
-            for (int i = 0; i < bullets.Count; i++)
+            if(bullets != null)
             {
-                if (collisionBox.Body.Intersects(bullets[i].CollisionRect))
+                int i = 0;
+                while (i < bullets.Count) //Only one bullet per update can hit the object //TODO: think about this
                 {
-                    takeDamage(bullets[i].hitTarget());
+                    if (collisionBox.Body.Intersects(bullets[i].CollisionRect))
+                    {
+                        takeDamage(bullets[i].hitTarget());
+                        i = bullets.Count + 1;
+                    }
+                    i++;
                 }
             }
 

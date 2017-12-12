@@ -69,18 +69,13 @@ namespace LineRunnerShooter
             robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
         }
-        public void Update(GameTime gameTime, KeyboardState stateKey, bool isHit)
+        public void Update(GameTime gameTime, KeyboardState stateKey, List<BulletBlueprint> bullets)
         {
             if (isAlive)
             {
                 _MoveMethod.Update(stateKey, new MouseState(), canLeft, canRight);
-                base.Update(gameTime, stateKey);
+                base.Update(gameTime, stateKey, bullets);
                 
-                if (isHit)
-                {
-                    Console.WriteLine("I am hit");
-                    _lives--;
-                }
                 if (isAttacking)
                 {
                     Console.WriteLine("Attacing");
