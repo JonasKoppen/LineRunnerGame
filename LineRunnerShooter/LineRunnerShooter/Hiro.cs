@@ -111,6 +111,7 @@ namespace LineRunnerShooter
 
         public Hiro2(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(textureL, textureR, move, bullet)
         {
+  
             _spritePos = new Rectangle(0, 0, 100, 200);
             _Position.X = posX;
             _Position.Y = posY;

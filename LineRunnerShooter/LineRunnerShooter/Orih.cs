@@ -148,17 +148,6 @@ namespace LineRunnerShooter
             _Position = new Vector2(500, 6000);
         }
 
-        public Rectangle getAttackRect()
-        {
-            Rectangle rectOut = new Rectangle();
-            if (isAttacking)
-            {
-                rectOut = robotARM.attackBox();
-            }
-            return rectOut;
-
-        }
-
         public override void checkEnviroments(List<Rectangle> level)
         {
             RoboCollisionBox roboBox = collisionBox as RoboCollisionBox;
@@ -175,12 +164,12 @@ namespace LineRunnerShooter
                 }
             }
         }
-        /*
-        public List<Bullet> getBullets()
+        
+        public List<BulletBlueprint> getBullets()
         {
-            return new NotImplementedException();
+            return robotARM.getBullets();
         }
-        */
+        
     }
         class RobotMove : MoveMethod
         {

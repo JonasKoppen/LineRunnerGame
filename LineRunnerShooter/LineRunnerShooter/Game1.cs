@@ -248,6 +248,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         rectList.Add(eindLift.getCollisionRectagle());
                         held.checkEnviroments(rectList);
 
+                        List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
                         foreach (Orih orihd in orihList)
                         {
                             orihd.checkEnviroments(rectList);
@@ -257,10 +258,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
                             }
+                            enemyBullets.AddRange(orihd.getBullets());
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
 
                         if(eindLift.Positie.Y < 200)
                         {
@@ -279,6 +281,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         rectList.Add(eindLift.getCollisionRectagle());
                         held.checkEnviroments(rectList);
 
+                        List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
                         foreach (Orih orihd in orihList)
                         {
                             orihd.checkEnviroments(rectList);
@@ -288,11 +291,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
                             }
-                            held.checkHit(orihd.getAttackRect());
+                            enemyBullets.AddRange(orihd.getBullets());
                         }
 
                         level.Update(gameTime, held.getFeetCollisionRect());
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, new List<BulletBlueprint>());
+                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
                         eindLift.activate(held.getFeetCollisionRect());
 
                         if (eindLift.Positie.Y < 200)
@@ -453,7 +456,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             spriteBatch.End();
 
 
-            //Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
+            Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Draw(gameTime);
         }
 

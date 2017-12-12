@@ -188,11 +188,13 @@ namespace LineRunnerShooter
             isAttacking = true;
         }
 
-        public Rectangle attackBox()
+        public List<BulletBlueprint> getBullets()
         {
-            return meleeBullet.getCollisonBox();
-        }
+            List<BulletBlueprint> bullets = new List<BulletBlueprint>();
+            bullets.Add(meleeBullet);
+            return bullets;
 
+        }
     }
 }
 

@@ -128,7 +128,6 @@ namespace LineRunnerShooter
             firedRockets++;
             if(firedRockets >= rockets.Count)
             {
-                attackMode = false;
                 firedRockets = 0;
             }
             Console.WriteLine(firePos.ToString());
