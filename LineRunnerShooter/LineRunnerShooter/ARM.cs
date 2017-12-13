@@ -34,7 +34,7 @@ namespace LineRunnerShooter
         {
             Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
             Vector2 origin = new Vector2(5, 10);
-            spriteBatch.Draw(_texture, _position, sourceRectangle, Color.White, angle, origin, 1.0f, SpriteEffects.None, 1);
+            spriteBatch.Draw(_texture, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
             foreach (Bullet b in bullets)
             {
                 b.Draw(spriteBatch);
