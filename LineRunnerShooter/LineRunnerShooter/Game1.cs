@@ -261,7 +261,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             enemyBullets.AddRange(orihd.getBullets());
                         }
 
-                        level.Update(gameTime, held.getFeetCollisionRect());
+                        level.Update(gameTime, held);
                         held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
 
                         if(eindLift.Positie.Y < 200)
@@ -294,7 +294,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             enemyBullets.AddRange(orihd.getBullets());
                         }
 
-                        level.Update(gameTime, held.getFeetCollisionRect());
+                        level.Update(gameTime, held);
                         held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
                         eindLift.activate(held.getFeetCollisionRect());
 
@@ -324,7 +324,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                         
 
-                        level.Update(gameTime, held.getFeetCollisionRect());
+                        level.Update(gameTime, held);
                         held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.getBullets());
 
 
