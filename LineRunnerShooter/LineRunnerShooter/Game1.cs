@@ -365,9 +365,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             {
                 case 0:
                     {
-                        
-                        spriteBatch.Begin(transformMatrix: viewMatrix);
-                        
+                        spriteBatch.Begin(transformMatrix: viewMatrix);   
                         switch (intro)
                         {
                             case 0:

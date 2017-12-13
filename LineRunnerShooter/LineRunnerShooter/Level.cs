@@ -315,7 +315,7 @@ namespace LineRunnerShooter
                     }
                 }
             }
-            Random r = new Random();
+            Random r = General.r;
             for (int x = 1; x < map.Width - 1; x++)
             {
                 for (int y = 1; y < map.Height - 1; y++)
@@ -359,24 +359,29 @@ namespace LineRunnerShooter
             }
         }
 
-        public void Update(GameTime gameTime, Rectangle player)
+        public void Update(GameTime gameTime, Hiro2 player)
         {
             foreach (Block b in blockArray)
             {
                 if (b is BlockPurple)
                 {
-                    BlockPurple bp = b as BlockPurple;
-                    bp.Update(gameTime, player);
+                    
+                    (b as BlockPurple).Update(gameTime, player.getFeetCollisionRect());
+                    (b as BlockPurple).getPosChange(player);
                 }
                 if (b is BlockRed)
                 {
-                    BlockRed br = b as BlockRed;
-                    br.Update(gameTime);
+                    
+                    (b as BlockRed).Update(gameTime);
                 }
                 if (b is Lava)
                 {
-                    Lava bl = b as Lava;
-                    bl.Update(gameTime);
+                    
+                    (b as Lava).Update(gameTime);
+                }
+                if(b is Target)
+                {
+                    (b as Target).Update(player.getBullets());
                 }
             }
         }
@@ -397,11 +402,6 @@ namespace LineRunnerShooter
                     }
                 }
             }
-        }
-
-        public Rectangle getCollisionRectagle()
-        {
-            throw new NotImplementedException();
         }
 
         public bool checkCollision(Rectangle user)
@@ -442,6 +442,19 @@ namespace LineRunnerShooter
                 }
             }
             return blocks;
+        }
+
+        public int getPoints()
+        {
+            int points = 0;
+            foreach(Block b in blockArray)
+            {
+                if(b is Target)
+                {
+                    points += (b as Target).getPoints();
+                }
+            }
+            return points;
         }
     }
 }
