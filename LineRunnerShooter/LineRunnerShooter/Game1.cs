@@ -114,9 +114,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             music.Add(Content.Load<Song>("level"));
             music.Add(Content.Load<Song>("boss"));
 
+            
             General._afbeeldingBlokken = _afbeeldingBlokken;
             General._afbeeldingEnemys = _afbeeldingEnemys;
             General._levelMaps = _levelMaps;
+            General.r = new Random();
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             loadLevel0();
 

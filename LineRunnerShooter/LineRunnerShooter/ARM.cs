@@ -22,20 +22,34 @@ namespace LineRunnerShooter
         private Texture2D _texture;
         protected float angle;
         protected Vector2 _position;
-        public List<BulletBlueprint> bullets;
+        public List<BulletBlueprint> bullets; // Dit is niet juist
+        protected Rectangle sourceRectangle;
+        private Vector2 pos;
+        private Vector2 size;
+        private int damage;
+        private int owner;
 
         public ARMBluePrint(Texture2D pix)
         {
             _texture = pix;
+            sourceRectangle = new Rectangle(0, 0, 80, 36);
+        }
+
+        public ARMBluePrint(Texture2D pix, Vector2 pos, Vector2 size, int damage, int owner) : this(pix)
+        {
+            this.pos = pos;
+            this.size = size;
+            this.damage = damage;
+            this.owner = owner;
+            sourceRectangle = new Rectangle(0, 0, 80, 36);
         }
 
         public abstract void Update(GameTime gameTime, Vector2 position, Vector2 mouse);
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle sourceRectangle = new Rectangle(0, 0, 81, 36);
             Vector2 origin = new Vector2(5, 10);
             spriteBatch.Draw(_texture, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
-            foreach (Bullet b in bullets)
+            foreach (BulletBlueprint b in bullets)
             {
                 b.Draw(spriteBatch);
             }
@@ -53,7 +67,8 @@ namespace LineRunnerShooter
             angle = 0;
             _position = new Vector2(200, 240);
             bullets = new List<BulletBlueprint>();
-            if(amountBullets > 0)
+            sourceRectangle.Y = 35;
+            if (amountBullets > 0)
             {
                 for(int i = 0; i < amountBullets; i++)
                 {
@@ -194,6 +209,50 @@ namespace LineRunnerShooter
             bullets.Add(meleeBullet);
             return bullets;
 
+        }
+    }
+
+    class FlameThrower : ARMBluePrint
+    {
+        bool isFired;
+        public FlameThrower(Texture2D texture,Texture2D flame) : base(texture)
+        {
+            bullets = new List<BulletBlueprint>();
+            isFired = false;
+            for(int i =1; i < 10; i++)
+            {
+                bullets.Add(new Flame(flame, new Vector2(0,1000), new Vector2(25, 25), 1, 0, i));
+            }
+            sourceRectangle.Y = 70;
+        }
+
+        public override void Fire()
+        {
+            isFired = true;
+        }
+
+        public override List<BulletBlueprint> getBullets()
+        {
+            return (bullets);
+        }
+
+
+        public override void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
+        {
+            _position = position;
+            _position.X += 40;
+            _position.Y += 65;
+
+            float xVers = -mouse.X + _position.X;
+            float yVers = -mouse.Y + _position.Y;
+            angle = (float)Math.Atan2(xVers, yVers) + (float)(Math.PI / 2);
+            Console.WriteLine(angle);
+
+            foreach (Flame f in bullets)
+            {
+                f.Update(_position,angle,true);
+            }
+            isFired = false;
         }
     }
 }

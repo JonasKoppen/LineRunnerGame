@@ -181,4 +181,34 @@ namespace LineRunnerShooter
         }
 
     }
+
+    class Flame : BulletBlueprint
+    {
+        private int _id;
+        Random r;
+        public Flame(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner, int id) : base(texture, pos, size, damage, owner)
+        {
+            _id = id;
+            r = new Random();
+            
+        }
+
+        public void Update(Vector2 pos, float angle, bool isFire)
+        {
+            isFired = isFire;
+            Positie = pos;
+            if (isFired)
+            {
+                Positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X)*1.5 + (General.r.Next(-5,5) * _id));
+                Positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 1.5 + (General.r.Next(-5,5) * _id));
+            }
+            else
+            {
+                Positie = new Vector2(0, 1000);
+            }
+            
+        }
+
+
+    }
 }
