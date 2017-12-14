@@ -35,6 +35,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<LiftSide> liftSides;
         Vector2 mouse;
 
+        int points;
+
         public static SpriteFont font;
 
         int intro = 0;
@@ -201,6 +203,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         currentLevel = isNextLevel;
                         orihList = new List<Orih>();
+                        points += level.getPoints();
                         switch (isNextLevel)
                         {
                             case 0:
@@ -492,12 +495,13 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             }
 
             spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
-            spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString()), (camPos + new Vector2(100,100)), Color.NavajoWhite);
+            spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString() + "/Points: " + points.ToString()), (camPos + new Vector2(100,100)), Color.NavajoWhite);
             spriteBatch.End();
+            /*
             spriteBatch.Begin();
             spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString()), (camPos + new Vector2(100, 100)), Color.NavajoWhite);
             spriteBatch.End();
-
+            */
 
             Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Draw(gameTime);
@@ -542,8 +546,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
-            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6],new Rectangle(0,0,100,200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(3000,500)));
-            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(3100, 500)));
+            
            
             eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
@@ -555,8 +558,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             currentLevel = 2;
             
             orihList = new List<Orih>();
-            orihList.Add( new Orih(_afbeeldingEnemys[6], _afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5000, 500)));
-            orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500)));
+            
             held.setStartPos();
             level = new LevelControl(_levelMaps[2], _afbeeldingBlokken, orihList);
 

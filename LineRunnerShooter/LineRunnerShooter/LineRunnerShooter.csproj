@@ -59,6 +59,7 @@
     <Compile Include="LiftSide.cs" />
     <Compile Include="PhysicsBox.cs" />
     <Compile Include="Sheep.cs" />
+    <Compile Include="UI.cs" />
     <Compile Include="Z_MovingPlatform.cs" />
     <Compile Include="Orih.cs" />
     <Compile Include="Program.cs" />

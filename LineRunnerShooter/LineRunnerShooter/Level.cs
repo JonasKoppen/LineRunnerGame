@@ -451,5 +451,19 @@ namespace LineRunnerShooter
             }
             return blocks;
         }
+
+        public int getPoints()
+        {
+            int score = 0;
+            foreach(Block t in blockArray)
+            {
+                if(t is Target)
+                {
+                    score += (t as Target).getPoints();
+                }
+                
+            }
+            return score;
+        }
     }
 }
