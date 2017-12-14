@@ -51,11 +51,11 @@ namespace LineRunnerShooter
             {
                 case 0:
                     {
-                        if(player.X > 400)
+                        if(player.X > 600)
                         {
                             phase++;
                         }
-                        _Position.X = -100;
+                        _Position.X = -200;
                         _Position.Y = 1000;
                         robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
                         break;

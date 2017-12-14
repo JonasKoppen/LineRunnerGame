@@ -118,6 +118,7 @@ namespace LineRunnerShooter
             arsenal = new List<ARMBluePrint>();
             arsenal.Add(new ShotARM(armtexture, bullet,1));
             arsenal.Add( new ShotARM(armtexture, bullet,3));
+            arsenal.Add(new FlameThrower(armtexture, bullet));
             _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
@@ -137,7 +138,7 @@ namespace LineRunnerShooter
             if ((_MoveMethod as MovePlayer).nextWeapon)
             {
                 selectedARM++;
-                if (selectedARM > 1)
+                if (selectedARM > 2)
                 {
                     selectedARM = 0;
                 }

@@ -22,6 +22,7 @@ namespace LineRunnerShooter
         bool isTouched;
         float stablePosY;
         double lastTime;
+        Vector2 Velocity;
 
         public BlockPurple(Vector2 pos) : base(1, pos)
         {
@@ -78,7 +79,7 @@ namespace LineRunnerShooter
         {
             if (!isStable)
             {
-                Positie.Y += (float)(dt/5);
+                Velocity = new Vector2(0,((float)(dt/5)));
                 if (downTime <= 0)
                 {
                     isTouched = false;
@@ -89,8 +90,18 @@ namespace LineRunnerShooter
             else
             {
                 Positie.Y = stablePosY;
+                Velocity = new Vector2(0, 0);
             }
+            Positie += Velocity;
             lastTime = time;
+        }
+
+        public void getPosChange(User user)
+        {
+            if (user.getFeetCollisionRect().Intersects(getCollisionRectagle()))
+            {
+                user.PlatformUpdate(Velocity);
+            }
         }
     }
 }

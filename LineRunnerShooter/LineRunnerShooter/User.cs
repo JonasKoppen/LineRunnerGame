@@ -194,9 +194,9 @@ namespace LineRunnerShooter
             return collisionBox.Left;
         }
 
-        public void PlatformUpdate(int platform)
+        public void PlatformUpdate(Vector2 platformVelocity)
         {
-            _Position.Y += platform; 
+            _Position += platformVelocity; 
         }
         /*
         public virtual List<Rectangle> getBulletsRect()

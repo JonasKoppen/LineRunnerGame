@@ -65,14 +65,6 @@ namespace LineRunnerShooter
                     isGoingUp = false;
                 }
             }
-            if(isFired && !isGoingUp)
-            {
-                _damage = 0;
-            }
-            else
-            {
-                _damage = damage;
-            }
             if (Positie.Y > 3000)
             {
                 isFired = false;
@@ -92,25 +84,7 @@ namespace LineRunnerShooter
             return collision;
         }
 
-        public Rectangle getDamageZone() //brede collisionbox
-        {
-            Rectangle damageZone = new Rectangle();
-            if (isGoingUp)
-            {
-                
-            }
-            //else with rocket size, and an other else clause with the rocket on explosion
-            
-            return damageZone;
-        }
-
-        public void HitTarge()
-        {
-            isFired = false;
-            Positie = new Vector2();
-        }
-
-        public override int hitTarget(Rectangle item)
+        public override int hitTarget(Rectangle item) //not needed anymore
         {
             int damage = 0;
             if(isFired && !isGoingUp)

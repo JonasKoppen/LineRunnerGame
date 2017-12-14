@@ -52,7 +52,7 @@ namespace LineRunnerShooter
 
         public void Update(GameTime gameTime, User player)
         {
-            int change = 0;
+            Vector2 Velocity = new Vector2(0,0);
             time += gameTime.ElapsedGameTime.TotalMilliseconds;
             if(time > 150)
             {
@@ -67,12 +67,12 @@ namespace LineRunnerShooter
             {
                 if (goingUp)
                 {
-                    change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds / slow);
-                    Positie.Y += change;
+                    Velocity.Y = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds / slow);
+                    Positie += Velocity;
                 }
                 if (player.getFeetCollisionRect().Intersects(getCollisionRectagle()))
                 {
-                    player.PlatformUpdate(change);
+                    player.PlatformUpdate(Velocity);
                     player.isGrounded = true;
                 }
             }

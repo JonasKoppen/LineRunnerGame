@@ -9,6 +9,7 @@ namespace LineRunnerShooter
 {
     static class General //general data that is needed everywhere, Deze klasse zorgt ervoor dat we niet 1 texture in 10 klassen steken (verminderd het geheugen)
     {
+        public static Random r;
         public static SpriteFont font;
 
         public static List<Texture2D> _afbeeldingBlokken;

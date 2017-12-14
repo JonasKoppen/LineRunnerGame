@@ -107,15 +107,18 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _levelMaps.Add(Content.Load<Texture2D>("Map"));
             _levelMaps.Add(Content.Load<Texture2D>("Map2"));
             _levelMaps.Add(Content.Load<Texture2D>("Map3"));
+            _levelMaps.Add(Content.Load<Texture2D>("Map4"));
 
             music = new List<Song>();
             music.Add(Content.Load<Song>("introS"));
             music.Add(Content.Load<Song>("level"));
             music.Add(Content.Load<Song>("boss"));
 
+            
             General._afbeeldingBlokken = _afbeeldingBlokken;
             General._afbeeldingEnemys = _afbeeldingEnemys;
             General._levelMaps = _levelMaps;
+            General.r = new Random();
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             loadLevel0();
 
@@ -261,7 +264,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             enemyBullets.AddRange(orihd.getBullets());
                         }
 
-                        level.Update(gameTime, held.getFeetCollisionRect());
+                        level.Update(gameTime, held);
                         held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
 
                         if(eindLift.Positie.Y < 200)
@@ -294,7 +297,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             enemyBullets.AddRange(orihd.getBullets());
                         }
 
-                        level.Update(gameTime, held.getFeetCollisionRect());
+                        level.Update(gameTime, held);
                         held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
                         eindLift.activate(held.getFeetCollisionRect());
 
@@ -324,7 +327,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                         
 
-                        level.Update(gameTime, held.getFeetCollisionRect());
+                        level.Update(gameTime, held);
                         held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.getBullets());
 
 
@@ -529,7 +532,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             currentLevel = 3;
             boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5200);
             held.setStartPos();
-            level = new Level(_levelMaps[1], _afbeeldingBlokken);
+            level = new Level(_levelMaps[3], _afbeeldingBlokken);
 
             startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;

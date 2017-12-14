@@ -141,14 +141,15 @@ namespace LineRunnerShooter
 
         
 
-        public void Update(GameTime gameTime, Rectangle player)
+        public void Update(GameTime gameTime, User user)
         {
             foreach(Block b in blockArray)
             {
                 if(b is BlockPurple)
                 {
                     BlockPurple bp = b as BlockPurple;
-                    bp.Update(gameTime, player);
+                    bp.Update(gameTime, user.getFeetCollisionRect());
+                    bp.getPosChange(user);
                 }
                 if (b is BlockRed)
                 {
