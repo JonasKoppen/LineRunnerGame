@@ -13,6 +13,7 @@ namespace LineRunnerShooter
      * Maybe I will add enemy placement, but it wil come after the game is in beta form (which it is not, it is alfa, i think, it is playable, but misses a lot and some code are a bit to big (to much for 1 method)
      * 
      */ 
+     /*
     class Level
     {
         public int xDim = 12;
@@ -227,7 +228,7 @@ namespace LineRunnerShooter
             return blocks;
         }
     }
-
+    */
 
     class LevelControl //handels everything
     {
@@ -304,7 +305,7 @@ namespace LineRunnerShooter
                             }
                         case "255 10":
                             {
-                                enemys.Add(new Orih(General._afbeeldingEnemys[5], General._afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
+                                enemys.Add(new Orih(General._afbeeldingEnemys[6], General._afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
                                 break;
                             }
                         default:
@@ -444,7 +445,11 @@ namespace LineRunnerShooter
                 {
                     if (blockArray[i, j] != null)
                     {
-                        blocks.Add(blockArray[i, j].getCollisionRectagle());
+                        if(!(blockArray[i,j] is Target))
+                        {
+                            blocks.Add(blockArray[i, j].getCollisionRectagle());
+                        }
+                        
                     }
 
                 }

@@ -94,6 +94,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RatchetBackgrond"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introTitle"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); //15
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI")); //15
 
 
             _afbeeldingEnemys = new List<Texture2D>();
