@@ -250,7 +250,7 @@ namespace LineRunnerShooter
 
             foreach (Flame f in bullets)
             {
-                f.Update(_position,angle,true);
+                f.Update(_position,angle,isFired);
             }
             isFired = false;
         }

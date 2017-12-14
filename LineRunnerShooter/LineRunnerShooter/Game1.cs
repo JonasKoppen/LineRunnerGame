@@ -24,6 +24,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<Texture2D> _levelMaps;
         List<Song> music; //http://www.gamefromscratch.com/post/2015/07/25/MonoGame-Tutorial-Audio.aspx
         int currentLevel;
+        int isNextLevel;
         Level level;
         Hiro2 held;
         //Orih orih;
@@ -196,6 +197,35 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             List<Rectangle> rectList = new List<Rectangle>();
             switch (currentLevel)
             {
+                case -1: //Loading screen, 
+                    {
+                        currentLevel = isNextLevel;
+                        switch (isNextLevel)
+                        {
+                            case 0:
+                                {
+                                    loadLevel0();
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    loadLevel1(gameTime);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    loadLevel2(gameTime);
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    loadLevel3(gameTime);
+                                    break;
+                                }
+                        }
+                        isNextLevel = 0;
+                        break;
+                    }
                 case 0:
                     
                     {
@@ -214,7 +244,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                         if (eindLift.Positie.Y < 100)
                         {
-                            loadLevel1(gameTime);
+                            currentLevel = -1;
+                            isNextLevel = 1;
                         }
                         if (startLift.isActive)
                         {
@@ -269,7 +300,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         if(eindLift.Positie.Y < 200)
                         {
-                            loadLevel2(gameTime);
+                            currentLevel = -1;
+                            isNextLevel = 2;
                         }
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
@@ -303,7 +335,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         if (eindLift.Positie.Y < 200)
                         {
-                            loadLevel3(gameTime);
+                            currentLevel = -1;
+                            isNextLevel = 3;
                         }
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
@@ -333,7 +366,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         if (eindLift.Positie.Y < 200)
                         {
-                            loadLevel0();
+                            currentLevel = -1;
+                            isNextLevel = 0;
                         }
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
@@ -363,6 +397,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             camPos = cameraPos(camera.Focus, held.getCollisionRectagle());
             switch (currentLevel)
             {
+                case -1:
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(_afbeeldingBlokken[14], new Rectangle(300, 100, 600, 600), Color.White);
+                        break;
+                    }
                 case 0:
                     {
                         
