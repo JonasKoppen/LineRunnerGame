@@ -46,7 +46,7 @@ namespace LineRunnerShooter
                     //+ colors1D[x + y * map.Width].B.ToString() + ""; // IDEE: gebruik blauw als extra informatie om mee te geven aan de builder (offset data) Alfa is ook bruikbaar
                     int B = colors1D[x + y * map.Width].B;
                     int alfa = colors1D[x + y * map.Width].A;
-                    Console.WriteLine(colorCode);
+                    //Console.WriteLine(colorCode);
                     switch (colorCode)
                     {
                         case "0 0":
@@ -263,7 +263,7 @@ namespace LineRunnerShooter
                     //+ colors1D[x + y * map.Width].B.ToString() + ""; // IDEE: gebruik blauw als extra informatie om mee te geven aan de builder (offset data) Alfa is ook bruikbaar
                     int B = colors1D[x + y * map.Width].B;
                     int alfa = colors1D[x + y * map.Width].A;
-                    Console.WriteLine(colorCode);
+                    //Console.WriteLine(colorCode);
                     switch (colorCode)
                     {
                         case "0 0":

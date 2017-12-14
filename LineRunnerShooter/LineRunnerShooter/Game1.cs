@@ -35,6 +35,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<LiftSide> liftSides;
         Vector2 mouse;
 
+        UI ui;
+
         int points;
 
         public static SpriteFont font;
@@ -123,6 +125,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             General._levelMaps = _levelMaps;
             General.r = new Random();
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
+            ui = new UI();
             loadLevel0();
 
             // TODO: slaag afbeeldingen op in variabelen
@@ -201,6 +204,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             {
                 case -1: //Loading screen, 
                     {
+                        
                         currentLevel = isNextLevel;
                         orihList = new List<Orih>();
                         points += level.getPoints();
@@ -218,11 +222,13 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 }
                             case 2:
                                 {
+                                    ui.stopTimer(gameTime);
                                     loadLevel2(gameTime);
                                     break;
                                 }
                             case 3:
                                 {
+                                    ui.stopTimer(gameTime);
                                     loadLevel3(gameTime);
                                     break;
                                 }
@@ -304,6 +310,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         if(eindLift.Positie.Y < 200)
                         {
+                            
                             currentLevel = -1;
                             isNextLevel = 2;
                         }
@@ -377,8 +384,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         break;
                     }
             }
-            
-            
+            ui.Update(gameTime, held, points);
         }
         float rotation = 0;
         float zoom = 1-0.5f;
@@ -448,6 +454,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         level.Draw(spriteBatch, 0, 0);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
+                        
                         foreach (Orih orihd in orihList)
                         {
                             orihd.draw(spriteBatch);
@@ -495,7 +502,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             }
 
             spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
-            spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString() + "/Points: " + points.ToString()), (camPos + new Vector2(100,100)), Color.NavajoWhite);
+            
+            ui.showTime(spriteBatch, camPos);
             spriteBatch.End();
             /*
             spriteBatch.Begin();
@@ -503,7 +511,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             spriteBatch.End();
             */
 
-            Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
+            //Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Draw(gameTime);
         }
 
@@ -550,6 +558,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
            
             eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
+            ui.startTimer(gameTime);
         }
 
         public void loadLevel2(GameTime gameTime)

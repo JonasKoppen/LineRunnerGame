@@ -85,7 +85,7 @@ namespace LineRunnerShooter
             float xVers =  -mouse.X + _position.X;
             float yVers =  -mouse.Y + _position.Y;
             angle = (float)Math.Atan2(xVers,yVers) + (float) (Math.PI/2);
-            Console.WriteLine(angle);
+            //Console.WriteLine(angle);
 
             foreach(Bullet b in bullets)
             {
@@ -115,15 +115,15 @@ namespace LineRunnerShooter
         public override void Fire()
         {
             //bullet.fire(angle, _position);
-            Console.WriteLine("checking bullet");
+            //Console.WriteLine("checking bullet");
             int i = 0;
             while((i != -1))
             {
-                Console.WriteLine("searching");
+                //Console.WriteLine("searching");
                 if (!bullets[i].isFired)
                 {
                     (bullets[i] as Bullet).fire(angle, _position);
-                    Console.WriteLine("bullet Fired");
+                    //Console.WriteLine("bullet Fired");
                     i = -1;
                 }
                 else
@@ -132,7 +132,7 @@ namespace LineRunnerShooter
                     if(bullets.Count <= i)
                     {
                         i = -1;
-                        Console.WriteLine("bullet not available");
+                        //Console.WriteLine("bullet not available");
                     }
                 }
             }
@@ -246,7 +246,7 @@ namespace LineRunnerShooter
             float xVers = -mouse.X + _position.X;
             float yVers = -mouse.Y + _position.Y;
             angle = (float)Math.Atan2(xVers, yVers) + (float)(Math.PI / 2);
-            Console.WriteLine(angle);
+            //Console.WriteLine(angle);
 
             foreach (Flame f in bullets)
             {
