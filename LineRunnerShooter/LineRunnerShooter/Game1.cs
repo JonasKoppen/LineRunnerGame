@@ -11,7 +11,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
     /// This is the main type for your game.
     /// </summary>
     /// 
-    //http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts Text
+    //http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts Text in the game
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
