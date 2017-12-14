@@ -49,11 +49,6 @@ namespace LineRunnerShooter
                     Console.WriteLine(colorCode);
                     switch (colorCode)
                     {
-                        case "255 255":
-                            {
-                                // white pixel
-                                break;
-                            }
                         case "0 0":
                             {
                                 blockArray[x, y] = new Block(0, new Vector2(x * 100, (y * 100)), new Vector2(100, 100));
@@ -88,6 +83,11 @@ namespace LineRunnerShooter
                         case "1 25":
                             {
                                 blockArray[x, y] = new Target(1, new Vector2(x * 100, (y * 100)), 5);
+                                break;
+                            }
+                        default:
+                            {
+                                //Just do nothing
                                 break;
                             }
                         
@@ -245,7 +245,7 @@ namespace LineRunnerShooter
             blockArray = new Block[xDim, yDim];
         }
 
-        public LevelControl(Texture2D map, List<Texture2D> texture, List<User> enemys, List<Texture2D> _afbeeldingEnemys)
+        public LevelControl(Texture2D map, List<Texture2D> texture, List<Orih> enemys)
         {   //gebruik Texture 2D colors array als level editor: https://stackoverflow.com/questions/10127871/how-can-i-read-image-pixels-values-as-rgb-into-2d-array // http://www.riemers.net/eng/Tutorials/XNA/Csharp/Series2D/Texture_to_Colors.php
             xDim = map.Width;
             yDim = map.Height;
@@ -266,11 +266,6 @@ namespace LineRunnerShooter
                     Console.WriteLine(colorCode);
                     switch (colorCode)
                     {
-                        case "255 255":
-                            {
-                                // white pixel
-                                break;
-                            }
                         case "0 0":
                             {
                                 blockArray[x, y] = new Block(0, new Vector2(x * 100, (y * 100)), new Vector2(100, 100));
@@ -302,14 +297,19 @@ namespace LineRunnerShooter
                                 blockArray[x, y] = new BlockPurple( new Vector2(x * 100, (y * 100)));
                                 break;
                             }
-                        case "1 25":
+                        case "220 255":
                             {
-                                blockArray[x, y] = new Target(1, new Vector2(x * 100, (y * 100)), 5);
+                                blockArray[x, y] = new Target(2, new Vector2(x * 100, (y * 100)), 5);
                                 break;
                             }
-                        case "1 35":
+                        case "255 10":
                             {
-                                enemys.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
+                                enemys.Add(new Orih(General._afbeeldingEnemys[5], General._afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
+                                break;
+                            }
+                        default:
+                            {
+                                //Do nothing
                                 break;
                             }
                     }
@@ -359,24 +359,37 @@ namespace LineRunnerShooter
             }
         }
 
-        public void Update(GameTime gameTime, Rectangle player)
+        public void Update(GameTime gameTime, User user)
         {
+            Hiro2 held = user as Hiro2;
             foreach (Block b in blockArray)
             {
-                if (b is BlockPurple)
+                if(b != null)
                 {
-                    BlockPurple bp = b as BlockPurple;
-                    bp.Update(gameTime, player);
-                }
-                if (b is BlockRed)
-                {
-                    BlockRed br = b as BlockRed;
-                    br.Update(gameTime);
-                }
-                if (b is Lava)
-                {
-                    Lava bl = b as Lava;
-                    bl.Update(gameTime);
+                    foreach (BulletBlueprint bullet in held.getBullets())
+                    {
+                        if (bullet.CollisionRect.Intersects(b.getCollisionRectagle()))
+                        {
+                            bullet.hitTarget();
+                            if (b is Target)
+                            {
+                                (b as Target).hitTarget();
+                            }
+                        }
+                    }
+                    if (b is BlockPurple)
+                    {
+                        (b as BlockPurple).Update(gameTime, user.getFeetCollisionRect());
+                        (b as BlockPurple).getPosChange(user);
+                    }
+                    if (b is BlockRed)
+                    {
+                        (b as BlockRed).Update(gameTime);
+                    }
+                    if (b is Lava)
+                    {
+                        (b as Lava).Update(gameTime);
+                    }
                 }
             }
         }
@@ -397,11 +410,6 @@ namespace LineRunnerShooter
                     }
                 }
             }
-        }
-
-        public Rectangle getCollisionRectagle()
-        {
-            throw new NotImplementedException();
         }
 
         public bool checkCollision(Rectangle user)

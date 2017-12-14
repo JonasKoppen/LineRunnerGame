@@ -20,50 +20,46 @@ namespace LineRunnerShooter
         //TODO: attack modes: spinning arms (done), shooting
         public bool isAlive;
         public bool seePlayer;
-        private Rectangle attackBox;
         private bool isAttacking;
         private int lastMove;
         private Texture2D _Texture;
         protected RobotMeleeARM robotARM;
 
 
-        public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
+        public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet, Vector2 pos) : base(textureL, textureR, move, bullet)
         {
-            _spritePos = new Rectangle(posX, 0, 60, 200);
-            _Position.X = posX;
-            _StartPos.X = posX;
+            _spritePos = new Rectangle(pos.ToPoint(), new Point(60, 200));
+            _Position = pos;
+            _StartPos = pos;
             isAlive = true;
             isAttacking = false;
             _lives = 3;
-            attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(bullet);
             maxSpeed = 8;
         }
-        public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armpix, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
+        public Orih(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, textureR, move, bullet)
         {
-            _spritePos = new Rectangle(posX, 0, 60, 200);
-            _Position.X = posX;
-            _StartPos.X = posX;
+            _spritePos = new Rectangle(pos.ToPoint(), new Point(60,200));
+            _Position = pos;
+            _StartPos = pos;
             isAlive = true;
             isAttacking = false;
             _lives = 3;
-            attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
         }
-        public Orih(Texture2D textureL, Texture2D textureR,Rectangle spritePos, MoveMethod move, Texture2D armpix, Texture2D bullet, int posX) : base(textureL, textureR, move, bullet)
+        public Orih(Texture2D textureL, Texture2D textureR,Rectangle spritePos, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, textureR, move, bullet)
         {
             _spritePos = spritePos;
-            _Position.X = posX;
-            _StartPos.X = posX;
+            _Position = pos;
+            _StartPos = pos;
             isAlive = true;
             isAttacking = false;
             _lives = 3;
-            attackBox = new Rectangle(posX, 0, 60, 60);
             _Texture = textureL;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(armpix);
@@ -80,8 +76,6 @@ namespace LineRunnerShooter
                 {
                     Console.WriteLine("Attacing");
                     robotARM.Fire();
-                    attackBox.Location = _Position.ToPoint();
-                    attackBox.Y -= 30;
                 }
                 if (lastMove != _MoveMethod.Movedir)
                 {

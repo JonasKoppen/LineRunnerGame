@@ -25,7 +25,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<Song> music; //http://www.gamefromscratch.com/post/2015/07/25/MonoGame-Tutorial-Audio.aspx
         int currentLevel;
         int isNextLevel;
-        Level level;
+        LevelControl level;
         Hiro2 held;
         //Orih orih;
         List<Orih> orihList;
@@ -200,6 +200,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 case -1: //Loading screen, 
                     {
                         currentLevel = isNextLevel;
+                        orihList = new List<Orih>();
                         switch (isNextLevel)
                         {
                             case 0:
@@ -514,7 +515,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             orihList = new List<Orih>();
 
             held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
-            level = new Level();
+            level = new LevelControl();
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
             {
@@ -538,11 +539,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            level = new Level(_levelMaps[2], _afbeeldingBlokken);
+            level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
-            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6],new Rectangle(0,0,100,200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
-            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
+            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6],new Rectangle(0,0,100,200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(3000,500)));
+            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(3100, 500)));
            
             eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
@@ -554,10 +555,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             currentLevel = 2;
             
             orihList = new List<Orih>();
-            orihList.Add( new Orih(_afbeeldingEnemys[6], _afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5100));
-            orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5000));
+            orihList.Add( new Orih(_afbeeldingEnemys[6], _afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5000, 500)));
+            orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500)));
             held.setStartPos();
-            level = new Level(_levelMaps[1], _afbeeldingBlokken);
+            level = new LevelControl(_levelMaps[2], _afbeeldingBlokken, orihList);
 
             startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
@@ -570,9 +571,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             zoom = 1 - 0.5f;
             currentLevel = 3;
-            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5200);
+            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500));
             held.setStartPos();
-            level = new Level(_levelMaps[3], _afbeeldingBlokken);
+            level = new LevelControl(_levelMaps[3], _afbeeldingBlokken, orihList);
 
             startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;

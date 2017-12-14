@@ -24,7 +24,7 @@ namespace LineRunnerShooter
         private Random r;
         private int phase;
         private double elapsedTime;
-        public BigBoy(Texture2D textureL, Texture2D textureR, MoveMethod move,Texture2D armpix, Texture2D bullet, int posX) : base(textureL, textureR, move,armpix, bullet, posX)
+        public BigBoy(Texture2D textureL, Texture2D textureR, MoveMethod move,Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, textureR, move,armpix, bullet, pos)
         {
             
             rockets = new List<BulletR>();

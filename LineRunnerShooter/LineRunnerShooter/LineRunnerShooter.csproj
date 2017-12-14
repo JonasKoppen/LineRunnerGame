@@ -54,7 +54,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Hiro.cs" />
-    <Compile Include="ICollide.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Lift.cs" />
     <Compile Include="LiftSide.cs" />

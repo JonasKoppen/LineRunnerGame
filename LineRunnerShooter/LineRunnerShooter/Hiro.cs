@@ -230,21 +230,6 @@ namespace LineRunnerShooter
             invincebleTime = 1000;
         }
 
-        public override void checkEnviroments(List<Rectangle> level)
-        {
-            base.checkEnviroments(level);
-            foreach(Rectangle rect in level)
-            {
-                foreach (BulletBlueprint b in arsenal[selectedARM].getBullets())
-                {
-                    if (b.CollisionRect.Intersects(rect))
-                    {
-                        b.hitTarget();
-                    }
-                }
-            }
-        }
-
         public List<BulletBlueprint> getBullets()
         {
             return arsenal[selectedARM].getBullets();
