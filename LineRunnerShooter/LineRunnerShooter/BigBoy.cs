@@ -51,7 +51,7 @@ namespace LineRunnerShooter
             {
                 case 0:
                     {
-                        if(player.X > 600)
+                        if(player.X > 600 && player.Y > 1000)
                         {
                             phase++;
                         }
@@ -63,15 +63,15 @@ namespace LineRunnerShooter
                 case 1:
                     {
                         //base.Update(gameTime, stateKey);
-                        if (_Position.X < player.X) { _Position.X = player.X; }
+                        _Position.X += (player.X - _Position.X) / 8;
                         
                         _Position.Y = 1000;
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (player.X > 4700)
                         {
                             phase++;
-                            _Position.X = player.X+500;
-                            _Position.Y = 1000;
+                            _Position.X = player.X+900;
+                            _Position.Y = 1500;
                             isGrounded = false;
                         }
                         if(elapsedTime > 1000)

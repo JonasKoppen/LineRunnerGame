@@ -120,7 +120,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             music.Add(Content.Load<Song>("introS"));
             music.Add(Content.Load<Song>("level"));
             music.Add(Content.Load<Song>("boss"));
-            music.Add(Content.Load<Song>("Complete"));
+            music.Add(Content.Load<Song>("CompleteS"));
 
 
             General._afbeeldingBlokken = _afbeeldingBlokken;
@@ -535,7 +535,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public Vector2 cameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
         {
-            return new Vector2(held.Location.X - 700, held.Location.Y-600);
+            return new Vector2(held.Location.X - 700, held.Location.Y-800);
         }
 
         public void loadLevel0()

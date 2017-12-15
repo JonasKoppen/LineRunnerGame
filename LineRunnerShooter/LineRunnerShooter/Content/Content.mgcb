@@ -55,12 +55,6 @@
 /processorParam:Quality=Best
 /build:boss.mp3
 
-#begin Complete.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Complete.mp3
-
 #begin Complete.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -72,6 +66,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Complete.png
+
+#begin CompleteS.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:CompleteS.mp3
 
 #begin CrossHair.png
 /importer:TextureImporter
