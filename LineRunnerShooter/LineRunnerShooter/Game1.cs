@@ -11,7 +11,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
     /// This is the main type for your game.
     /// </summary>
     /// 
-    //http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts Text
+    //http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts Text in the game
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -24,7 +24,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         List<Texture2D> _levelMaps;
         List<Song> music; //http://www.gamefromscratch.com/post/2015/07/25/MonoGame-Tutorial-Audio.aspx
         int currentLevel;
-        Level level;
+        int isNextLevel;
+        LevelControl level;
         Hiro2 held;
         //Orih orih;
         List<Orih> orihList;
@@ -33,6 +34,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         Lift eindLift;
         List<LiftSide> liftSides;
         Vector2 mouse;
+
+        UI ui;
+
+        int points;
 
         public static SpriteFont font;
 
@@ -89,6 +94,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RatchetBackgrond"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introTitle"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); //15
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI")); //15
 
 
             _afbeeldingEnemys = new List<Texture2D>();
@@ -120,6 +126,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             General._levelMaps = _levelMaps;
             General.r = new Random();
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
+            ui = new UI();
             loadLevel0();
 
             // TODO: slaag afbeeldingen op in variabelen
@@ -196,6 +203,40 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             List<Rectangle> rectList = new List<Rectangle>();
             switch (currentLevel)
             {
+                case -1: //Loading screen, 
+                    {
+                        
+                        currentLevel = isNextLevel;
+                        orihList = new List<Orih>();
+                        points += level.getPoints();
+                        switch (isNextLevel)
+                        {
+                            case 0:
+                                {
+                                    loadLevel0();
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    loadLevel1(gameTime);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    ui.stopTimer(gameTime);
+                                    loadLevel2(gameTime);
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    ui.stopTimer(gameTime);
+                                    loadLevel3(gameTime);
+                                    break;
+                                }
+                        }
+                        isNextLevel = 0;
+                        break;
+                    }
                 case 0:
                     
                     {
@@ -214,7 +255,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                         if (eindLift.Positie.Y < 100)
                         {
-                            loadLevel1(gameTime);
+                            currentLevel = -1;
+                            isNextLevel = 1;
                         }
                         if (startLift.isActive)
                         {
@@ -269,7 +311,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         if(eindLift.Positie.Y < 200)
                         {
-                            loadLevel2(gameTime);
+                            
+                            currentLevel = -1;
+                            isNextLevel = 2;
                         }
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
@@ -303,7 +347,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         if (eindLift.Positie.Y < 200)
                         {
-                            loadLevel3(gameTime);
+                            currentLevel = -1;
+                            isNextLevel = 3;
                         }
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
@@ -333,14 +378,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         if (eindLift.Positie.Y < 200)
                         {
-                            loadLevel0();
+                            currentLevel = -1;
+                            isNextLevel = 0;
                         }
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         break;
                     }
             }
-            
-            
+            ui.Update(gameTime, held, points);
         }
         float rotation = 0;
         float zoom = 1-0.5f;
@@ -363,6 +408,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             camPos = cameraPos(camera.Focus, held.getCollisionRectagle());
             switch (currentLevel)
             {
+                case -1:
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(_afbeeldingBlokken[14], new Rectangle(300, 100, 600, 600), Color.White);
+                        break;
+                    }
                 case 0:
                     {
                         spriteBatch.Begin(transformMatrix: viewMatrix);   
@@ -402,6 +453,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         level.Draw(spriteBatch, 0, 0);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
+                        
                         foreach (Orih orihd in orihList)
                         {
                             orihd.draw(spriteBatch);
@@ -449,14 +501,16 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             }
 
             spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
-            spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString()), (camPos + new Vector2(100,100)), Color.NavajoWhite);
+            
+            ui.showTime(spriteBatch, camPos);
             spriteBatch.End();
+            /*
             spriteBatch.Begin();
             spriteBatch.DrawString(General.font, ("Live Points: " + held.Lives.ToString()), (camPos + new Vector2(100, 100)), Color.NavajoWhite);
             spriteBatch.End();
+            */
 
-
-            Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
+            //Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
             base.Draw(gameTime);
         }
 
@@ -472,7 +526,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             orihList = new List<Orih>();
 
             held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
-            level = new Level();
+            level = new LevelControl();
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
             {
@@ -496,14 +550,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            level = new Level(_levelMaps[2], _afbeeldingBlokken);
+            level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
-            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6],new Rectangle(0,0,100,200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
-            orihList.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
+            
            
             eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
+            ui.startTimer(gameTime);
         }
 
         public void loadLevel2(GameTime gameTime)
@@ -512,10 +566,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             currentLevel = 2;
             
             orihList = new List<Orih>();
-            orihList.Add( new Orih(_afbeeldingEnemys[6], _afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5100));
-            orihList.Add(new Orih(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5000));
+            
             held.setStartPos();
-            level = new Level(_levelMaps[1], _afbeeldingBlokken);
+            level = new LevelControl(_levelMaps[2], _afbeeldingBlokken, orihList);
 
             startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
@@ -528,9 +581,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             zoom = 1 - 0.5f;
             currentLevel = 3;
-            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 5200);
+            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500));
             held.setStartPos();
-            level = new Level(_levelMaps[3], _afbeeldingBlokken);
+            level = new LevelControl(_levelMaps[3], _afbeeldingBlokken, orihList);
 
             startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;

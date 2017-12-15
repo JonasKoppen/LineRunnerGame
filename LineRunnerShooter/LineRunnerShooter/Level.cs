@@ -13,6 +13,7 @@ namespace LineRunnerShooter
      * Maybe I will add enemy placement, but it wil come after the game is in beta form (which it is not, it is alfa, i think, it is playable, but misses a lot and some code are a bit to big (to much for 1 method)
      * 
      */ 
+     /*
     class Level
     {
         public int xDim = 12;
@@ -46,14 +47,9 @@ namespace LineRunnerShooter
                     //+ colors1D[x + y * map.Width].B.ToString() + ""; // IDEE: gebruik blauw als extra informatie om mee te geven aan de builder (offset data) Alfa is ook bruikbaar
                     int B = colors1D[x + y * map.Width].B;
                     int alfa = colors1D[x + y * map.Width].A;
-                    Console.WriteLine(colorCode);
+                    //Console.WriteLine(colorCode);
                     switch (colorCode)
                     {
-                        case "255 255":
-                            {
-                                // white pixel
-                                break;
-                            }
                         case "0 0":
                             {
                                 blockArray[x, y] = new Block(0, new Vector2(x * 100, (y * 100)), new Vector2(100, 100));
@@ -88,6 +84,11 @@ namespace LineRunnerShooter
                         case "1 25":
                             {
                                 blockArray[x, y] = new Target(1, new Vector2(x * 100, (y * 100)), 5);
+                                break;
+                            }
+                        default:
+                            {
+                                //Just do nothing
                                 break;
                             }
                         
@@ -227,7 +228,7 @@ namespace LineRunnerShooter
             return blocks;
         }
     }
-
+    */
 
     class LevelControl //handels everything
     {
@@ -245,7 +246,7 @@ namespace LineRunnerShooter
             blockArray = new Block[xDim, yDim];
         }
 
-        public LevelControl(Texture2D map, List<Texture2D> texture, List<User> enemys, List<Texture2D> _afbeeldingEnemys)
+        public LevelControl(Texture2D map, List<Texture2D> texture, List<Orih> enemys)
         {   //gebruik Texture 2D colors array als level editor: https://stackoverflow.com/questions/10127871/how-can-i-read-image-pixels-values-as-rgb-into-2d-array // http://www.riemers.net/eng/Tutorials/XNA/Csharp/Series2D/Texture_to_Colors.php
             xDim = map.Width;
             yDim = map.Height;
@@ -263,14 +264,9 @@ namespace LineRunnerShooter
                     //+ colors1D[x + y * map.Width].B.ToString() + ""; // IDEE: gebruik blauw als extra informatie om mee te geven aan de builder (offset data) Alfa is ook bruikbaar
                     int B = colors1D[x + y * map.Width].B;
                     int alfa = colors1D[x + y * map.Width].A;
-                    Console.WriteLine(colorCode);
+                    //Console.WriteLine(colorCode);
                     switch (colorCode)
                     {
-                        case "255 255":
-                            {
-                                // white pixel
-                                break;
-                            }
                         case "0 0":
                             {
                                 blockArray[x, y] = new Block(0, new Vector2(x * 100, (y * 100)), new Vector2(100, 100));
@@ -302,20 +298,25 @@ namespace LineRunnerShooter
                                 blockArray[x, y] = new BlockPurple( new Vector2(x * 100, (y * 100)));
                                 break;
                             }
-                        case "1 25":
+                        case "220 255":
                             {
-                                blockArray[x, y] = new Target(1, new Vector2(x * 100, (y * 100)), 5);
+                                blockArray[x, y] = new Target(2, new Vector2(x * 100, (y * 100)), 5);
                                 break;
                             }
-                        case "1 35":
+                        case "255 10":
                             {
-                                enemys.Add(new Orih(_afbeeldingEnemys[5], _afbeeldingEnemys[6], new Rectangle(0, 0, 100, 200), new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 3000));
+                                enemys.Add(new Orih(General._afbeeldingEnemys[6], General._afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
+                                break;
+                            }
+                        default:
+                            {
+                                //Do nothing
                                 break;
                             }
                     }
                 }
             }
-            Random r = General.r;
+            Random r = new Random();
             for (int x = 1; x < map.Width - 1; x++)
             {
                 for (int y = 1; y < map.Height - 1; y++)
@@ -359,29 +360,37 @@ namespace LineRunnerShooter
             }
         }
 
-        public void Update(GameTime gameTime, Hiro2 player)
+        public void Update(GameTime gameTime, User user)
         {
+            Hiro2 held = user as Hiro2;
             foreach (Block b in blockArray)
             {
-                if (b is BlockPurple)
+                if(b != null)
                 {
-                    
-                    (b as BlockPurple).Update(gameTime, player.getFeetCollisionRect());
-                    (b as BlockPurple).getPosChange(player);
-                }
-                if (b is BlockRed)
-                {
-                    
-                    (b as BlockRed).Update(gameTime);
-                }
-                if (b is Lava)
-                {
-                    
-                    (b as Lava).Update(gameTime);
-                }
-                if(b is Target)
-                {
-                    (b as Target).Update(player.getBullets());
+                    foreach (BulletBlueprint bullet in held.getBullets())
+                    {
+                        if (bullet.CollisionRect.Intersects(b.getCollisionRectagle()))
+                        {
+                            bullet.hitTarget();
+                            if (b is Target)
+                            {
+                                (b as Target).hitTarget();
+                            }
+                        }
+                    }
+                    if (b is BlockPurple)
+                    {
+                        (b as BlockPurple).Update(gameTime, user.getFeetCollisionRect());
+                        (b as BlockPurple).getPosChange(user);
+                    }
+                    if (b is BlockRed)
+                    {
+                        (b as BlockRed).Update(gameTime);
+                    }
+                    if (b is Lava)
+                    {
+                        (b as Lava).Update(gameTime);
+                    }
                 }
             }
         }
@@ -436,7 +445,11 @@ namespace LineRunnerShooter
                 {
                     if (blockArray[i, j] != null)
                     {
-                        blocks.Add(blockArray[i, j].getCollisionRectagle());
+                        if(!(blockArray[i,j] is Target))
+                        {
+                            blocks.Add(blockArray[i, j].getCollisionRectagle());
+                        }
+                        
                     }
 
                 }
@@ -446,15 +459,16 @@ namespace LineRunnerShooter
 
         public int getPoints()
         {
-            int points = 0;
-            foreach(Block b in blockArray)
+            int score = 0;
+            foreach(Block t in blockArray)
             {
-                if(b is Target)
+                if(t is Target)
                 {
-                    points += (b as Target).getPoints();
+                    score += (t as Target).getPoints();
                 }
+                
             }
-            return points;
+            return score;
         }
     }
 }

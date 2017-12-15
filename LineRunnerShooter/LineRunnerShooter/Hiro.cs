@@ -135,15 +135,7 @@ namespace LineRunnerShooter
                 jumpAllowed = true;
             }
             invincebleTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            if ((_MoveMethod as MovePlayer).nextWeapon)
-            {
-                selectedARM++;
-                if (selectedARM > 2)
-                {
-                    selectedARM = 0;
-                }
-                (_MoveMethod as MovePlayer).nextWeapon = false;
-            }
+            selectedARM = (_MoveMethod as MovePlayer).selWeapon;
         }
 
         protected override void spritePosUpdate()
@@ -238,21 +230,6 @@ namespace LineRunnerShooter
             invincebleTime = 1000;
         }
 
-        public override void checkEnviroments(List<Rectangle> level)
-        {
-            base.checkEnviroments(level);
-            foreach(Rectangle rect in level)
-            {
-                foreach (BulletBlueprint b in arsenal[selectedARM].getBullets())
-                {
-                    if (b.CollisionRect.Intersects(rect))
-                    {
-                        b.hitTarget();
-                    }
-                }
-            }
-        }
-
         public List<BulletBlueprint> getBullets()
         {
             return arsenal[selectedARM].getBullets();
@@ -261,13 +238,14 @@ namespace LineRunnerShooter
 
     class MovePlayer : MoveMethod
     {
-        private bool lastSpaceState = false;
-        public bool nextWeapon;
+        private bool lastShootState = false;
+        public int selWeapon;
         public override void Update(KeyboardState stateKey, MouseState mouseState, bool canLeft, bool canRight)
         {
 
             isJump = false;
             isShooting = false;
+
             if (stateKey.IsKeyDown(Keys.Q) && canLeft)
             {
                 movedir = 0;
@@ -280,22 +258,34 @@ namespace LineRunnerShooter
             {
                 movedir = 2;
             }
-            if ((mouseState.LeftButton == ButtonState.Pressed) && !lastSpaceState) //http://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
+
+            if ((mouseState.LeftButton == ButtonState.Pressed) && !lastShootState) //http://www.gamefromscratch.com/post/2015/06/28/MonoGame-Tutorial-Handling-Keyboard-Mouse-and-GamePad-Input.aspx
             {
                 isShooting = true;
-                lastSpaceState = true;
+                lastShootState = true;
             }
-            if (stateKey.IsKeyUp(Keys.Z))
+
+            if ((mouseState.LeftButton == ButtonState.Released) || selWeapon == 2)
             {
-                lastSpaceState = false;
+                lastShootState = false;
             }
+
             if (stateKey.IsKeyDown(Keys.Z))
             {
                 isJump = true;
             }
-            if(!nextWeapon && stateKey.IsKeyDown(Keys.E))
+
+            if(stateKey.IsKeyDown(Keys.D1))
             {
-                nextWeapon = true;
+                selWeapon = 0;
+            }
+            else if (stateKey.IsKeyDown(Keys.D2))
+            {
+                selWeapon = 1;
+            }
+            else if (stateKey.IsKeyDown(Keys.D3))
+            {
+                selWeapon = 2;
             }
 
         }

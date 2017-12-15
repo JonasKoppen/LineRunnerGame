@@ -14,7 +14,7 @@ namespace LineRunnerShooter
      * Also works with counters wich tick every x milliseconds
      * 
      */
-    class BlockRed : Block,ICollide
+    class BlockRed : Block
     {
         private bool isActive;
         protected double time;

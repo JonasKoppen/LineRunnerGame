@@ -54,12 +54,12 @@
     <Compile Include="Game1.cs" />
     <Compile Include="General.cs" />
     <Compile Include="Hiro.cs" />
-    <Compile Include="ICollide.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Lift.cs" />
     <Compile Include="LiftSide.cs" />
     <Compile Include="PhysicsBox.cs" />
     <Compile Include="Sheep.cs" />
+    <Compile Include="UI.cs" />
     <Compile Include="Z_MovingPlatform.cs" />
     <Compile Include="Orih.cs" />
     <Compile Include="Program.cs" />

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
-    class User : ICollide 
+    class User
     {
         //TODO: healt
         //TODO: Add 360 shooting requirement

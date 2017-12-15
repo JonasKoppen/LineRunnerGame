@@ -13,7 +13,7 @@ namespace LineRunnerShooter
      * The Lava class is like the Block but without the collionRectangle but with an animation wich requires an update method
      * The target block has also no collisoin rect, but will be shootable, if destroyed it wil return points.
      */ 
-    class Block : ICollide
+    class Block
     {
         public Vector2 Positie; //Make property
         protected Rectangle _texturePos;
@@ -93,19 +93,9 @@ namespace LineRunnerShooter
             hitBox = new Rectangle(pos.ToPoint(), _texturePos.Size);
         }
 
-        public void Update(List<BulletBlueprint> bullets) //Collision with bullets
+        public void hitTarget()
         {
-            if (!isShot) //als het object al neergeschoten is moeten we niet nog is controleren op collisie
-            {
-                foreach (BulletBlueprint B in bullets)
-                {
-                    if (B.hitTarget(hitBox) > 0)
-                    {
-                        isShot = true;
-                    }
-                }
-            }
-            
+            isShot = true;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -124,6 +114,16 @@ namespace LineRunnerShooter
                 points = _value;
             }
             return points;
+        }
+
+        public override Rectangle getCollisionRectagle()
+        {
+            Rectangle rect = new Rectangle();
+            if (!isShot)
+            {
+                rect = base.getCollisionRectagle();
+            }
+            return rect;
         }
     }
 }

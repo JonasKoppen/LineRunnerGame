@@ -20,8 +20,6 @@ namespace LineRunnerShooter
         Rectangle CollisionRect { get; }
         int hitTarget();
         int hitTarget(Rectangle target);
-
-
     }
 
     abstract class BulletBlueprint : IBullet
@@ -87,18 +85,8 @@ namespace LineRunnerShooter
             timeToLive = 0;
         }
 
-        public void fire(float angle, Vector2 pos)
-        {
-            if (!isFired)
-            {
-                Positie = pos;
-                _direction.X = (float)(Math.Cos(angle) * 1.5);
-                _direction.Y = -(float)(Math.Sin(angle) * 1.5);
-                isFired = true;
-                timeToLive = 1000;
-            }
-            
-        }
+         
+        
         public void fire(Vector2 pos)
         {
             if (!isFired)
@@ -106,6 +94,18 @@ namespace LineRunnerShooter
                 Positie = pos;
                 _direction.X = 0;
                 _direction.Y = 10;
+                isFired = true;
+                timeToLive = 1000;
+            }
+
+        }
+        public void fire(float angle, Vector2 pos)
+        {
+            if (!isFired)
+            {
+                Positie = pos;
+                _direction.X = (float)(Math.Cos(angle) * 1.5);
+                _direction.Y = -(float)(Math.Sin(angle) * 1.5);
                 isFired = true;
                 timeToLive = 1000;
             }
@@ -119,11 +119,17 @@ namespace LineRunnerShooter
             {
                 Positie.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.X);
                 Positie.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.Y);
+                if ((timeToLive < 0))
+                {
+                    hitTarget();
+                }
             }
-            if (timeToLive <0)
+            else
             {
-                hitTarget();
+                Positie = new Vector2(0, 1000);
             }
+
+            
         }
 
         public override int hitTarget() //aka the reset function, returns the damage
