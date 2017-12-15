@@ -95,6 +95,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introTitle"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); //15
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI")); //15
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Complete")); 
 
 
             _afbeeldingEnemys = new List<Texture2D>();
@@ -119,8 +120,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             music.Add(Content.Load<Song>("introS"));
             music.Add(Content.Load<Song>("level"));
             music.Add(Content.Load<Song>("boss"));
+            music.Add(Content.Load<Song>("Complete"));
 
-            
+
             General._afbeeldingBlokken = _afbeeldingBlokken;
             General._afbeeldingEnemys = _afbeeldingEnemys;
             General._levelMaps = _levelMaps;
@@ -231,6 +233,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 {
                                     ui.stopTimer(gameTime);
                                     loadLevel3(gameTime);
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    ui.stopTimer(gameTime);
+                                    loadResult();
                                     break;
                                 }
                         }
@@ -379,9 +387,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         if (eindLift.Positie.Y < 200)
                         {
                             currentLevel = -1;
-                            isNextLevel = 0;
+                            isNextLevel = 4;
                         }
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                        break;
+                    }
+                case 4:
+                    {
+
                         break;
                     }
             }
@@ -460,7 +473,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                         held.draw(spriteBatch);
                         level.Draw(spriteBatch, 0, 0);
-                        
+                        ui.showTime(spriteBatch, camPos);
                         break;
                     }
                 case 2:
@@ -478,8 +491,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         held.draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
+                        ui.showTime(spriteBatch, camPos);
 
-                        
                         break;
                     }
                 case 3:
@@ -494,15 +507,21 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         held.draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
-                        
+                        ui.showTime(spriteBatch, camPos);
                         break;
                     }
+                case 4:
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(General._afbeeldingBlokken[17], new Rectangle(0, 0, 1280, 720), Color.White);
+                        break;
+                    }
+
 
             }
 
             spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
             
-            ui.showTime(spriteBatch, camPos);
             spriteBatch.End();
             /*
             spriteBatch.Begin();
@@ -590,6 +609,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[2]);
+        }
+
+        public void loadResult()
+        {
+            MediaPlayer.Play(music[3]);
         }
     }
 }
