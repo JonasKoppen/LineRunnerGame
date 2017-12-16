@@ -19,7 +19,7 @@ namespace LineRunnerShooter
         public bool isActive;
         int slow;
         double time;
-        public Lift(int texture, Vector2 startPos, Vector2 eindPos) : base(texture, startPos)
+        public Lift(Vector2 startPos, Vector2 eindPos) : base(6, startPos)
         {
             goingUp = true;
             this.eindPos = eindPos;

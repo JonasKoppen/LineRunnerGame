@@ -26,7 +26,7 @@ namespace LineRunnerShooter
         {
             spriteBatch.DrawString(General.font, (playTime.ToString(@"mm\:ss\.ff")), new Vector2(2300, 50) + camPos, Color.DarkBlue);
             spriteBatch.DrawString(General.font, ("Live Points: " + HeroLives.ToString() + "/Points: " + points.ToString()), (camPos + new Vector2(900, 50)), Color.NavajoWhite); //Punten worden niet getoond
-            spriteBatch.Draw(General._afbeeldingBlokken[16], new Rectangle(camPos.ToPoint() - new Point(200,0), new Point(3000,1500)), Color.White);
+            spriteBatch.Draw(General._afbeeldingBlokken[10], new Rectangle(camPos.ToPoint() - new Point(200,0), new Point(3000,1500)), Color.White);
         }
 
         public void stopTimer(GameTime gameTime)

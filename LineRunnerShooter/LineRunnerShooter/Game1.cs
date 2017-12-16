@@ -82,19 +82,13 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RotPlat")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("lava2"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("DreadBlock"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsCornerL"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsCornerR")); //5
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsSideL"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsSideM"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsSideR"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformsStreight"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("intro")); //10
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("CrossHair"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("liftSideIntro")); 
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("CrossHair")); //5
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lift")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("RatchetBackgrond"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introTitle"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); //15
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI")); //15
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); 
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI")); //10
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("Complete")); 
 
 
@@ -207,11 +201,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             {
                 case -1: //Loading screen, 
                     {
-                        
-                        currentLevel = isNextLevel;
                         orihList = new List<Orih>();
                         points += level.getPoints();
-                        switch (isNextLevel)
+                        camPos = new Vector2(0, 0);
+                        currentLevel = isNextLevel;
+                        isNextLevel = 0;
+                        switch (currentLevel)
                         {
                             case 0:
                                 {
@@ -242,7 +237,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                     break;
                                 }
                         }
-                        isNextLevel = 0;
+
                         break;
                     }
                 case 0:
@@ -424,7 +419,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 case -1:
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(_afbeeldingBlokken[14], new Rectangle(300, 100, 600, 600), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(300, 100, 600, 600), Color.White);
+                        camPos = new Vector2(0, 0);
                         break;
                     }
                 case 0:
@@ -433,13 +429,13 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         switch (intro)
                         {
                             case 0:
-                                spriteBatch.Draw(_afbeeldingBlokken[14], new Rectangle(500, 250, 600, 600), Color.White);
+                                spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);
                                 break;
                             case 1:
-                                spriteBatch.Draw(_afbeeldingBlokken[15], new Rectangle(500, 250, 600, 600), Color.White);
+                                spriteBatch.Draw(_afbeeldingBlokken[9], new Rectangle(500, 250, 600, 600), Color.White);
                                 break;
                             default:
-                                spriteBatch.Draw(_afbeeldingBlokken[14], new Rectangle(500, 250, 600, 600), Color.White);
+                                spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);
                                 break;
                         }
                         for (int i = 0; i < liftSides.Count; i++)
@@ -462,7 +458,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X*0.25), -300,6500,2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X*0.25), -300,6500,2500), Color.White);
                         level.Draw(spriteBatch, 0, 0);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
@@ -480,7 +476,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
@@ -499,7 +495,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
@@ -513,14 +509,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 case 4:
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(General._afbeeldingBlokken[17], new Rectangle(0, 0, 1280, 720), Color.White);
+                        spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
                         break;
                     }
 
 
             }
 
-            spriteBatch.Draw(_afbeeldingBlokken[11], mouse, Color.White);
+            spriteBatch.Draw(_afbeeldingBlokken[5], mouse, Color.White);
             
             spriteBatch.End();
             /*
@@ -535,7 +531,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public Vector2 cameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
         {
-            return new Vector2(held.Location.X - 700, held.Location.Y-800);
+            Vector2 newCampos = camPos + ((item.Location.ToVector2() - new Vector2(600,600)) - camPos) / 8;
+            return newCampos;
         }
 
         public void loadLevel0()
@@ -549,12 +546,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
             {
-                liftSides.Add(new LiftSide(10, new Vector2(0, i), false));
-                liftSides.Add(new LiftSide(10, new Vector2(300, i), true));
+                liftSides.Add(new LiftSide(4, new Vector2(0, i), false));
+                liftSides.Add(new LiftSide(4, new Vector2(300, i), true));
             }
-            startLift = new Lift(12, new Vector2(100, 1500), new Vector2(100, 700));
+            startLift = new Lift(new Vector2(100, 1500), new Vector2(100, 700));
             startLift.isActive = true;
-            eindLift = new Lift(12, new Vector2(100, 700), new Vector2(100, -100));
+            eindLift = new Lift(new Vector2(100, 700), new Vector2(100, -100));
             currentLevel = 0;
             MediaPlayer.Play(music[0]);
         }
@@ -566,7 +563,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             orihList = new List<Orih>();
 
-            startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
             level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
@@ -574,7 +571,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
             
            
-            eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
             ui.startTimer(gameTime);
         }
@@ -589,10 +586,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held.setStartPos();
             level = new LevelControl(_levelMaps[2], _afbeeldingBlokken, orihList);
 
-            startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
             
         }
 
@@ -604,10 +601,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held.setStartPos();
             level = new LevelControl(_levelMaps[3], _afbeeldingBlokken, orihList);
 
-            startLift = new Lift(12, new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(new Vector2(100, 2000*2), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(12, new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[2]);
         }
 
