@@ -56,23 +56,22 @@ namespace LineRunnerShooter
                         {
                             phase++;
                         }
-                        _Position.X = -200;
-                        _Position.Y = 1000;
+                        _Position.X = 600;
+                        _Position.Y = 2000;
                         robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
                         break;
                     }
                 case 1:
                     {
                         //base.Update(gameTime, stateKey);
-                        _Position.X += (player.X - _Position.X) / 8;
+                        _Position.X += (player.X - _Position.X + 400) / 8;
                         
-                        _Position.Y = 1000;
+                        _Position.Y += (player.Y - _Position.Y - 300) / 8;
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (player.X > 4700)
                         {
                             phase++;
-                            _Position.X = player.X+900;
-                            _Position.Y = 1500;
+                            _Position.X = player.X+600;
                             isGrounded = false;
                         }
                         if(elapsedTime > 1000)
