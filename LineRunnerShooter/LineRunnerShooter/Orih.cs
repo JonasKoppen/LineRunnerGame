@@ -92,7 +92,7 @@ namespace LineRunnerShooter
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            _spritePos.Location = new Point(0,0);
+            _spritePos.X = 0;
             if (isAlive)
             {
                 base.draw(spriteBatch);
