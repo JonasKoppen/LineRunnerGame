@@ -165,6 +165,25 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 camPos.X += 1;
             }
             */
+            
+
+            if (stateKey.IsKeyDown(Keys.F1))
+            {
+                loadLevel1(gameTime);
+            }
+            if (stateKey.IsKeyDown(Keys.F2))
+            {
+                loadLevel2(gameTime);
+            }
+            if (stateKey.IsKeyDown(Keys.F3))
+            {
+                loadLevel3(gameTime);
+            }
+            if (stateKey.IsKeyDown(Keys.F9))
+            {
+                isNextLevel = 4;
+                currentLevel = -1;
+            }
             if (stateKey.IsKeyDown(Keys.F5))
             {
                 rotation += .1f;
@@ -180,19 +199,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             if (stateKey.IsKeyDown(Keys.F8))
             {
                 zoom -= .1f;
-            }
-
-            if (stateKey.IsKeyDown(Keys.F1))
-            {
-                loadLevel1(gameTime);
-            }
-            if (stateKey.IsKeyDown(Keys.F2))
-            {
-                loadLevel2(gameTime);
-            }
-            if (stateKey.IsKeyDown(Keys.F3))
-            {
-                loadLevel3(gameTime);
             }
 
             base.Update(gameTime);
@@ -390,7 +396,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     }
                 case 4:
                     {
-
                         break;
                     }
             }
@@ -511,6 +516,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         spriteBatch.Begin();
                         spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
+                        ui.showResult(spriteBatch);
                         break;
                     }
 
@@ -518,7 +524,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             }
 
             spriteBatch.Draw(_afbeeldingBlokken[5], mouse, Color.White);
-            
+            Console.WriteLine(held.Location.ToString());
             spriteBatch.End();
             /*
             spriteBatch.Begin();
@@ -534,6 +540,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             Vector2 newCampos = camPos + ((item.Location.ToVector2() - new Vector2(600,600)) - camPos) / 8;
             newCampos.X = (int)(newCampos.X);
+            if(item.X < 400 || item.X > 7100)
+            {
+                newCampos.Y = 1000;
+            }
             newCampos.Y = (int)(newCampos.Y);
             return newCampos;
         }
