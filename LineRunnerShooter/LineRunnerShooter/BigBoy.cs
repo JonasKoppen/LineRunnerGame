@@ -40,6 +40,7 @@ namespace LineRunnerShooter
             r = new Random();
             _lives = 5;
             phase = 0;
+            _spritePos.Size = new Point(120, 200);
         }
 
 
@@ -86,7 +87,7 @@ namespace LineRunnerShooter
                             b.Update();
                         }
                         robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
-                        
+                        _spritePos.Location = new Point(0, 400);
                         break;
                     }
                 case 2:

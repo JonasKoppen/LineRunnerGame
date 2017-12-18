@@ -98,7 +98,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyR"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("ARM"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("energyBall"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyL"));
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuy"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyR")); //5
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuy")); 
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuyHDR"));
