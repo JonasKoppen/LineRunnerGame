@@ -49,11 +49,10 @@ namespace LineRunnerShooter
 
         public Vector2 Location { get { return _Position; } }
 
-        public User(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet)
+        public User(Texture2D texture, MoveMethod move, Texture2D bullet)
         {
             _texture = new List<Texture2D>();
-            _texture.Add(textureL);
-            _texture.Add(textureR);
+            _texture.Add(texture);
             _Action = 0;
             _Position = new Vector2(0, 500);
             time = 0;
@@ -117,8 +116,7 @@ namespace LineRunnerShooter
 
         public virtual void draw(SpriteBatch spriteBatch)
         {
-
-            spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
+            spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
             //spriteBatch.Draw(_texture[0], collisionBox.Left, _spritePos, Color.Red);
             //spriteBatch.Draw(_texture[0], collisionBox.Right, _spritePos, Color.Red);
             //spriteBatch.Draw(_texture[0], collisionBox.Feet, _spritePos, Color.Blue);
@@ -133,10 +131,12 @@ namespace LineRunnerShooter
                 case (0):
                     _Velocity.X = -(float)(speed);
                     _Action = 0;
+                    _spritePos.Y = _spritePos.Size.Y;
                     break;
                 case (1):
                     _Velocity.X = (float)(speed);
                     _Action = 1;
+                    _spritePos.Y = 0;
                     break;
                 default:
                     if (Math.Abs(_Velocity.X) < 1)
