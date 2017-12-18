@@ -109,7 +109,7 @@ namespace LineRunnerShooter
         int selectedARM = 1;
 
 
-        public Hiro2(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(textureL,  move, bullet)
+        public Hiro2(int texture, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(texture,  move, bullet)
         {
   
             _spritePos = new Rectangle(0, 0, 100, 200);
@@ -201,20 +201,20 @@ namespace LineRunnerShooter
         {
             if(_spritePos.Y == 0)
             {
-                spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
+                spriteBatch.Draw(_texture, _Position, _spritePos, Color.White);
                 arsenal[selectedARM].Draw(spriteBatch);
                 if (invincebleTime > 20)
                 {
-                    spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.Red);
+                    spriteBatch.Draw(_texture, _Position, _spritePos, Color.Red);
                 }
             }
             else
             {
                 arsenal[selectedARM].Draw(spriteBatch);
-                spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
+                spriteBatch.Draw(_texture, _Position, _spritePos, Color.White);
                 if (invincebleTime > 20)
                 {
-                    spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.Red);
+                    spriteBatch.Draw(_texture, _Position, _spritePos, Color.Red);
                 }
             }
             

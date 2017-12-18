@@ -305,7 +305,7 @@ namespace LineRunnerShooter
                             }
                         case "255 10":
                             {
-                                enemys.Add(new Orih(General._afbeeldingEnemys[6], General._afbeeldingEnemys[7], new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
+                                enemys.Add(new Orih(6, new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
                                 break;
                             }
                         default:
@@ -390,6 +390,10 @@ namespace LineRunnerShooter
                     if (b is Lava)
                     {
                         (b as Lava).Update(gameTime);
+                    }
+                    if(b is Target)
+                    {
+                        (b as Target).Update(gameTime);
                     }
                 }
             }

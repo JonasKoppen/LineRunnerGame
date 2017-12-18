@@ -14,7 +14,7 @@ namespace LineRunnerShooter
      */ 
     class Sheep : User
     {
-        public Sheep(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D bullet) : base(textureL, move, bullet) 
+        public Sheep(int textureL, Texture2D textureR, MoveMethod move, Texture2D bullet) : base(textureL, move, bullet) 
         {
         }
 

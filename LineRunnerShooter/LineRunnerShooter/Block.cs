@@ -85,12 +85,28 @@ namespace LineRunnerShooter
         bool isShot;
         int _value;
         Rectangle hitBox;
-        public Target(int texture, Vector2 pos, int value) : base(texture, pos)
+        double updateTime;
+        public Target(int texture, Vector2 pos, int value) : base(12, pos)
         {
             _texturePos.Size = new Point(100, 100);
             _value = value;
             isShot = false;
             hitBox = new Rectangle(pos.ToPoint(), _texturePos.Size);
+            updateTime = 250;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            updateTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            if(updateTime < 0)
+            {
+                _texturePos.X += _texturePos.Size.X;
+                if(_texturePos.X >= General._afbeeldingBlokken[_textureNum].Width)
+                {
+                    _texturePos.X = 0;
+                }
+                updateTime = 250;
+            }
         }
 
         public void hitTarget()

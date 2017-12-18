@@ -20,7 +20,7 @@ namespace LineRunnerShooter
 
         protected int time; //for update 
 
-        protected List<Texture2D> _texture; //textures
+        protected Texture2D _texture; //textures
         protected Rectangle _spritePos;     //texture pos
         protected int _Action;              //actioin movement
         public Vector2 _Position;        //position
@@ -49,10 +49,9 @@ namespace LineRunnerShooter
 
         public Vector2 Location { get { return _Position; } }
 
-        public User(Texture2D texture, MoveMethod move, Texture2D bullet)
+        public User(int texture, MoveMethod move, Texture2D bullet)
         {
-            _texture = new List<Texture2D>();
-            _texture.Add(texture);
+            _texture = General._afbeeldingEnemys[texture];
             _Action = 0;
             _Position = new Vector2(0, 500);
             time = 0;
@@ -116,7 +115,7 @@ namespace LineRunnerShooter
 
         public virtual void draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture[0], _Position, _spritePos, Color.White);
+            spriteBatch.Draw(_texture, _Position, _spritePos, Color.White);
             //spriteBatch.Draw(_texture[0], collisionBox.Left, _spritePos, Color.Red);
             //spriteBatch.Draw(_texture[0], collisionBox.Right, _spritePos, Color.Red);
             //spriteBatch.Draw(_texture[0], collisionBox.Feet, _spritePos, Color.Blue);

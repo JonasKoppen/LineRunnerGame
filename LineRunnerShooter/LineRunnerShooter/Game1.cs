@@ -89,7 +89,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introTitle"));
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI")); //10
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Complete")); 
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Complete"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("target"));
 
 
             _afbeeldingEnemys = new List<Texture2D>();
@@ -532,6 +533,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         public Vector2 cameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
         {
             Vector2 newCampos = camPos + ((item.Location.ToVector2() - new Vector2(600,600)) - camPos) / 8;
+            newCampos.X = (int)(newCampos.X);
+            newCampos.Y = (int)(newCampos.Y);
             return newCampos;
         }
 
@@ -541,7 +544,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             zoom = 1;
             orihList = new List<Orih>();
 
-            held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
+            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
             level = new LevelControl();
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
@@ -568,7 +571,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
-            held = new Hiro2(_afbeeldingEnemys[8], _afbeeldingEnemys[8], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
+            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
             
            
             eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
@@ -597,7 +600,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             zoom = 1 - 0.5f;
             currentLevel = 3;
-            boss = new BigBoy(_afbeeldingEnemys[4], _afbeeldingEnemys[5], new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500));
+            boss = new BigBoy(4, new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500));
             held.setStartPos();
             level = new LevelControl(_levelMaps[3], _afbeeldingBlokken, orihList);
 
