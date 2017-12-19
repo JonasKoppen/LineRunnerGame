@@ -465,7 +465,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);
                                 break;
                             case 1:
-                                spriteBatch.Draw(_afbeeldingBlokken[9], new Rectangle(500, 250, 600, 600), Color.White);
+                                spriteBatch.Draw(_afbeeldingBlokken[9], new Rectangle(500, 250, 600, 600), new Rectangle(0,0, 800, 800), Color.White);
+                                break;
+                            case 2:
+                                spriteBatch.Draw(_afbeeldingBlokken[9], new Rectangle(500, 250,600,600), new Rectangle(800, 0, 800, 800), Color.White);
                                 break;
                             default:
                                 spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);

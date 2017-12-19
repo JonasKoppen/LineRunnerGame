@@ -196,6 +196,11 @@ namespace LineRunnerShooter
         {
             Update(_canLeft, _canRight);
         }
+
+        public void changeDir()
+        {
+            movedir = Math.Abs(movedir - 1);
+        }
     }
     
 }

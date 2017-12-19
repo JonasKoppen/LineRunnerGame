@@ -96,11 +96,16 @@ namespace LineRunnerShooter
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (isAlive)
                         {
+                            if (elapsedTime > 200 && r.Next(100) > 95)
+                            {
+                                (_MoveMethod as RobotMove).changeDir();
+                            }
                             if (elapsedTime > 250)
                             {
                                 elapsedTime = 0;
                                 Attack(new Vector2(5000,600));
                             }
+                            
                             foreach (BulletR b in rockets)
                             {
                                 b.Update();
@@ -113,9 +118,15 @@ namespace LineRunnerShooter
                             {
                                 isAlive = false;
                                 _Position = new Vector2(200, 5000);
+                                robotARM.disable();
+                                foreach(BulletR r in rockets)
+                                {
+                                    r.resetBullet();
+                                }
                             }
                             SeePlayer(player);
                         }
+                        
                         break;
                     }
             }

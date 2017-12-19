@@ -70,6 +70,12 @@ namespace LineRunnerShooter
             }
         }
 
+        public void resetBullet()
+        {
+            Positie = new Vector2(100, 5000);
+            isFired = false;
+        }
+
     }
     class Bullet : BulletBlueprint
     {

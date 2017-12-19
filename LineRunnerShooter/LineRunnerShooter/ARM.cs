@@ -57,6 +57,7 @@ namespace LineRunnerShooter
         public abstract void Fire();
 
         public abstract List<BulletBlueprint> getBullets();
+
     }
 
     class ShotARM : ARMBluePrint //only has X active bullets
@@ -214,6 +215,11 @@ namespace LineRunnerShooter
         public void setDamage(int damage)
         {
             meleeBullet.setDamage(damage);
+        }
+
+        public void disable()
+        {
+            meleeBullet.resetBullet();
         }
     }
 
