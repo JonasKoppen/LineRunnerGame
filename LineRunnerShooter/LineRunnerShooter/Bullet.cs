@@ -24,7 +24,7 @@ namespace LineRunnerShooter
 
     abstract class BulletBlueprint : IBullet
     {
-        private Texture2D _texture;
+        protected Texture2D _texture;
         protected Vector2 Positie;
         protected Vector2 _size;
 

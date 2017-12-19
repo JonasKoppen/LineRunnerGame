@@ -17,15 +17,14 @@ namespace LineRunnerShooter
         public Vector2 DestPos;
         public Vector2 _direction;
         public bool isGoingUp;
-        public bool isExploding;
         private int damage;
 
-        public BulletR(Texture2D texture) : base(texture, new Vector2(0, 0), new Vector2(50, 50), 1, 2)
+        public BulletR() : base(General._afbeeldingEnemys[10], new Vector2(0, 0), new Vector2(50, 50), 1, 2)
         {
             isGoingUp = true;
             damage = _damage;
         }
-        public BulletR(Texture2D texture, Point size) : base(texture, new Vector2(0,0), size.ToVector2(), 1, 2)
+        public BulletR(Point size) : base(General._afbeeldingEnemys[10], new Vector2(0,0), size.ToVector2(), 1, 2)
         {
             isGoingUp = true;
         }
@@ -38,6 +37,7 @@ namespace LineRunnerShooter
                 _direction.Y = -Convert.ToInt16(Math.Sin(angle) * 8);
                 isFired = true;
                 isGoingUp = true;
+                
             }
             
         }
@@ -63,13 +63,15 @@ namespace LineRunnerShooter
                     Positie.X = DestPos.X;
                     _direction.Y = 10;
                     isGoingUp = false;
+                    _texture = General._afbeeldingEnemys[9];
                 }
             }
             if (Positie.Y > 3000)
             {
                 isFired = false;
                 isGoingUp = true;
-                Positie = new Vector2(0,0);
+                Positie = new Vector2(0,1000000);
+                _texture = General._afbeeldingEnemys[10];
             }
         }
 
@@ -80,7 +82,6 @@ namespace LineRunnerShooter
             {
                 collision = CollisionRect;
             }
-
             return collision;
         }
 

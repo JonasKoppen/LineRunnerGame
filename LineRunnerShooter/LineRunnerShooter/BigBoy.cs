@@ -27,14 +27,14 @@ namespace LineRunnerShooter
         public BigBoy(int textureL, MoveMethod move,Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move,armpix, bullet, pos)
         {
             rockets = new List<BulletR>();
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
-            rockets.Add(new BulletR(bullet, new Point(50, 50)));
+            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets.Add(new BulletR( new Point(50, 100)));
             time = 3;
             r = new Random();
             _lives = 5;

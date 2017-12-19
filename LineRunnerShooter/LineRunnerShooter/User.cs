@@ -60,7 +60,7 @@ namespace LineRunnerShooter
             isGrounded = false;
             canLeft = true;
             canRight = true;
-            _lives = 5;
+            _lives = 20;
             _StartPos = new Vector2(500, 1200);
             slow = 30;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);

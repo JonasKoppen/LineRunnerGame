@@ -40,9 +40,8 @@ namespace LineRunnerShooter
         public void showResult(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(General.font, (playTime.ToString(@"mm\:ss\.ff")), new Vector2(870, 270), Color.White);
-            spriteBatch.DrawString(General.font, ( HeroLives.ToString()), new Vector2(1000, 320), Color.White); //Punten worden niet getoond
-            spriteBatch.DrawString(General.font, (points.ToString()), new Vector2(1000, 370), Color.White); //Punten worden niet getoond
-            spriteBatch.DrawString(General.font, ("BAD"), new Vector2(970, 450), Color.Red); //Punten worden niet getoond
+            spriteBatch.DrawString(General.font, ( points.ToString()), new Vector2(1000, 320), Color.White); 
+            spriteBatch.DrawString(General.font, ("BAD"), new Vector2(970, 450), Color.Red); 
         }
 
         public void showDeath(SpriteBatch spriteBatch)
