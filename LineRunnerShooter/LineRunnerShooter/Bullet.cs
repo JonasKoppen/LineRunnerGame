@@ -246,8 +246,8 @@ namespace LineRunnerShooter
             Positie = pos;
             if (isFired)
             {
-                Positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X) * 1.5 );
-                Positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 1.5);
+                Positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X) );
+                Positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y));
             }
             else
             {
