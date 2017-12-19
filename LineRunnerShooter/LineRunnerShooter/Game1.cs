@@ -603,7 +603,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(200,3000));
             held.setToStartPos(new Vector2(200, 2400));
-            eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(new Vector2(7400, 1700), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
             ui.startTimer(gameTime);
         }
