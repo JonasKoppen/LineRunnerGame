@@ -210,6 +210,11 @@ namespace LineRunnerShooter
             return bullets;
 
         }
+
+        public void setDamage(int damage)
+        {
+            meleeBullet.setDamage(damage);
+        }
     }
 
     class FlameThrower : ARMBluePrint

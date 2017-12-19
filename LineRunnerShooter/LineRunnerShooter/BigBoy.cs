@@ -54,7 +54,7 @@ namespace LineRunnerShooter
                         if(player.X > 600 && player.Y > 1000)
                         {
                             phase++;
-                            
+                            robotARM.setDamage(0);
                         }
                         _Position.X = 600;
                         _Position.Y = 2000;
@@ -73,6 +73,7 @@ namespace LineRunnerShooter
                             phase++;
                             _Position.X = player.X+600;
                             isGrounded = false;
+                            robotARM.setDamage(5);
                         }
                         if(elapsedTime > 1000)
                         {

@@ -227,7 +227,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 }
                             case 2:
                                 {
-                                    ui.stopTimer(gameTime);
                                     loadLevel2(gameTime);
                                     break;
                                 }
