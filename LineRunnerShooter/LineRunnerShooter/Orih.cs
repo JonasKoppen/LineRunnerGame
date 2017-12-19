@@ -162,7 +162,13 @@ namespace LineRunnerShooter
                 }
             }
         }
-        
+        protected override void sheep()
+        {
+            base.sheep();
+            robotARM.disable();
+            robotARM.setDamage(0);
+        }
+
         public virtual List<BulletBlueprint> getBullets()
         {
             return robotARM.getBullets();
@@ -202,6 +208,8 @@ namespace LineRunnerShooter
         {
             movedir = Math.Abs(movedir - 1);
         }
+
+        
     }
     
 }

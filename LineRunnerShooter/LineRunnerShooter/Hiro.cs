@@ -16,98 +16,16 @@ namespace LineRunnerShooter
      * 
      */ 
 
-        /*
-    class Hiro : User
-    {
-        protected bool jumpAllowed;
-        protected int _JumpHeight;
-        private double invincebleTime;
-        ShotARM SingleShotArm;
-        ShotARM TripleShotArm;
-
-
-        public Hiro(Texture2D textureL, Texture2D textureR, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(textureL, textureR, move, bullet)
-        {
-            _spritePos = new Rectangle(0, 0, 100, 195);
-            _Position.X = posX;
-            _Position.Y = posY;
-            SingleShotArm = new ShotARM(armtexture, bullet,1);
-            TripleShotArm = new ShotARM(armtexture, bullet,3);
-            _JumpHeight = 15;
-            invincebleTime = 0;
-            collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
-        }
-
-        public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos, Vector2 mouseLoc)
-        {
-            CheckAction();
-            _MoveMethod.Update(stateKey, mouse, canLeft, canRight);
-            base.Update(gameTime, stateKey, mouse, camPos);
-            arm.Update(gameTime, _Position, mouseLoc);
-            if (isGrounded)
-            {
-                jumpAllowed = true;
-            }
-            invincebleTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-        }
-
-        private void CheckAction()
-        {
-            if (_MoveMethod.isShooting)
-            {
-                arm.Fire();
-            }
-            if (_MoveMethod.isJump)
-            {
-                Jump();
-            }
-        }
-        private void Jump()
-        {
-            if (jumpAllowed)
-            {
-                isGrounded = false;
-                jumpAllowed = false;
-                _Velocity.Y = -_JumpHeight;
-            }
-        }
-
-        public void setStartPos()
-        {
-            _Position = new Vector2(150, 1700);
-            _Velocity = new Vector2(0, 0);
-        }
-
-        public override void draw(SpriteBatch spriteBatch)
-        {
-            _spritePos = new Rectangle(0, 0, 100, 200);
-            spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.White);
-            arm.Draw(spriteBatch);
-            if(invincebleTime > 20)
-            {
-                spriteBatch.Draw(_texture[_Action], _Position, _spritePos, Color.Red);
-            }
-            //base.draw(spriteBatch);
-        }
-
-        public void checkHit(Rectangle hitObject)
-        {
-            if (collisionBox.Body.Intersects(hitObject))
-            {
-                _lives--;
-                invincebleTime = 500;
-            }
-        }
-    }
-    */
     class Hiro2 : User
     {
         protected bool jumpAllowed;
         protected int _JumpHeight;
         private double invincebleTime;
         List<ARMBluePrint> arsenal;
-        int selectedARM = 1;
+        int selectedARM = 0;
+        int maxArms = 5;
 
+        public int MaxArms { get { return maxArms; } set { if (value > maxArms) { maxArms = value; }} }
 
         public Hiro2(int texture, MoveMethod move, Texture2D armtexture, Texture2D bullet, Vector2 location) : base(texture,  move, bullet)
         {
@@ -118,6 +36,7 @@ namespace LineRunnerShooter
             arsenal.Add(new ShotARM(armtexture, bullet,1));
             arsenal.Add( new ShotARM(armtexture, bullet,3));
             arsenal.Add(new FlameThrower(armtexture, bullet));
+            arsenal.Add(new SheepANator(armtexture, bullet));
             _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
@@ -126,6 +45,7 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos, Vector2 mouseLoc, List<BulletBlueprint> bullets)
         {
             CheckAction();
+            (_MoveMethod as MovePlayer).maxWeapon = maxArms;
             _MoveMethod.Update(stateKey, mouse, canLeft, canRight);
             base.Update(gameTime, stateKey, mouse, camPos, bullets);
             arsenal[selectedARM].Update(gameTime, _Position, mouseLoc);
@@ -239,6 +159,7 @@ namespace LineRunnerShooter
     {
         private bool lastShootState = false;
         public int selWeapon;
+        public int maxWeapon = 2;
         public override void Update(KeyboardState stateKey, MouseState mouseState, bool canLeft, bool canRight)
         {
 
@@ -264,7 +185,7 @@ namespace LineRunnerShooter
                 lastShootState = true;
             }
 
-            if ((mouseState.LeftButton == ButtonState.Released) || selWeapon == 2)
+            if ((mouseState.LeftButton == ButtonState.Released) || selWeapon > 1)
             {
                 lastShootState = false;
             }
@@ -282,9 +203,13 @@ namespace LineRunnerShooter
             {
                 selWeapon = 1;
             }
-            else if (stateKey.IsKeyDown(Keys.D3))
+            else if (stateKey.IsKeyDown(Keys.D3) && maxWeapon > 2)
             {
                 selWeapon = 2;
+            }
+            else if (stateKey.IsKeyDown(Keys.D4) && maxWeapon > 3)
+            {
+                selWeapon = 3;
             }
 
         }

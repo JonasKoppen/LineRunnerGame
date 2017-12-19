@@ -260,12 +260,24 @@ namespace LineRunnerShooter
                     if (collisionBox.Body.Intersects(bullets[i].CollisionRect))
                     {
                         takeDamage(bullets[i].hitTarget());
+                        
+                        if(bullets[i] is SheepBeam && _lives < 3)
+                        {
+                            sheep();
+                        }
                         i = bullets.Count + 1;
                     }
                     i++;
                 }
             }
 
+        }
+
+        protected virtual void sheep()
+        {
+            _texture = General._afbeeldingEnemys[11];
+            _spritePos = new Rectangle(0, 0, 100, 200);
+            _lives = 100000;
         }
 
         protected virtual void takeDamage(int damage)

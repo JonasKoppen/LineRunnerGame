@@ -9,6 +9,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 {
     /// <summary>
     /// This is the main type for your game.
+    /// Explenation required
     /// </summary>
     /// 
     //http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts Text in the game
@@ -110,7 +111,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuyHDR"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("SpShSmallGuy"));
             _afbeeldingEnemys.Add(Content.Load<Texture2D>("Fireball"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("FireballUp"));
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("FireballUp")); //10
+            _afbeeldingEnemys.Add(Content.Load<Texture2D>("Sheep")); //
 
 
             _levelMaps = new List<Texture2D>();

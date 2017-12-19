@@ -12,7 +12,7 @@ namespace LineRunnerShooter
      * This class is contains some deseases (bad english), do not touch until it is finished (or at least working)
      * 
      */
-    class PhysicsBox
+    class Z_PhysicsBox
     {
         protected double time; //for update 
 
@@ -28,7 +28,7 @@ namespace LineRunnerShooter
 
         public Vector2 Location { get { return _Position; } }
 
-        public PhysicsBox(MoveMethod move, Vector2 startPos, Vector2 resetPos)
+        public Z_PhysicsBox(MoveMethod move, Vector2 startPos, Vector2 resetPos)
         {
             _Position = startPos;
             time = 0;
@@ -39,7 +39,7 @@ namespace LineRunnerShooter
             maxSpeed = 15;
             _VelocityChange = new Vector2(0, 0);
         }
-        public PhysicsBox(MoveMethod move, Vector2 startPos, Vector2 resetPos, int slow, int gravity, int maxSpeed)
+        public Z_PhysicsBox(MoveMethod move, Vector2 startPos, Vector2 resetPos, int slow, int gravity, int maxSpeed)
         {
             _Position = startPos;
             time = 0;

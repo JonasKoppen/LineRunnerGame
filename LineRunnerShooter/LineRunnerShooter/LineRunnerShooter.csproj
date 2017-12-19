@@ -57,8 +57,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="Lift.cs" />
     <Compile Include="LiftSide.cs" />
-    <Compile Include="PhysicsBox.cs" />
-    <Compile Include="Sheep.cs" />
+    <Compile Include="Z_PhysicsBox.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="UpdatetableBlock.cs" />
     <Compile Include="Z_MovingPlatform.cs" />
