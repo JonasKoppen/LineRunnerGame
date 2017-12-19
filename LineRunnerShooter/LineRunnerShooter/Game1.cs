@@ -208,198 +208,201 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             base.Update(gameTime);
 
             List<Rectangle> rectList = new List<Rectangle>();
-            switch (currentLevel)
+            if (enableUpdate)
             {
-                case -1: //Loading screen, 
-                    {
-                        orihList = new List<Orih>();
-                        points += level.getPoints();
-                        camPos = new Vector2(0, 0);
-                        currentLevel = isNextLevel;
-                        isNextLevel = 0;
-                        switch (currentLevel)
+                switch (currentLevel)
+                {
+                    case -1: //Loading screen, 
                         {
-                            case 0:
-                                {
-                                    loadLevel0();
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    loadLevel1(gameTime);
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    loadLevel2(gameTime);
-                                    break;
-                                }
-                            case 3:
-                                {
-                                    loadLevel3(gameTime);
-                                    break;
-                                }
-                            case 4:
-                                {
-                                    ui.stopTimer(gameTime);
-                                    loadResult();
-                                    break;
-                                }
-                        }
-
-                        break;
-                    }
-                case 0:
-                    
-                    {
-                        if(stateKey.IsKeyDown(Keys.Enter) && !startLift.isActive && lastEnter<0)
-                        {
-                            intro++;
-                            lastEnter = 100;
-                        }
-                        if (stateKey.IsKeyUp(Keys.Enter))
-                        {
-                            lastEnter = -1;
-                        }
-                        if (stateKey.IsKeyDown(Keys.Enter) && intro > 2)
-                        {
-                            eindLift.activate();
-                        }
-                        if (eindLift.Positie.Y < 100)
-                        {
-                            currentLevel = -1;
-                            isNextLevel = 1;
-                        }
-                        if (startLift.isActive)
-                        {
-                            rectList.Add(startLift.getCollisionRectagle());
-                        }
-                        else
-                        {
-                            rectList.Add(eindLift.getCollisionRectagle());
-                        }
-                        for (int i =0; i < liftSides.Count; i++)
-                        {
-                            liftSides[i].Update(gameTime);
-                            rectList.Add(liftSides[i].getCollisionRectagle());
-                        }
-                        held.checkEnviroments(rectList);
-
-                        startLift.Update(gameTime, held);
-                        eindLift.Update(gameTime, held);
-
-                        List<BulletBlueprint> hi = new List<BulletBlueprint>();
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, hi);
-                        camera.Position = new Vector2(0, 200);
-                        break;
-                    }
-                case 1:
-                    {
-                        
-                        eindLift.activate(held.getFeetCollisionRect());
-                        startLift.Update(gameTime, held);
-                        eindLift.Update(gameTime, held);
-
-                        rectList = level.getRectangles();               
-                        rectList.Add(startLift.getCollisionRectagle());
-                        rectList.Add(eindLift.getCollisionRectagle());
-                        held.checkEnviroments(rectList);
-
-                        List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
-                        foreach (Orih orihd in orihList)
-                        {
-                            orihd.checkEnviroments(rectList);
-                            orihd.SeePlayer(held.getCollisionRectagle());
-                            orihd.Update(gameTime, stateKey, held.getBullets());
-                            if (!held.isGrounded)
+                            orihList = new List<Orih>();
+                            points += level.getPoints();
+                            camPos = new Vector2(0, 0);
+                            currentLevel = isNextLevel;
+                            isNextLevel = 0;
+                            switch (currentLevel)
                             {
-                                held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                                case 0:
+                                    {
+                                        loadLevel0();
+                                        break;
+                                    }
+                                case 1:
+                                    {
+                                        loadLevel1(gameTime);
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        loadLevel2(gameTime);
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        loadLevel3(gameTime);
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        ui.stopTimer(gameTime);
+                                        loadResult();
+                                        break;
+                                    }
                             }
-                            enemyBullets.AddRange(orihd.getBullets());
+
+                            break;
                         }
+                    case 0:
 
-                        level.Update(gameTime, held);
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
-
-                        if(eindLift.Positie.Y < 200)
                         {
-                            
-                            currentLevel = -1;
-                            isNextLevel = 2;
-                        }
-                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
-                        break;
-                    }
-                case 2:
-                    {
-                        startLift.Update(gameTime, held);
-                        eindLift.Update(gameTime, held);
-
-                        rectList = level.getRectangles();
-                        rectList.Add(startLift.getCollisionRectagle());
-                        rectList.Add(eindLift.getCollisionRectagle());
-                        held.checkEnviroments(rectList);
-
-                        List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
-                        foreach (Orih orihd in orihList)
-                        {
-                            orihd.checkEnviroments(rectList);
-                            orihd.SeePlayer(held.getCollisionRectagle());
-                            orihd.Update(gameTime, stateKey, held.getBullets());
-                            if (!held.isGrounded)
+                            if (stateKey.IsKeyDown(Keys.Enter) && !startLift.isActive && lastEnter < 0)
                             {
-                                held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                                intro++;
+                                lastEnter = 100;
                             }
-                            enemyBullets.AddRange(orihd.getBullets());
+                            if (stateKey.IsKeyUp(Keys.Enter))
+                            {
+                                lastEnter = -1;
+                            }
+                            if (stateKey.IsKeyDown(Keys.Enter) && intro > 2)
+                            {
+                                eindLift.activate();
+                            }
+                            if (eindLift.Positie.Y < 100)
+                            {
+                                currentLevel = -1;
+                                isNextLevel = 1;
+                            }
+                            if (startLift.isActive)
+                            {
+                                rectList.Add(startLift.getCollisionRectagle());
+                            }
+                            else
+                            {
+                                rectList.Add(eindLift.getCollisionRectagle());
+                            }
+                            for (int i = 0; i < liftSides.Count; i++)
+                            {
+                                liftSides[i].Update(gameTime);
+                                rectList.Add(liftSides[i].getCollisionRectagle());
+                            }
+                            held.checkEnviroments(rectList);
+
+                            startLift.Update(gameTime, held);
+                            eindLift.Update(gameTime, held);
+
+                            List<BulletBlueprint> hi = new List<BulletBlueprint>();
+                            held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, hi);
+                            camera.Position = new Vector2(0, 200);
+                            break;
                         }
-
-                        level.Update(gameTime, held);
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
-                        eindLift.activate(held.getFeetCollisionRect());
-
-                        if (eindLift.Positie.Y < 200)
+                    case 1:
                         {
-                            currentLevel = -1;
-                            isNextLevel = 3;
-                        }
-                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
-                        break;
-                    }
-                case 3:
-                    {
-                        startLift.Update(gameTime, held);
-                        eindLift.Update(gameTime, held);
 
-                        rectList = level.getRectangles();
-                        rectList.Add(startLift.getCollisionRectagle());
-                        rectList.Add(eindLift.getCollisionRectagle());
-                        held.checkEnviroments(rectList);
-
-                        boss.checkEnviroments(rectList);
-                        boss.Update(gameTime, stateKey, held.getCollisionRectagle(), held.getBullets());
-
-                        if (!boss.isAlive)
-                        {
                             eindLift.activate(held.getFeetCollisionRect());
+                            startLift.Update(gameTime, held);
+                            eindLift.Update(gameTime, held);
+
+                            rectList = level.getRectangles();
+                            rectList.Add(startLift.getCollisionRectagle());
+                            rectList.Add(eindLift.getCollisionRectagle());
+                            held.checkEnviroments(rectList);
+
+                            List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
+                            foreach (Orih orihd in orihList)
+                            {
+                                orihd.checkEnviroments(rectList);
+                                orihd.SeePlayer(held.getCollisionRectagle());
+                                orihd.Update(gameTime, stateKey, held.getBullets());
+                                if (!held.isGrounded)
+                                {
+                                    held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                                }
+                                enemyBullets.AddRange(orihd.getBullets());
+                            }
+
+                            level.Update(gameTime, held);
+                            held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
+
+                            if (eindLift.Positie.Y < 200)
+                            {
+
+                                currentLevel = -1;
+                                isNextLevel = 2;
+                            }
+                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                            break;
                         }
-                        
-
-                        level.Update(gameTime, held);
-                        held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.getBullets());
-
-
-                        if (eindLift.Positie.Y < 200)
+                    case 2:
                         {
-                            currentLevel = -1;
-                            isNextLevel = 4;
+                            startLift.Update(gameTime, held);
+                            eindLift.Update(gameTime, held);
+
+                            rectList = level.getRectangles();
+                            rectList.Add(startLift.getCollisionRectagle());
+                            rectList.Add(eindLift.getCollisionRectagle());
+                            held.checkEnviroments(rectList);
+
+                            List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
+                            foreach (Orih orihd in orihList)
+                            {
+                                orihd.checkEnviroments(rectList);
+                                orihd.SeePlayer(held.getCollisionRectagle());
+                                orihd.Update(gameTime, stateKey, held.getBullets());
+                                if (!held.isGrounded)
+                                {
+                                    held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                                }
+                                enemyBullets.AddRange(orihd.getBullets());
+                            }
+
+                            level.Update(gameTime, held);
+                            held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
+                            eindLift.activate(held.getFeetCollisionRect());
+
+                            if (eindLift.Positie.Y < 200)
+                            {
+                                currentLevel = -1;
+                                isNextLevel = 3;
+                            }
+                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                            break;
                         }
-                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
-                        break;
-                    }
-                case 4:
-                    {
-                        break;
-                    }
+                    case 3:
+                        {
+                            startLift.Update(gameTime, held);
+                            eindLift.Update(gameTime, held);
+
+                            rectList = level.getRectangles();
+                            rectList.Add(startLift.getCollisionRectagle());
+                            rectList.Add(eindLift.getCollisionRectagle());
+                            held.checkEnviroments(rectList);
+
+                            boss.checkEnviroments(rectList);
+                            boss.Update(gameTime, stateKey, held.getCollisionRectagle(), held.getBullets());
+
+                            if (!boss.isAlive)
+                            {
+                                eindLift.activate(held.getFeetCollisionRect());
+                            }
+
+
+                            level.Update(gameTime, held);
+                            held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.getBullets());
+
+
+                            if (eindLift.Positie.Y < 200)
+                            {
+                                currentLevel = -1;
+                                isNextLevel = 4;
+                            }
+                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                            break;
+                        }
+                    case 4:
+                        {
+                            break;
+                        }
+                }
             }
             ui.Update(gameTime, held, points);
             if(held.Lives < 0)
@@ -430,8 +433,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             camera.Rotation = rotation;
             camera.Zoom = zoom;
             camPos = cameraPos(camera.Focus, held.getCollisionRectagle());
-            if (enableUpdate)
-            {
 
                 switch (currentLevel)
                 {
@@ -533,9 +534,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             break;
                         }
                 }
-
-            }
-
             spriteBatch.Draw(_afbeeldingBlokken[5], mouse, Color.White);
             Console.WriteLine(held.Location.ToString());
             if (!enableUpdate)
