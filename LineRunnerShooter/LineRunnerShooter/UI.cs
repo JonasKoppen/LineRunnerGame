@@ -61,5 +61,10 @@ namespace LineRunnerShooter
             HeroLives = hero.Lives;
             this.points = points;
         }
+
+        public void showDeath(Vector2 campos)
+        {
+
+        }
     }
 }
