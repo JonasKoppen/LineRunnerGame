@@ -276,6 +276,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 currentLevel = -1;
                                 isNextLevel = 1;
+                                intro = 0;
                             }
                             if (startLift.isActive)
                             {
@@ -399,13 +400,26 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 currentLevel = -1;
                                 isNextLevel = 4;
+                                intro = 1;
                             }
                             camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
                             break;
                         }
                     case 4:
                         {
-                            if (stateKey.IsKeyDown(Keys.Enter)) Exit();
+
+                            if (stateKey.IsKeyDown(Keys.Enter) && lastEnter == 0)
+                            {
+                                intro++;
+                                lastEnter = -1;
+                            }
+                            if (stateKey.IsKeyUp(Keys.Enter)) lastEnter = 0;
+                            if (intro > 2)
+                            {
+                                loadLevel0();
+                                intro = 0;
+                            }
+
                             break;
                         }
                 }
@@ -546,8 +560,22 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 case 4:
                     {
                         spriteBatch.Begin();
-                        spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
-                        ui.showResult(spriteBatch);
+                        switch (intro)
+                        {
+                            case 1:
+                                {
+                                    spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
+                                    ui.showResult(spriteBatch);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    spriteBatch.DrawString(General.fontBig, "Thanks for playing", new Vector2(500, 500), Color.Yellow);
+                                    break;
+                                }
+                        }
+                        
+                        
                         break;
                     }
              }
@@ -655,6 +683,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public void loadResult()
         {
+            intro = 1;
             MediaPlayer.Play(music[3]);
         }
 
