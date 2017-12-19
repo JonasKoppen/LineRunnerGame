@@ -213,12 +213,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             List<Rectangle> rectList = new List<Rectangle>();
             if (enableUpdate)
             {
+                points += level.getPoints();
                 switch (currentLevel)
                 {
                     case -1: //Loading screen, 
                         {
                             orihList = new List<Orih>();
-                            points += level.getPoints();
                             camPos = new Vector2(0, 0);
                             currentLevel = isNextLevel;
                             isNextLevel = 0;

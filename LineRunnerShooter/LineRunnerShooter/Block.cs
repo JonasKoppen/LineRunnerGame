@@ -63,7 +63,8 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime)
         {
             double shiftX = gameTime.ElapsedGameTime.TotalMilliseconds / 8;
-            _texturePos.X += (int)(shiftX *dir);
+            _texturePos.X = Convert.ToInt16((_texturePos.Size.X / 2) + Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/500)* (_texturePos.Size.X / 2));
+            //_texturePos.X += (int)(shiftX *dir);
             if(_texturePos.X > 180)
             {
                 dir = -1;
@@ -128,6 +129,7 @@ namespace LineRunnerShooter
             if (isShot)
             {
                 points = _value;
+                _value = 0;
             }
             return points;
         }
