@@ -573,7 +573,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             //TODO: explenation picture
             zoom = 1;
             orihList = new List<Orih>();
-
+            camPos = new Vector2(0, 0);
             held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(100,800));
             level = new LevelControl();
             liftSides = new List<LiftSide>();
