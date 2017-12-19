@@ -85,7 +85,6 @@ namespace LineRunnerShooter
                 Reset();
             }
             collisionBox.Update(_Position.ToPoint());
-
             checkHit(bullets);
         }
 

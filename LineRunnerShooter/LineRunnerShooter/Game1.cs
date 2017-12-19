@@ -79,6 +79,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             General.font = Content.Load<SpriteFont>("textFont");
+            General.fontBig = Content.Load<SpriteFont>("textFontBigger");
 
             _afbeeldingBlokken = new List<Texture2D>();
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformSpritSheet2")); //0
@@ -316,7 +317,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 orihd.checkEnviroments(rectList);
                                 orihd.SeePlayer(held.getCollisionRectagle());
                                 orihd.Update(gameTime, stateKey, held.getBullets());
-                                if (!held.isGrounded)
+                                if (!held.isGrounded) //The player is allowed to stand on the enemy and can go through the enemy
                                 {
                                     held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
                                 }
@@ -482,7 +483,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         {
                             eindLift.Draw(spriteBatch);
                         }
-
+                        spriteBatch.DrawString(General.font, ("PRESS ENTER TO CONTINUE"), new Vector2(530,  850), Color.DarkRed);
                         break;
                     }
                 case 1:

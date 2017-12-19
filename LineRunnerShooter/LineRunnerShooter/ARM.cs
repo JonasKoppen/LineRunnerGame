@@ -226,7 +226,7 @@ namespace LineRunnerShooter
             isFired = false;
             for(int i =1; i < 10; i++)
             {
-                bullets.Add(new Flame(flame, new Vector2(0,1000), new Vector2(25, 25), 1, 0, i));
+                bullets.Add(new Flame(flame, new Vector2(0,1000), new Vector2(25, 25), i%2, 0, i));
             }
             sourceRectangle.Y = 70;
         }

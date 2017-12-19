@@ -98,13 +98,14 @@ namespace LineRunnerShooter
 
         public virtual void MoveVertical(double time)
         {
+            /*
             if (!false)
             {
                 _Velocity.Y += (float)((time / 400.0) * gravity);
             }
             else { _Velocity.Y = 0; }
             if (_Velocity.Y > 20) { _Velocity.Y = 20; }
-
+            */
         }
 
         public virtual void Reset()

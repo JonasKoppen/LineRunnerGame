@@ -458,6 +458,13 @@
 /processorParam:TextureFormat=Compressed
 /build:textFont.spritefont
 
+#begin textFontBigger.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:textFontBigger.spritefont
+
 #begin TheRobotL.png
 /importer:TextureImporter
 /processor:TextureProcessor

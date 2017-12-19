@@ -37,7 +37,7 @@ namespace LineRunnerShooter
             rockets.Add(new BulletR( new Point(50, 100)));
             time = 3;
             r = new Random();
-            _lives = 5;
+            _lives = 30;
             phase = 0;
             _spritePos.Size = new Point(120, 200);
         }
@@ -112,9 +112,9 @@ namespace LineRunnerShooter
                             if (_lives <= 0)
                             {
                                 isAlive = false;
+                                _Position = new Vector2(200, 5000);
                             }
                             SeePlayer(player);
-
                         }
                         break;
                     }

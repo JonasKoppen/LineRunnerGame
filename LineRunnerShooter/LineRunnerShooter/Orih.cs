@@ -48,6 +48,7 @@ namespace LineRunnerShooter
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
+            robotARM.setDamage(5);
         }
         public Orih(int textureL,Rectangle spritePos, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
         {
@@ -56,13 +57,15 @@ namespace LineRunnerShooter
             _StartPos = pos;
             isAlive = true;
             isAttacking = false;
-            _lives = 3;
+            _lives = 10;
             collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
+            robotARM.setDamage(5);
         }
-        public void Update(GameTime gameTime, KeyboardState stateKey, List<BulletBlueprint> bullets)
+        public override void Update(GameTime gameTime, KeyboardState stateKey, List<BulletBlueprint> bullets)
         {
+            
             if (isAlive)
             {
                 _MoveMethod.Update(stateKey, new MouseState(), canLeft, canRight);
@@ -82,8 +85,13 @@ namespace LineRunnerShooter
                 {
                     Reset();
                 }
-                robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
             }
+            else
+            {
+                _Position = new Vector2(100, 5000);
+            }
+            robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
+            checkHit(bullets);
         }
 
         public override void draw(SpriteBatch spriteBatch)

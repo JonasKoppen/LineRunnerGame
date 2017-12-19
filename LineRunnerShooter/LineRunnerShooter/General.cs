@@ -11,6 +11,7 @@ namespace LineRunnerShooter
     {
         public static Random r;
         public static SpriteFont font;
+        public static SpriteFont fontBig;
 
         public static List<Texture2D> _afbeeldingBlokken;
         public static List<Texture2D> _afbeeldingEnemys;

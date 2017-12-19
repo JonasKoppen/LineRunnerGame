@@ -53,9 +53,8 @@ namespace LineRunnerShooter
         }
     }
 
-    class Lava : Block
+    class Lava : Block, IUpdatetableBlock
     {
-        int dir = 1;
         public Lava(int texture, Vector2 pos) : base(texture, pos)
         {
         }
@@ -64,15 +63,6 @@ namespace LineRunnerShooter
         {
             double shiftX = gameTime.ElapsedGameTime.TotalMilliseconds / 8;
             _texturePos.X = Convert.ToInt16((_texturePos.Size.X / 2) + Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/500)* (_texturePos.Size.X / 2));
-            //_texturePos.X += (int)(shiftX *dir);
-            if(_texturePos.X > 180)
-            {
-                dir = -1;
-            }
-            if (_texturePos.X < 20)
-            {
-                dir = 1;
-            }
         }
 
         public override Rectangle getCollisionRectagle()
@@ -81,7 +71,7 @@ namespace LineRunnerShooter
         }
     }
 
-    class Target : Block
+    class Target : Block, IUpdatetableBlock
     {
         bool isShot;
         int _value;

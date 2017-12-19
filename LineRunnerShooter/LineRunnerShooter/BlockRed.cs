@@ -14,7 +14,7 @@ namespace LineRunnerShooter
      * Also works with counters wich tick every x milliseconds
      * 
      */
-    class BlockRed : Block
+    class BlockRed : Block, IUpdatetableBlock
     {
         private bool isActive;
         protected double time;

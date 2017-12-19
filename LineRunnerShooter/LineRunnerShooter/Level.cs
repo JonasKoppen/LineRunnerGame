@@ -383,17 +383,9 @@ namespace LineRunnerShooter
                         (b as BlockPurple).Update(gameTime, user.getFeetCollisionRect());
                         (b as BlockPurple).getPosChange(user);
                     }
-                    if (b is BlockRed)
+                    if (b is IUpdatetableBlock)
                     {
-                        (b as BlockRed).Update(gameTime);
-                    }
-                    if (b is Lava)
-                    {
-                        (b as Lava).Update(gameTime);
-                    }
-                    if(b is Target)
-                    {
-                        (b as Target).Update(gameTime);
+                        (b as IUpdatetableBlock).Update(gameTime);
                     }
                 }
             }
@@ -438,11 +430,9 @@ namespace LineRunnerShooter
             return col;
         }
 
-        public List<Rectangle> getRectangles() //geeft de lijst met collisionRectangle terug rond positie x, dit is mss voor later
+        public List<Rectangle> getRectangles()
         {
             List<Rectangle> blocks = new List<Rectangle>();
-            //if (x < 3) { x = 3; }
-            //if (x < blockArray.GetLength(0)) { x = blockArray.GetLength(0) - 4; }
             for (int i = 0; i < blockArray.GetLength(0); i++)
             {
                 for (int j = 0; j < blockArray.GetLength(1); j++)

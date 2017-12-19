@@ -47,6 +47,7 @@ namespace LineRunnerShooter
         public void showDeath(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(General._afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(location.X), Convert.ToInt16(location.Y), 2000,250), Color.OrangeRed); //Punten worden niet getoond
+            spriteBatch.DrawString(General.fontBig, ("PRESS ENTER TO CONTINUE"), new Vector2(location.X+ 900 , location.Y +400), Color.Black);
         }
 
         public UI()
