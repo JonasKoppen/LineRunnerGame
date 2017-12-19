@@ -171,25 +171,26 @@ namespace LineRunnerShooter
     }
         class RobotMove : MoveMethod
         {
-            private Random r;
 
             public RobotMove()
             {
-                r = new Random();
                 movedir = 0;
             }
 
             public void Update(bool canLeft, bool canRight)
             {
-                int move = r.Next(0, 2);
-                if (canLeft && movedir == 0)
-                {
-                    movedir = 1;
-                }
-                if (canRight && movedir == 1)
-                {
-                    movedir = 0;
-                }
+            if (General.r.Next(100) > 98)
+            {
+                changeDir();
+            }
+            if (canLeft && movedir == 0)
+            {
+                movedir = 1;
+            }
+            if (canRight && movedir == 1)
+            {
+                movedir = 0;
+            }
             }
 
         public override void Update(KeyboardState keyState, MouseState mouseState, bool _canLeft, bool _canRight)

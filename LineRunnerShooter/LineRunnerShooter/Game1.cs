@@ -405,6 +405,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                     case 4:
                         {
+                            if (stateKey.IsKeyDown(Keys.Enter)) Exit();
                             break;
                         }
                 }
