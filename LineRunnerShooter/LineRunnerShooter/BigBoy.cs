@@ -26,7 +26,6 @@ namespace LineRunnerShooter
         private double elapsedTime;
         public BigBoy(int textureL, MoveMethod move,Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move,armpix, bullet, pos)
         {
-            
             rockets = new List<BulletR>();
             rockets.Add(new BulletR(bullet, new Point(50, 50)));
             rockets.Add(new BulletR(bullet, new Point(50, 50)));
@@ -55,6 +54,7 @@ namespace LineRunnerShooter
                         if(player.X > 600 && player.Y > 1000)
                         {
                             phase++;
+                            
                         }
                         _Position.X = 600;
                         _Position.Y = 2000;
@@ -66,7 +66,7 @@ namespace LineRunnerShooter
                         //base.Update(gameTime, stateKey);
                         _Position.X += (player.X - _Position.X + 400) / 8;
                         
-                        _Position.Y += (player.Y - _Position.Y - 300) / 8;
+                        _Position.Y = (float) (1350 + (Math.Sin(Convert.ToInt32(gameTime.TotalGameTime.TotalMilliseconds/100)))*8);
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (player.X > 4700)
                         {

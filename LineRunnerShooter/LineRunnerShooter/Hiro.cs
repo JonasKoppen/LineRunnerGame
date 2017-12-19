@@ -109,12 +109,11 @@ namespace LineRunnerShooter
         int selectedARM = 1;
 
 
-        public Hiro2(int texture, MoveMethod move, Texture2D armtexture, Texture2D bullet, int posX, int posY) : base(texture,  move, bullet)
+        public Hiro2(int texture, MoveMethod move, Texture2D armtexture, Texture2D bullet, Vector2 location) : base(texture,  move, bullet)
         {
   
             _spritePos = new Rectangle(0, 0, 100, 200);
-            _Position.X = posX;
-            _Position.Y = posY;
+            _Position = location;
             arsenal = new List<ARMBluePrint>();
             arsenal.Add(new ShotARM(armtexture, bullet,1));
             arsenal.Add( new ShotARM(armtexture, bullet,3));
@@ -191,9 +190,9 @@ namespace LineRunnerShooter
             }
         }
 
-        public void setStartPos()
+        public void setToStartPos(Vector2 location)
         {
-            _Position = new Vector2(150, 1700);
+            _Position = location;
             _Velocity = new Vector2(0, 0);
         }
 

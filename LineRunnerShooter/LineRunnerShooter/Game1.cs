@@ -233,7 +233,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 }
                             case 3:
                                 {
-                                    ui.stopTimer(gameTime);
                                     loadLevel3(gameTime);
                                     break;
                                 }
@@ -554,7 +553,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             zoom = 1;
             orihList = new List<Orih>();
 
-            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 150, 1000);
+            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(100,800));
             level = new LevelControl();
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
@@ -576,14 +575,13 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             orihList = new List<Orih>();
 
-            startLift = new Lift(new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
             startLift.isActive = true;
 
             level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
-            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 200, 1750);
-            
-           
+            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(200,3000));
+            held.setToStartPos(new Vector2(200, 2400));
             eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
             ui.startTimer(gameTime);
@@ -596,10 +594,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             
             orihList = new List<Orih>();
             
-            held.setStartPos();
+            held.setToStartPos(new Vector2(200, 2400));
             level = new LevelControl(_levelMaps[2], _afbeeldingBlokken, orihList);
 
-            startLift = new Lift(new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
             startLift.isActive = true;
 
             eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
@@ -611,10 +609,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             zoom = 1 - 0.5f;
             currentLevel = 3;
             boss = new BigBoy(4, new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500));
-            held.setStartPos();
+            held.setToStartPos(new Vector2(200, 2400));
             level = new LevelControl(_levelMaps[3], _afbeeldingBlokken, orihList);
 
-            startLift = new Lift(new Vector2(100, 2000*2), new Vector2(100, 950*2));
+            startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
             startLift.isActive = true;
 
             eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
