@@ -92,7 +92,7 @@ namespace LineRunnerShooter
             if (isAlive)
             {
                 base.draw(spriteBatch);
-                robotARM.Draw(spriteBatch);
+                //robotARM.Draw(spriteBatch); //Arm is te lelijk
             }
             if (isAttacking)
             {

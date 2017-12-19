@@ -93,7 +93,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); 
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI")); //10
             _afbeeldingBlokken.Add(Content.Load<Texture2D>("Complete"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("target"));
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("target")); 
+            _afbeeldingBlokken.Add(Content.Load<Texture2D>("ChallangeFailed"));
 
 
             _afbeeldingEnemys = new List<Texture2D>();
@@ -405,13 +406,21 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 }
             }
             ui.Update(gameTime, held, points);
-            if(held.Lives < 0)
+            if(held.Lives < 4 && enableUpdate)
             {
                 enableUpdate = false;
+                gameOVer();
             }
             if (!enableUpdate)
             {
-
+                camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                ui.updateDeath(camPos, gameTime);
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter)) //Dit staat verkeerd
+                {
+                    loadLevel0();
+                    currentLevel = 0;
+                    enableUpdate = true;
+                }
             }
         }
         float rotation = 0;
@@ -434,116 +443,112 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             camera.Zoom = zoom;
             camPos = cameraPos(camera.Focus, held.getCollisionRectagle());
 
-                switch (currentLevel)
-                {
-                    case -1:
+            switch (currentLevel)
+            {
+                case -1:
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(300, 100, 600, 600), Color.White);
+                        camPos = new Vector2(0, 0);
+                        break;
+                    }
+                case 0:
+                    {
+                        spriteBatch.Begin(transformMatrix: viewMatrix);
+                        switch (intro)
                         {
-                            spriteBatch.Begin();
-                            spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(300, 100, 600, 600), Color.White);
-                            camPos = new Vector2(0, 0);
-                            break;
+                            case 0:
+                                spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);
+                                break;
+                            case 1:
+                                spriteBatch.Draw(_afbeeldingBlokken[9], new Rectangle(500, 250, 600, 600), Color.White);
+                                break;
+                            default:
+                                spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);
+                                break;
                         }
-                    case 0:
+                        for (int i = 0; i < liftSides.Count; i++)
                         {
-                            spriteBatch.Begin(transformMatrix: viewMatrix);
-                            switch (intro)
-                            {
-                                case 0:
-                                    spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);
-                                    break;
-                                case 1:
-                                    spriteBatch.Draw(_afbeeldingBlokken[9], new Rectangle(500, 250, 600, 600), Color.White);
-                                    break;
-                                default:
-                                    spriteBatch.Draw(_afbeeldingBlokken[8], new Rectangle(500, 250, 600, 600), Color.White);
-                                    break;
-                            }
-                            for (int i = 0; i < liftSides.Count; i++)
-                            {
-                                liftSides[i].Draw(spriteBatch);
-                            }
-                            held.draw(spriteBatch);
-                            if (startLift.isActive)
-                            {
-                                startLift.Draw(spriteBatch);
-                            }
-                            else
-                            {
-                                eindLift.Draw(spriteBatch);
-                            }
-
-                            break;
+                            liftSides[i].Draw(spriteBatch);
                         }
-                    case 1:
+                        held.draw(spriteBatch);
+                        if (startLift.isActive)
                         {
-
-                            spriteBatch.Begin(transformMatrix: viewMatrix);
-                            spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
-                            level.Draw(spriteBatch, 0, 0);
                             startLift.Draw(spriteBatch);
-                            eindLift.Draw(spriteBatch);
-
-                            foreach (Orih orihd in orihList)
-                            {
-                                orihd.draw(spriteBatch);
-                            }
-                            held.draw(spriteBatch);
-                            level.Draw(spriteBatch, 0, 0);
-                            ui.showTime(spriteBatch, camPos);
-                            break;
                         }
-                    case 2:
+                        else
                         {
-                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
-                            spriteBatch.Begin(transformMatrix: viewMatrix);
-                            spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
-                            startLift.Draw(spriteBatch);
                             eindLift.Draw(spriteBatch);
-
-                            foreach (Orih orihd in orihList)
-                            {
-                                orihd.draw(spriteBatch);
-                            }
-                            held.draw(spriteBatch);
-
-                            level.Draw(spriteBatch, 0, 0);
-                            ui.showTime(spriteBatch, camPos);
-
-                            break;
                         }
-                    case 3:
+
+                        break;
+                    }
+                case 1:
+                    {
+
+                        spriteBatch.Begin(transformMatrix: viewMatrix);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        level.Draw(spriteBatch, 0, 0);
+                        startLift.Draw(spriteBatch);
+                        eindLift.Draw(spriteBatch);
+
+                        foreach (Orih orihd in orihList)
                         {
-                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
-                            spriteBatch.Begin(transformMatrix: viewMatrix);
-                            spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
-                            startLift.Draw(spriteBatch);
-                            eindLift.Draw(spriteBatch);
-
-                            boss.draw(spriteBatch);
-                            held.draw(spriteBatch);
-
-                            level.Draw(spriteBatch, 0, 0);
-                            ui.showTime(spriteBatch, camPos);
-                            break;
+                            orihd.draw(spriteBatch);
                         }
-                    case 4:
+                        held.draw(spriteBatch);
+                        level.Draw(spriteBatch, 0, 0);
+                        ui.showTime(spriteBatch, camPos);
+                        break;
+                    }
+                case 2:
+                    {
+                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                        spriteBatch.Begin(transformMatrix: viewMatrix);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        startLift.Draw(spriteBatch);
+                        eindLift.Draw(spriteBatch);
+
+                        foreach (Orih orihd in orihList)
                         {
-                            spriteBatch.Begin();
-                            spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
-                            ui.showResult(spriteBatch);
-                            break;
+                            orihd.draw(spriteBatch);
                         }
-                }
+                        held.draw(spriteBatch);
+
+                        level.Draw(spriteBatch, 0, 0);
+                        ui.showTime(spriteBatch, camPos);
+
+                        break;
+                    }
+                case 3:
+                    {
+                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                        spriteBatch.Begin(transformMatrix: viewMatrix);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        startLift.Draw(spriteBatch);
+                        eindLift.Draw(spriteBatch);
+
+                        boss.draw(spriteBatch);
+                        held.draw(spriteBatch);
+
+                        level.Draw(spriteBatch, 0, 0);
+                        ui.showTime(spriteBatch, camPos);
+                        break;
+                    }
+                case 4:
+                    {
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
+                        ui.showResult(spriteBatch);
+                        break;
+                    }
+             }
             spriteBatch.Draw(_afbeeldingBlokken[5], mouse, Color.White);
             Console.WriteLine(held.Location.ToString());
             if (!enableUpdate)
             {
-                //ui.showdeath;
-                if(Keyboard.GetState().IsKeyDown(Keys.Enter)) //Dit staat verkeerd
-                {
-                    loadLevel0();
-                    currentLevel = 0;
-                }
+                ui.showDeath(spriteBatch);
+                
             }
             spriteBatch.End();
             /*
@@ -647,8 +652,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public void gameOVer()
         {
+            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
             enableUpdate = false;
-            //ui.stoptimer, ui = new ui
+            ui = new UI();
+            ui.gameOver(camPos);
             MediaPlayer.Play(music[4]);
         }
     }

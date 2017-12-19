@@ -61,7 +61,7 @@ namespace LineRunnerShooter
             canLeft = true;
             canRight = true;
             _lives = 5;
-            _StartPos = new Vector2(500, 300);
+            _StartPos = new Vector2(500, 1200);
             slow = 30;
             collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
             _Velocity = new Vector2(0,0);

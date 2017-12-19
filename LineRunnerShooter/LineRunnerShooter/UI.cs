@@ -15,6 +15,7 @@ namespace LineRunnerShooter
         bool isUpdating;
         int HeroLives;
         int points;
+        Vector2 location;
 
         public void startTimer(GameTime gameTime)
         {
@@ -44,6 +45,11 @@ namespace LineRunnerShooter
             spriteBatch.DrawString(General.font, ("BAD"), new Vector2(970, 450), Color.Red); //Punten worden niet getoond
         }
 
+        public void showDeath(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(General._afbeeldingBlokken[13], new Rectangle(Convert.ToInt16(location.X), Convert.ToInt16(location.Y), 2000,250), Color.OrangeRed); //Punten worden niet getoond
+        }
+
         public UI()
         {
             playTime = new TimeSpan(0);
@@ -62,9 +68,14 @@ namespace LineRunnerShooter
             this.points = points;
         }
 
-        public void showDeath(Vector2 campos)
+        public void updateDeath(Vector2 campos, GameTime gameTime)
         {
+            location.X += ( campos.X  - location.X) / 8; 
+        }
 
+        public void gameOver(Vector2 campos)
+        {
+            location = campos + new Vector2(-3000, 500);
         }
     }
 }

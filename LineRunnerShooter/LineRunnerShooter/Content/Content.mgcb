@@ -67,6 +67,18 @@
 /processorParam:Quality=Best
 /build:boss.mp3
 
+#begin ChallangeFailed.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ChallangeFailed.png
+
 #begin Complete.png
 /importer:TextureImporter
 /processor:TextureProcessor
