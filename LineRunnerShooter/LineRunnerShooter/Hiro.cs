@@ -23,7 +23,7 @@ namespace LineRunnerShooter
         private double invincebleTime;
         List<ARMBluePrint> arsenal;
         int selectedARM = 0;
-        int maxArms = 5;
+        int maxArms = 5; //Zet 
 
         public int MaxArms { get { return maxArms; } set { if (value > maxArms) { maxArms = value; }} }
 
@@ -153,6 +153,11 @@ namespace LineRunnerShooter
         public List<BulletBlueprint> GetBullets()
         {
             return arsenal[selectedARM].Bullets;
+        }
+
+        public void HealthUp()
+        {
+            _lives = 20;
         }
     }
 

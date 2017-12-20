@@ -139,8 +139,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             General.random = new Random();
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             ui = new UI();
-            LoadLevel0();
+            
 
+            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(100, 800));
+            LoadLevel0();
             // TODO: slaag afbeeldingen op in variabelen
 
         }
@@ -617,11 +619,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public void LoadLevel0()
         {
+            held.HealthUp();
             //TODO: explenation picture
+            held.SetToStartPos(new Vector2(150, 1250));
+            
+
             zoom = 1;
             orihList = new List<Orih>();
             camPos = new Vector2(0, 0);
-            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(100,800));
             level = new LevelControl();
             liftSides = new List<LiftSide>();
             for(int i = 0; i < 1100; i += 200)
@@ -645,10 +650,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
             startLift.isActive = true;
-
+            held.SetToStartPos(new Vector2(100, 2000));
+            held.Reset();
             level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
-            held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(200,3000));
             held.SetToStartPos(new Vector2(200, 2400));
             eindLift = new Lift(new Vector2(9400, 1700), new Vector2(9400, 100));
             MediaPlayer.Play(music[1]);
@@ -691,6 +696,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             intro = 1;
             MediaPlayer.Play(music[3]);
+            if(points > 50)
+            {
+                held.MaxArms = 3;
+            }
+            if(points > 100)
+            {
+                held.MaxArms = 4;
+            }
         }
 
         public void GameOVer()
