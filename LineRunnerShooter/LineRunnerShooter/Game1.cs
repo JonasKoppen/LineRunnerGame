@@ -515,7 +515,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
 
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.3), -300, 7000, 2500), Color.White);
                         level.Draw(spriteBatch, 0, 0);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
@@ -533,7 +533,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.3), -300, 7000, 2500), Color.White);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
@@ -552,7 +552,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     {
                         camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
-                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
+                        spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.3), -300, 7000, 2500), Color.White);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
@@ -607,7 +607,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         {
             Vector2 newCampos = camPos + ((item.Location.ToVector2() - new Vector2(600,600)) - camPos) / 8;
             newCampos.X = (int)(newCampos.X);
-            if(item.X < 400 || item.X > 7100)
+            if(item.X < 400 || item.X > 9200)
             {
                 newCampos.Y = 1000;
             }
@@ -650,7 +650,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(200,3000));
             held.SetToStartPos(new Vector2(200, 2400));
-            eindLift = new Lift(new Vector2(7400, 1700), new Vector2(7400, 100));
+            eindLift = new Lift(new Vector2(9400, 1700), new Vector2(9400, 100));
             MediaPlayer.Play(music[1]);
             ui.StartTimer(gameTime);
         }
@@ -668,7 +668,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(new Vector2(9400, 900*2), new Vector2(9400, 100));
             
         }
 
@@ -683,7 +683,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
             startLift.isActive = true;
 
-            eindLift = new Lift(new Vector2(7400, 900*2), new Vector2(7400, 100));
+            eindLift = new Lift(new Vector2(9400, 900*2), new Vector2(9400, 100));
             MediaPlayer.Play(music[2]);
         }
 

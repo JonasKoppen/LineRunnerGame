@@ -49,7 +49,7 @@ namespace LineRunnerShooter
 
         public virtual Rectangle GetCollisionRectagle()
         {
-            return new Rectangle(Positie.ToPoint(),_texturePos.Size); ;
+            return new Rectangle(Positie.ToPoint(),_texturePos.Size);
         }
     }
 
@@ -63,6 +63,11 @@ namespace LineRunnerShooter
         {
             double shiftX = gameTime.ElapsedGameTime.TotalMilliseconds / 8;
             _texturePos.X = Convert.ToInt16((_texturePos.Size.X / 2) + Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/500)* (_texturePos.Size.X / 2));
+        }
+
+        public override Rectangle GetCollisionRectagle()
+        {
+            return new Rectangle();
         }
 
     }

@@ -69,10 +69,10 @@ namespace LineRunnerShooter
                         
                         _position.Y = (float) (1350 + (Math.Sin(Convert.ToInt32(gameTime.TotalGameTime.TotalMilliseconds/100)))*8);
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                        if (player.X > 4700)
+                        if (player.X > 6600)
                         {
                             phase++;
-                            _position.X = player.X+600;
+                            _position.X = player.X+800;
                             isGrounded = false;
                             robotARM.SetDamage(5);
                         }
@@ -95,6 +95,10 @@ namespace LineRunnerShooter
                     {
                         base.Update(gameTime, stateKey, bullets);
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                        if(General.random.Next(0,100)> 95)
+                        {
+                            Attack();
+                        }
                         if (isAlive)
                         {
                             if (elapsedTime > 250)
