@@ -185,7 +185,7 @@ namespace LineRunnerShooter
 
             public void Update(bool canLeft, bool canRight)
             {
-            if (General.random.Next(100) > 98)
+            if (General.random.Next(0,1000) > 995)
             {
                 ChangeDir();
             }
