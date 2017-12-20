@@ -158,7 +158,7 @@ namespace LineRunnerShooter
 
         public void HealthUp()
         {
-            _lives = 20;
+            _lives = 21;
         }
     }
 

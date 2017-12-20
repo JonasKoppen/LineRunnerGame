@@ -41,7 +41,7 @@ namespace LineRunnerShooter
         {
             spriteBatch.DrawString(General.font, (playTime.ToString(@"mm\:ss\.ff")), new Vector2(870, 270), Color.White);
             spriteBatch.DrawString(General.font, ( points.ToString()), new Vector2(1000, 320), Color.White);
-            if((points > 90) && (playTime.CompareTo(new TimeSpan(0,1,15)) < 0))
+            if((points > 90) && (playTime.CompareTo(new TimeSpan(0,3,0)) < 0))
             {
                 spriteBatch.Draw(General._afbeeldingBlokken[14], new Rectangle(800, 420, 300, 120), new Rectangle(0, 0, 150, 50), Color.White);
             }
