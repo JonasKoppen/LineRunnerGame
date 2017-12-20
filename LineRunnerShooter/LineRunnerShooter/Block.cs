@@ -18,7 +18,7 @@ namespace LineRunnerShooter
         public Vector2 Positie; //Make property
         protected Rectangle _texturePos;
         protected int _textureNum;
-        public bool isHazard { get; private set; }
+        public bool IsHazard { get; private set; }
 
         public Block(int texture, Vector2 pos)
         {
@@ -96,7 +96,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public void hitTarget()
+        public void HitTarget()
         {
             isShot = true;
         }
@@ -109,7 +109,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public int getPoints()
+        public int GetPoints()
         {
             int points = 0;
             if (isShot)

@@ -28,34 +28,34 @@ namespace LineRunnerShooter
         {
             isGoingUp = true;
         }
-        public  void fire(float angle, Vector2 pos)
+        public  void Fire(float angle, Vector2 pos)
         {
-            if (!isFired)
+            if (!IsFired)
             {
                 _positie = pos;
                 _direction.X = Convert.ToInt16(Math.Cos(angle) * 10);
                 _direction.Y = -Convert.ToInt16(Math.Sin(angle) * 8);
-                isFired = true;
+                IsFired = true;
                 isGoingUp = true;
                 
             }
             
         }
-        public void fire(Vector2 startPos, Vector2 destPos)
+        public void Fire(Vector2 startPos, Vector2 destPos)
         {
-            if (!isFired)
+            if (!IsFired)
             {
                 DestPos = destPos;
                 _positie = startPos;
                 _direction.X = 0;
                 _direction.Y = -15;
-                isFired = true;
+                IsFired = true;
             }
         }
 
         public void Update()
         {
-            if (isFired)
+            if (IsFired)
             {
                 _positie = Vector2.Add(_positie, _direction);
                 if(_positie.Y < 0)
@@ -68,17 +68,17 @@ namespace LineRunnerShooter
             }
             if (_positie.Y > 3000)
             {
-                isFired = false;
+                IsFired = false;
                 isGoingUp = true;
                 _positie = new Vector2(0,1000000);
                 _texture = General._afbeeldingEnemys[10];
             }
         }
 
-        public Rectangle getCollisionRectagle()
+        public Rectangle GetCollisionRectagle()
         {
             Rectangle collision = new Rectangle(0,0,1,1);
-            if(isFired && !isGoingUp)
+            if(IsFired && !isGoingUp)
             {
                 collision = CollisionRect;
             }
@@ -88,7 +88,7 @@ namespace LineRunnerShooter
         public override int HitTarget(Rectangle item) //not needed anymore
         {
             int damage = 0;
-            if(isFired && !isGoingUp)
+            if(IsFired && !isGoingUp)
             {
                 damage = base.HitTarget(item);
             }

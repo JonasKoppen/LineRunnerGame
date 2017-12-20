@@ -27,7 +27,7 @@ namespace LineRunnerShooter
         protected Vector2 _positie;
         protected Vector2 _size;
 
-        public bool isFired { get; set; }
+        public bool IsFired { get; set; }
 
         protected int _damage;
 
@@ -38,38 +38,38 @@ namespace LineRunnerShooter
             _texture = texture;
             _positie = pos;
             _size = size;
-            isFired = false;
+            IsFired = false;
             _damage = damage;
         }
 
         public virtual int HitTarget()
         {
-            isFired = false;
+            IsFired = false;
             return _damage;
         }
         public virtual int HitTarget(Rectangle item)
         {
             int dam = 0;
-            if (item.Intersects(CollisionRect) && isFired)
+            if (item.Intersects(CollisionRect) && IsFired)
             {
                 dam = _damage;
-                isFired = false;
+                IsFired = false;
             }
             return dam;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            if (isFired)
+            if (IsFired)
             {
                 spriteBatch.Draw(_texture, _positie, Color.White);
             }
         }
 
-        public void resetBullet()
+        public void ResetBullet()
         {
             _positie = new Vector2(100, 5000);
-            isFired = false;
+            IsFired = false;
         }
 
     }
@@ -89,26 +89,26 @@ namespace LineRunnerShooter
 
          
         
-        public void fire(Vector2 pos)
+        public void Fire(Vector2 pos)
         {
-            if (!isFired)
+            if (!IsFired)
             {
                 _positie = pos;
                 _direction.X = 0;
                 _direction.Y = 10;
-                isFired = true;
+                IsFired = true;
                 timeToLive = 1000;
             }
 
         }
-        public void fire(float angle, Vector2 pos)
+        public void Fire(float angle, Vector2 pos)
         {
-            if (!isFired)
+            if (!IsFired)
             {
                 _positie = pos;
                 _direction.X = (float)(Math.Cos(angle) * 1.5);
                 _direction.Y = -(float)(Math.Sin(angle) * 1.5);
-                isFired = true;
+                IsFired = true;
                 timeToLive = 1000;
             }
 
@@ -117,7 +117,7 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime)
         {
             timeToLive -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (isFired)
+            if (IsFired)
             {
                 _positie.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.X);
                 _positie.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.Y);
@@ -136,7 +136,7 @@ namespace LineRunnerShooter
 
         public override int HitTarget() //aka the reset function, returns the damage
         {
-            isFired = false;
+            IsFired = false;
             return base.HitTarget();
         }
     }
@@ -152,15 +152,15 @@ namespace LineRunnerShooter
         {
             _angle = angle;
             _positie = pos;
-            isFired = isAttacking;
+            IsFired = isAttacking;
         }
 
-        public void setDamage(int damage)
+        public void SetDamage(int damage)
         {
             _damage = damage;
         }
 
-        public Rectangle getCollisonBox()
+        public Rectangle GetCollisonBox()
         {
             Rectangle attack = new Rectangle(new Point(), _size.ToPoint());
             int size = Convert.ToInt16(_size.X);    //We gaan er vanuit dat de collisionbox een vierkant is, kan aangepast worden naar rectangle
@@ -186,7 +186,7 @@ namespace LineRunnerShooter
         public override int HitTarget(Rectangle item)
         {
             int damage = 0;
-            if (item.Intersects(getCollisonBox()) && isFired)
+            if (item.Intersects(GetCollisonBox()) && IsFired)
             {
                 damage = _damage;
             }
@@ -208,9 +208,9 @@ namespace LineRunnerShooter
 
         public void Update(Vector2 pos, float angle, bool isFire)
         {
-            isFired = isFire;
+            IsFired = isFire;
             _positie = pos;
-            if (isFired)
+            if (IsFired)
             {
                 _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X)*1.5 + (General.r.Next(-5,5) * _id));
                 _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 1.5 + (General.r.Next(-5,5) * _id));
@@ -238,9 +238,9 @@ namespace LineRunnerShooter
 
         public void Update(Vector2 pos, float angle, bool isFire)
         {
-            isFired = isFire;
+            IsFired = isFire;
             _positie = pos;
-            if (isFired)
+            if (IsFired)
             {
                 _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X) );
                 _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y));

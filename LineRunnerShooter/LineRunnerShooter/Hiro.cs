@@ -27,16 +27,17 @@ namespace LineRunnerShooter
 
         public int MaxArms { get { return maxArms; } set { if (value > maxArms) { maxArms = value; }} }
 
-        public Hiro2(int texture, MoveMethod move, Texture2D armtexture, Texture2D bullet, Vector2 location) : base(texture,  move, bullet)
+        public Hiro2(int texture, MoveMethod move, Texture2D armtexture, Texture2D bullet, Vector2 location) : base(texture, move, bullet)
         {
-  
+
             _spritePos = new Rectangle(0, 0, 100, 200);
             _position = location;
-            arsenal = new List<ARMBluePrint>();
-            arsenal.Add(new ShotARM(armtexture, bullet,1,1));
-            arsenal.Add( new ShotARM(armtexture, bullet,3,1));
-            arsenal.Add(new FlameThrower(armtexture, bullet));
-            arsenal.Add(new SheepANator(armtexture, bullet));
+            arsenal = new List<ARMBluePrint>() {
+            new ShotARM(armtexture, bullet,1,1),
+            new ShotARM(armtexture, bullet, 3, 1),
+            new FlameThrower(armtexture, bullet),
+            new SheepANator(armtexture, bullet)
+             };
             _JumpHeight = 15;
             invincebleTime = 0;
             collisionBox = new CollisionBox(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y), _spritePos.Width, _spritePos.Height);
@@ -110,7 +111,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public void setToStartPos(Vector2 location)
+        public void SetToStartPos(Vector2 location)
         {
             _position = location;
             _velocity = new Vector2(0, 0);
@@ -149,7 +150,7 @@ namespace LineRunnerShooter
             invincebleTime = 1000;
         }
 
-        public List<BulletBlueprint> getBullets()
+        public List<BulletBlueprint> GetBullets()
         {
             return arsenal[selectedARM].Bullets;
         }

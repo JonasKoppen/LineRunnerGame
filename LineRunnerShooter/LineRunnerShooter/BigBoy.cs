@@ -24,17 +24,18 @@ namespace LineRunnerShooter
         private Random r;
         private int phase;
         private double elapsedTime;
-        public BigBoy(int textureL, MoveMethod move,Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move,armpix, bullet, pos)
+        public BigBoy(int textureL, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, armpix, bullet, pos)
         {
-            rockets = new List<BulletR>();
-            rockets.Add(new BulletR( new Point(50, 100)));
-            rockets.Add(new BulletR( new Point(50, 100)));
-            rockets.Add(new BulletR( new Point(50, 100)));
-            rockets.Add(new BulletR( new Point(50, 100)));
-            rockets.Add(new BulletR( new Point(50, 100)));
-            rockets.Add(new BulletR( new Point(50, 100)));
-            rockets.Add(new BulletR( new Point(50, 100)));
-            rockets.Add(new BulletR( new Point(50, 100)));
+            rockets = new List<BulletR>() {
+            new BulletR(new Point(50, 100)),
+            new BulletR(new Point(50, 100)),
+            new BulletR(new Point(50, 100)),
+            new BulletR(new Point(50, 100)),
+            new BulletR(new Point(50, 100)),
+            new BulletR(new Point(50, 100)),
+            new BulletR(new Point(50, 100)),
+            new BulletR(new Point(50, 100))
+            };
             time = 3;
             r = new Random();
             _lives = 30;
@@ -117,7 +118,7 @@ namespace LineRunnerShooter
                                 robotARM.Disable();
                                 foreach(BulletR r in rockets)
                                 {
-                                    r.resetBullet();
+                                    r.ResetBullet();
                                 }
                             }
                             SeePlayer(player);
@@ -132,7 +133,7 @@ namespace LineRunnerShooter
         {
             player.X -= 600;
             Vector2 firePos = new Vector2(player.X + r.Next(100, 3000), 0);
-            rockets[firedRockets].fire(_position, firePos);
+            rockets[firedRockets].Fire(_position, firePos);
             firedRockets++;
             if(firedRockets >= rockets.Count)
             {
@@ -154,17 +155,17 @@ namespace LineRunnerShooter
 
         }
 
-        public List<Rectangle> getBulletsRect()
+        public List<Rectangle> GetBulletsRect()
         {
             List<Rectangle> rocketsRect = new List<Rectangle>();
             foreach(BulletR br in rockets)
             {
-                rocketsRect.Add(br.getCollisionRectagle());
+                rocketsRect.Add(br.GetCollisionRectagle());
             }
             return rocketsRect;
         }
 
-        public override List<BulletBlueprint> getBullets()
+        public override List<BulletBlueprint> GetBullets()
         {
             List<BulletBlueprint> bullets = new List<BulletBlueprint>();
             bullets.AddRange(rockets);

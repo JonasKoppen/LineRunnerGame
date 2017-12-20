@@ -82,51 +82,55 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             General.font = Content.Load<SpriteFont>("textFont");
             General.fontBig = Content.Load<SpriteFont>("textFontBigger");
 
-            _afbeeldingBlokken = new List<Texture2D>();
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("platformSpritSheet2")); //0
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("RotPlat")); 
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("lava2"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("DreadBlock"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("liftSideIntro")); 
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("CrossHair")); //5
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Lift")); 
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("RatchetBackgrond"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("introTitle"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("introExplain")); 
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("UI2")); //10
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("Complete"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("target")); 
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("ChallangeFailed"));
-            _afbeeldingBlokken.Add(Content.Load<Texture2D>("RESULT"));
+            _afbeeldingBlokken = new List<Texture2D>() {
+             Content.Load<Texture2D>("platformSpritSheet2"), //0
+             Content.Load<Texture2D>("RotPlat"),
+             Content.Load<Texture2D>("lava2"),
+             Content.Load<Texture2D>("DreadBlock"),
+             Content.Load<Texture2D>("liftSideIntro"),
+             Content.Load<Texture2D>("CrossHair"), //5
+             Content.Load<Texture2D>("Lift"),
+             Content.Load<Texture2D>("RatchetBackgrond"),
+             Content.Load<Texture2D>("introTitle"),
+             Content.Load<Texture2D>("introExplain"),
+             Content.Load<Texture2D>("UI2"), //10
+             Content.Load<Texture2D>("Complete"),
+             Content.Load<Texture2D>("target"),
+             Content.Load<Texture2D>("ChallangeFailed"),
+             Content.Load<Texture2D>("RESULT")
+             };
 
 
-            _afbeeldingEnemys = new List<Texture2D>();
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyL")); //0
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("SmallGuyR"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("ARM"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("energyBall"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuy"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("BigGuyR")); //5
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuy")); 
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("TestGuyHDR"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("SpShSmallGuy"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("Fireball"));
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("FireballUp")); //10
-            _afbeeldingEnemys.Add(Content.Load<Texture2D>("Sheep")); //
+            _afbeeldingEnemys = new List<Texture2D>() { 
+            Content.Load<Texture2D>("SmallGuyL"), //0
+            Content.Load<Texture2D>("SmallGuyR"),
+            Content.Load<Texture2D>("ARM"),
+            Content.Load<Texture2D>("energyBall"),
+            Content.Load<Texture2D>("BigGuy"),
+            Content.Load<Texture2D>("BigGuyR"), //5
+            Content.Load<Texture2D>("TestGuy"),
+            Content.Load<Texture2D>("TestGuyHDR"),
+            Content.Load<Texture2D>("SpShSmallGuy"),
+            Content.Load<Texture2D>("Fireball"),
+            Content.Load<Texture2D>("FireballUp"), //10
+            Content.Load<Texture2D>("Sheep")
+            };
 
 
-            _levelMaps = new List<Texture2D>();
-            _levelMaps.Add(Content.Load<Texture2D>("Map"));
-            _levelMaps.Add(Content.Load<Texture2D>("Map2"));
-            _levelMaps.Add(Content.Load<Texture2D>("Map3"));
-            _levelMaps.Add(Content.Load<Texture2D>("Map4"));
+            _levelMaps = new List<Texture2D>() { 
+            Content.Load<Texture2D>("Map"),
+            Content.Load<Texture2D>("Map2"),
+            Content.Load<Texture2D>("Map3"),
+            Content.Load<Texture2D>("Map4")
+            };
 
-            music = new List<Song>();
-            music.Add(Content.Load<Song>("introS"));
-            music.Add(Content.Load<Song>("level"));
-            music.Add(Content.Load<Song>("boss"));
-            music.Add(Content.Load<Song>("CompleteS"));
-            music.Add(Content.Load<Song>("failed"));
+            music = new List<Song>() { 
+            Content.Load<Song>("introS"),
+            Content.Load<Song>("level"),
+            Content.Load<Song>("boss"),
+            Content.Load<Song>("CompleteS"),
+            Content.Load<Song>("failed")
+            };
 
 
             General._afbeeldingBlokken = _afbeeldingBlokken;
@@ -135,7 +139,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             General.r = new Random();
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             ui = new UI();
-            loadLevel0();
+            LoadLevel0();
 
             // TODO: slaag afbeeldingen op in variabelen
 
@@ -180,15 +184,15 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             if (stateKey.IsKeyDown(Keys.F1))
             {
-                loadLevel1(gameTime);
+                LoadLevel1(gameTime);
             }
             if (stateKey.IsKeyDown(Keys.F2))
             {
-                loadLevel2(gameTime);
+                LoadLevel2(gameTime);
             }
             if (stateKey.IsKeyDown(Keys.F3))
             {
-                loadLevel3(gameTime);
+                LoadLevel3(gameTime);
             }
             if (stateKey.IsKeyDown(Keys.F9))
             {
@@ -217,7 +221,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             List<Rectangle> rectList = new List<Rectangle>();
             if (enableUpdate)
             {
-                points += level.getPoints();
+                points += level.GetPoints();
                 switch (currentLevel)
                 {
                     case -1: //Loading screen, 
@@ -230,28 +234,28 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 case 0:
                                     {
-                                        loadLevel0();
+                                        LoadLevel0();
                                         break;
                                     }
                                 case 1:
                                     {
-                                        loadLevel1(gameTime);
+                                        LoadLevel1(gameTime);
                                         break;
                                     }
                                 case 2:
                                     {
-                                        loadLevel2(gameTime);
+                                        LoadLevel2(gameTime);
                                         break;
                                     }
                                 case 3:
                                     {
-                                        loadLevel3(gameTime);
+                                        LoadLevel3(gameTime);
                                         break;
                                     }
                                 case 4:
                                     {
-                                        ui.stopTimer(gameTime);
-                                        loadResult();
+                                        ui.StopTimer(gameTime);
+                                        LoadResult();
                                         break;
                                     }
                             }
@@ -272,7 +276,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             }
                             if (stateKey.IsKeyDown(Keys.Enter) && intro > 2)
                             {
-                                eindLift.activate();
+                                eindLift.Activate();
                             }
                             if (eindLift.Positie.Y < 100)
                             {
@@ -306,11 +310,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     case 1:
                         {
 
-                            eindLift.activate(held.GetFeetCollisionRect());
+                            eindLift.Activate(held.GetFeetCollisionRect());
                             startLift.Update(gameTime, held);
                             eindLift.Update(gameTime, held);
 
-                            rectList = level.getRectangles();
+                            rectList = level.GetRectangles();
                             rectList.Add(startLift.GetCollisionRectagle());
                             rectList.Add(eindLift.GetCollisionRectagle());
                             held.CheckEnviroments(rectList);
@@ -320,12 +324,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 orihd.CheckEnviroments(rectList);
                                 orihd.SeePlayer(held.GetCollisionRectagle());
-                                orihd.Update(gameTime, stateKey, held.getBullets());
+                                orihd.Update(gameTime, stateKey, held.GetBullets());
                                 if (!held.isGrounded) //The player is allowed to stand on the enemy and can go through the enemy
                                 {
                                     held.isGrounded = held.GetFeetCollisionRect().Intersects(orihd.GetCollisionRectagle());
                                 }
-                                enemyBullets.AddRange(orihd.getBullets());
+                                enemyBullets.AddRange(orihd.GetBullets());
                             }
 
                             level.Update(gameTime, held);
@@ -337,7 +341,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 currentLevel = -1;
                                 isNextLevel = 2;
                             }
-                            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
+                            camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                             break;
                         }
                     case 2:
@@ -345,7 +349,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             startLift.Update(gameTime, held);
                             eindLift.Update(gameTime, held);
 
-                            rectList = level.getRectangles();
+                            rectList = level.GetRectangles();
                             rectList.Add(startLift.GetCollisionRectagle());
                             rectList.Add(eindLift.GetCollisionRectagle());
                             held.CheckEnviroments(rectList);
@@ -355,24 +359,24 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 orihd.CheckEnviroments(rectList);
                                 orihd.SeePlayer(held.GetCollisionRectagle());
-                                orihd.Update(gameTime, stateKey, held.getBullets());
+                                orihd.Update(gameTime, stateKey, held.GetBullets());
                                 if (!held.isGrounded)
                                 {
                                     held.isGrounded = held.GetFeetCollisionRect().Intersects(orihd.GetCollisionRectagle());
                                 }
-                                enemyBullets.AddRange(orihd.getBullets());
+                                enemyBullets.AddRange(orihd.GetBullets());
                             }
 
                             level.Update(gameTime, held);
                             held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
-                            eindLift.activate(held.GetFeetCollisionRect());
+                            eindLift.Activate(held.GetFeetCollisionRect());
 
                             if (eindLift.Positie.Y < 200)
                             {
                                 currentLevel = -1;
                                 isNextLevel = 3;
                             }
-                            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
+                            camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                             break;
                         }
                     case 3:
@@ -380,22 +384,22 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             startLift.Update(gameTime, held);
                             eindLift.Update(gameTime, held);
 
-                            rectList = level.getRectangles();
+                            rectList = level.GetRectangles();
                             rectList.Add(startLift.GetCollisionRectagle());
                             rectList.Add(eindLift.GetCollisionRectagle());
                             held.CheckEnviroments(rectList);
 
                             boss.CheckEnviroments(rectList);
-                            boss.Update(gameTime, stateKey, held.GetCollisionRectagle(), held.getBullets());
+                            boss.Update(gameTime, stateKey, held.GetCollisionRectagle(), held.GetBullets());
 
                             if (!boss.isAlive)
                             {
-                                eindLift.activate(held.GetFeetCollisionRect());
+                                eindLift.Activate(held.GetFeetCollisionRect());
                             }
 
 
                             level.Update(gameTime, held);
-                            held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.getBullets());
+                            held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.GetBullets());
 
 
                             if (eindLift.Positie.Y < 200)
@@ -404,7 +408,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 isNextLevel = 4;
                                 intro = 1;
                             }
-                            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
+                            camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                             break;
                         }
                     case 4:
@@ -418,7 +422,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             if (stateKey.IsKeyUp(Keys.Enter)) lastEnter = 0;
                             if (intro > 2)
                             {
-                                loadLevel0();
+                                LoadLevel0();
                                 intro = 0;
                             }
 
@@ -430,15 +434,15 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             if(held.Lives < 4 && enableUpdate)
             {
                 enableUpdate = false;
-                gameOVer();
+                GameOVer();
             }
             if (!enableUpdate)
             {
-                camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
-                ui.updateDeath(camPos, gameTime);
+                camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
+                ui.UpdateDeath(camPos, gameTime);
                 if (Keyboard.GetState().IsKeyDown(Keys.Enter)) //Dit staat verkeerd
                 {
-                    loadLevel0();
+                    LoadLevel0();
                     currentLevel = 0;
                     enableUpdate = true;
                 }
@@ -462,7 +466,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             
             camera.Rotation = rotation;
             camera.Zoom = zoom;
-            camPos = cameraPos(camera.Focus, held.GetCollisionRectagle());
+            camPos = CameraPos(camera.Focus, held.GetCollisionRectagle());
 
             switch (currentLevel)
             {
@@ -522,12 +526,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                         held.Draw(spriteBatch);
                         level.Draw(spriteBatch, 0, 0);
-                        ui.showTime(spriteBatch, camPos);
+                        ui.ShowTime(spriteBatch, camPos);
                         break;
                     }
                 case 2:
                     {
-                        camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
+                        camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch);
@@ -540,13 +544,13 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         held.Draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
-                        ui.showTime(spriteBatch, camPos);
+                        ui.ShowTime(spriteBatch, camPos);
 
                         break;
                     }
                 case 3:
                     {
-                        camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
+                        camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch);
@@ -556,7 +560,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         held.Draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
-                        ui.showTime(spriteBatch, camPos);
+                        ui.ShowTime(spriteBatch, camPos);
                         break;
                     }
                 case 4:
@@ -567,7 +571,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             case 1:
                                 {
                                     spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
-                                    ui.showResult(spriteBatch);
+                                    ui.ShowResult(spriteBatch);
                                     break;
                                 }
                             case 2:
@@ -585,7 +589,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             Console.WriteLine(held.Location.ToString());
             if (!enableUpdate)
             {
-                ui.showDeath(spriteBatch);
+                ui.ShowDeath(spriteBatch);
                 
             }
             spriteBatch.End();
@@ -599,7 +603,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             base.Draw(gameTime);
         }
 
-        public Vector2 cameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
+        public Vector2 CameraPos(Rectangle camer, Rectangle item) //TODO: cameraBox voor smoothere camera
         {
             Vector2 newCampos = camPos + ((item.Location.ToVector2() - new Vector2(600,600)) - camPos) / 8;
             newCampos.X = (int)(newCampos.X);
@@ -611,7 +615,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             return newCampos;
         }
 
-        public void loadLevel0()
+        public void LoadLevel0()
         {
             //TODO: explenation picture
             zoom = 1;
@@ -631,7 +635,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             currentLevel = 0;
             MediaPlayer.Play(music[0]);
         }
-        public void loadLevel1(GameTime gameTime) //TODO: Maak van level 1 een vriendelijke introductie level
+        public void LoadLevel1(GameTime gameTime) //TODO: Maak van level 1 een vriendelijke introductie level
         {
 
             zoom = 1 - 0.5f;
@@ -645,20 +649,20 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             level = new LevelControl(_levelMaps[1], _afbeeldingBlokken, orihList);
             //level.CreateWorld(_afbeeldingBlok, Content.Load<Texture2D>("platform"));
             held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(200,3000));
-            held.setToStartPos(new Vector2(200, 2400));
+            held.SetToStartPos(new Vector2(200, 2400));
             eindLift = new Lift(new Vector2(7400, 1700), new Vector2(7400, 100));
             MediaPlayer.Play(music[1]);
-            ui.startTimer(gameTime);
+            ui.StartTimer(gameTime);
         }
 
-        public void loadLevel2(GameTime gameTime)
+        public void LoadLevel2(GameTime gameTime)
         {
             zoom = 1 - 0.5f;
             currentLevel = 2;
             
             orihList = new List<Orih>();
             
-            held.setToStartPos(new Vector2(200, 2400));
+            held.SetToStartPos(new Vector2(200, 2400));
             level = new LevelControl(_levelMaps[2], _afbeeldingBlokken, orihList);
 
             startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
@@ -668,12 +672,12 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             
         }
 
-        public void loadLevel3(GameTime gameTime)
+        public void LoadLevel3(GameTime gameTime)
         {
             zoom = 1 - 0.5f;
             currentLevel = 3;
             boss = new BigBoy(4, new RobotMove(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(5200, 500));
-            held.setToStartPos(new Vector2(200, 2400));
+            held.SetToStartPos(new Vector2(200, 2400));
             level = new LevelControl(_levelMaps[3], _afbeeldingBlokken, orihList);
 
             startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
@@ -683,18 +687,18 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             MediaPlayer.Play(music[2]);
         }
 
-        public void loadResult()
+        public void LoadResult()
         {
             intro = 1;
             MediaPlayer.Play(music[3]);
         }
 
-        public void gameOVer()
+        public void GameOVer()
         {
-            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
+            camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
             enableUpdate = false;
             ui = new UI();
-            ui.gameOver(camPos);
+            ui.GameOver(camPos);
             MediaPlayer.Play(music[4]);
         }
     }

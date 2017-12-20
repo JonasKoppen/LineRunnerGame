@@ -367,21 +367,21 @@ namespace LineRunnerShooter
             {
                 if(b != null)
                 {
-                    foreach (BulletBlueprint bullet in held.getBullets())
+                    foreach (BulletBlueprint bullet in held.GetBullets())
                     {
                         if (bullet.CollisionRect.Intersects(b.GetCollisionRectagle()))
                         {
                             bullet.HitTarget();
                             if (b is Target)
                             {
-                                (b as Target).hitTarget();
+                                (b as Target).HitTarget();
                             }
                         }
                     }
                     if (b is BlockPurple)
                     {
                         (b as BlockPurple).Update(gameTime, user.GetFeetCollisionRect());
-                        (b as BlockPurple).getPosChange(user);
+                        (b as BlockPurple).GetPosChange(user);
                     }
                     if (b is IUpdatetableBlock)
                     {
@@ -409,7 +409,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public bool checkCollision(Rectangle user)
+        public bool CheckCollision(Rectangle user)
         {
             bool collision = false;
             bool col = false;
@@ -430,7 +430,7 @@ namespace LineRunnerShooter
             return col;
         }
 
-        public List<Rectangle> getRectangles()
+        public List<Rectangle> GetRectangles()
         {
             List<Rectangle> blocks = new List<Rectangle>();
             for (int i = 0; i < blockArray.GetLength(0); i++)
@@ -451,14 +451,14 @@ namespace LineRunnerShooter
             return blocks;
         }
 
-        public int getPoints()
+        public int GetPoints()
         {
             int score = 0;
             foreach(Block t in blockArray)
             {
                 if(t is Target)
                 {
-                    score += (t as Target).getPoints();
+                    score += (t as Target).GetPoints();
                 }
                 
             }

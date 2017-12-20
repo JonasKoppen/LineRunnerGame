@@ -169,7 +169,7 @@ namespace LineRunnerShooter
             robotARM.SetDamage(0);
         }
 
-        public virtual List<BulletBlueprint> getBullets()
+        public virtual List<BulletBlueprint> GetBullets()
         {
             return robotARM.Bullets;
         }
@@ -187,7 +187,7 @@ namespace LineRunnerShooter
             {
             if (General.r.Next(100) > 99)
             {
-                changeDir();
+                ChangeDir();
             }
             if (canLeft && movedir == 0)
             {
@@ -204,7 +204,7 @@ namespace LineRunnerShooter
             Update(_canLeft, _canRight);
         }
 
-        public void changeDir()
+        public void ChangeDir()
         {
             movedir = Math.Abs(movedir - 1);
         }

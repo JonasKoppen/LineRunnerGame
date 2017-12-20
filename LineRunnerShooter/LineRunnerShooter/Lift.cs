@@ -82,24 +82,24 @@ namespace LineRunnerShooter
             }
         }
 
-        public void setPos(Vector2 loc)
+        public void SetPos(Vector2 loc)
         {
             Positie = loc;
         }
 
-        public void setDest(Vector2 dest)
+        public void SetDest(Vector2 dest)
         {
             eindPos = dest;
         }
 
-        public void activate(Rectangle player)
+        public void Activate(Rectangle player)
         {
             if (!isActive)
             {
                 isActive = player.Intersects(GetCollisionRectagle());
             }
         }
-        public void activate()
+        public void Activate()
         {
             if (!isActive)
             {

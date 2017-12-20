@@ -116,9 +116,9 @@ namespace LineRunnerShooter
             while((i != -1))
             {
                 //Console.WriteLine("searching");
-                if (!Bullets[i].isFired)
+                if (!Bullets[i].IsFired)
                 {
-                    (Bullets[i] as Bullet).fire(angle, _position);
+                    (Bullets[i] as Bullet).Fire(angle, _position);
                     //Console.WriteLine("bullet Fired");
                     i = -1;
                 }
@@ -134,7 +134,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public List<Rectangle> getBulletsRect()
+        public List<Rectangle> GetBulletsRect()
         {
             List<Rectangle> bulletsRect = new List<Rectangle>();
             foreach (BulletBlueprint b in Bullets)
@@ -156,7 +156,7 @@ namespace LineRunnerShooter
         bool isAttacking;
         private MeleeBullet meleeBullet;
 
-        public List<BulletBlueprint> Bullets { get { return getBullets(); }}
+        public List<BulletBlueprint> Bullets { get { return GetBullets(); }}
 
         public RobotMeleeARM(Texture2D pix)
         {
@@ -195,21 +195,22 @@ namespace LineRunnerShooter
             isAttacking = true;
         }
 
-        private List<BulletBlueprint> getBullets()
-        {   
-            List<BulletBlueprint> bullets = new List<BulletBlueprint>();
-            bullets.Add(meleeBullet);
+        private List<BulletBlueprint> GetBullets()
+        {
+            List<BulletBlueprint> bullets = new List<BulletBlueprint>() {
+                                                            meleeBullet
+                                                            };
             return bullets;
         }
 
         public void SetDamage(int damage)
         {
-            meleeBullet.setDamage(damage);
+            meleeBullet.SetDamage(damage);
         }
 
         public void Disable()
         {
-            meleeBullet.resetBullet();
+            meleeBullet.ResetBullet();
         }
     }
 
