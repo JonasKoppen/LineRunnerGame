@@ -642,7 +642,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         }
         public void LoadLevel1(GameTime gameTime) //TODO: Maak van level 1 een vriendelijke introductie level
         {
-
+            held.HealthUp();
             zoom = 1 - 0.5f;
             currentLevel = 1;
 

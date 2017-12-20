@@ -89,6 +89,7 @@ namespace LineRunnerShooter
             else
             {
                 _position = new Vector2(100, 5000);
+                base.Update(gameTime, stateKey, bullets);
             }
             robotARM.Update(gameTime, _position, _moveMethod.Movedir);
             CheckHit(bullets);
@@ -106,6 +107,11 @@ namespace LineRunnerShooter
             {
                 //spriteBatch.Draw(_Texture, getAttackRect(), Color.Red);
             }
+            spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Body, Color.Red);
+            spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Feet, Color.Beige);
+            spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Head, Color.Blue);
+            spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Left, Color.Gray);
+            spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Right, Color.Green);
         }
 
         public void SeePlayer(Rectangle player)
@@ -113,11 +119,11 @@ namespace LineRunnerShooter
             Rectangle _ViewRectangle;
             if (_moveMethod.Movedir == 1)
             {
-                _ViewRectangle = new Rectangle(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y) + 25, 150, 100);
+                _ViewRectangle = new Rectangle(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y) + 10, 150, 100);
             }
             else
             {
-                _ViewRectangle = new Rectangle(Convert.ToInt16(_position.X) - 240, Convert.ToInt16(_position.Y) + 25, 150, 100);
+                _ViewRectangle = new Rectangle(Convert.ToInt16(_position.X) - 240, Convert.ToInt16(_position.Y) + 10, 150, 100);
             }
 
             if (player.Intersects(_ViewRectangle))

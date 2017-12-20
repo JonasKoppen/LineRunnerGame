@@ -143,11 +143,12 @@ namespace LineRunnerShooter
 
         protected override void TakeDamage(int damage)
         {
-            if(invincebleTime < 1)
+            if(invincebleTime < 1 && damage >0)
             {
                 base.TakeDamage(damage);
+                invincebleTime = 1000;
             }
-            invincebleTime = 1000;
+            
         }
 
         public List<BulletBlueprint> GetBullets()
