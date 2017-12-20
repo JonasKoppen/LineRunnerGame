@@ -28,47 +28,47 @@ namespace LineRunnerShooter
         public Orih(int textureL, MoveMethod move, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
         {
             _spritePos = new Rectangle(pos.ToPoint(), new Point(60, 200));
-            _Position = pos;
-            _StartPos = pos;
+            _position = pos;
+            _startPos = pos;
             isAlive = true;
             isAttacking = false;
             _lives = 3;
-            collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            collisionBox = new RoboCollisionBox(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(bullet);
             maxSpeed = 8;
         }
         public Orih(int textureL, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
         {
             _spritePos = new Rectangle(pos.ToPoint(), new Point(60,200));
-            _Position = pos;
-            _StartPos = pos;
+            _position = pos;
+            _startPos = pos;
             isAlive = true;
             isAttacking = false;
             _lives = 3;
-            collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            collisionBox = new RoboCollisionBox(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
-            robotARM.setDamage(5);
+            robotARM.SetDamage(5);
         }
         public Orih(int textureL,Rectangle spritePos, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
         {
             _spritePos = spritePos;
-            _Position = pos;
-            _StartPos = pos;
+            _position = pos;
+            _startPos = pos;
             isAlive = true;
             isAttacking = false;
             _lives = 10;
-            collisionBox = new RoboCollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            collisionBox = new RoboCollisionBox(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y), _spritePos.Width, _spritePos.Height);
             robotARM = new RobotMeleeARM(armpix);
             maxSpeed = 8;
-            robotARM.setDamage(5);
+            robotARM.SetDamage(5);
         }
         public override void Update(GameTime gameTime, KeyboardState stateKey, List<BulletBlueprint> bullets)
         {
             
             if (isAlive)
             {
-                _MoveMethod.Update(stateKey, new MouseState(), canLeft, canRight);
+                _moveMethod.Update(stateKey, new MouseState(), canLeft, canRight);
                 base.Update(gameTime, stateKey, bullets);
                 
                 if (isAttacking)
@@ -76,7 +76,7 @@ namespace LineRunnerShooter
                     Console.WriteLine("Attacing");
                     robotARM.Fire();
                 }
-                if (lastMove != _MoveMethod.Movedir)
+                if (lastMove != _moveMethod.Movedir)
                 {
                     isAttacking = false;
                     maxSpeed = 8;
@@ -88,18 +88,18 @@ namespace LineRunnerShooter
             }
             else
             {
-                _Position = new Vector2(100, 5000);
+                _position = new Vector2(100, 5000);
             }
-            robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
-            checkHit(bullets);
+            robotARM.Update(gameTime, _position, _moveMethod.Movedir);
+            CheckHit(bullets);
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             _spritePos.X = 0;
             if (isAlive)
             {
-                base.draw(spriteBatch);
+                base.Draw(spriteBatch);
                 //robotARM.Draw(spriteBatch); //Arm is te lelijk
             }
             if (isAttacking)
@@ -111,13 +111,13 @@ namespace LineRunnerShooter
         public void SeePlayer(Rectangle player)
         {
             Rectangle _ViewRectangle;
-            if (_MoveMethod.Movedir == 1)
+            if (_moveMethod.Movedir == 1)
             {
-                _ViewRectangle = new Rectangle(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y) + 25, 150, 100);
+                _ViewRectangle = new Rectangle(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y) + 25, 150, 100);
             }
             else
             {
-                _ViewRectangle = new Rectangle(Convert.ToInt16(_Position.X) - 240, Convert.ToInt16(_Position.Y) + 25, 150, 100);
+                _ViewRectangle = new Rectangle(Convert.ToInt16(_position.X) - 240, Convert.ToInt16(_position.Y) + 25, 150, 100);
             }
 
             if (player.Intersects(_ViewRectangle))
@@ -135,7 +135,7 @@ namespace LineRunnerShooter
         {
             isAttacking = true;
             maxSpeed = 20;
-            lastMove = _MoveMethod.Movedir;
+            lastMove = _moveMethod.Movedir;
         }
 
         public override void Reset()
@@ -143,13 +143,13 @@ namespace LineRunnerShooter
             isAlive = false;
             gravity = 0;
             maxSpeed = 0;
-            _Position = new Vector2(500, 6000);
+            _position = new Vector2(500, 6000);
         }
 
-        public override void checkEnviroments(List<Rectangle> level)
+        public override void CheckEnviroments(List<Rectangle> level)
         {
             RoboCollisionBox roboBox = collisionBox as RoboCollisionBox;
-            base.checkEnviroments(level);
+            base.CheckEnviroments(level);
             foreach(Rectangle rect in level)
             {
                 if (rect.Intersects(roboBox.SenseLeft) && canLeft)
@@ -162,16 +162,16 @@ namespace LineRunnerShooter
                 }
             }
         }
-        protected override void sheep()
+        protected override void Sheep()
         {
-            base.sheep();
-            robotARM.disable();
-            robotARM.setDamage(0);
+            base.Sheep();
+            robotARM.Disable();
+            robotARM.SetDamage(0);
         }
 
         public virtual List<BulletBlueprint> getBullets()
         {
-            return robotARM.getBullets();
+            return robotARM.Bullets;
         }
         
     }
@@ -185,7 +185,7 @@ namespace LineRunnerShooter
 
             public void Update(bool canLeft, bool canRight)
             {
-            if (General.r.Next(100) > 98)
+            if (General.r.Next(100) > 99)
             {
                 changeDir();
             }

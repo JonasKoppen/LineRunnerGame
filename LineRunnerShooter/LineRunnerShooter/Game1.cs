@@ -282,18 +282,18 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             }
                             if (startLift.isActive)
                             {
-                                rectList.Add(startLift.getCollisionRectagle());
+                                rectList.Add(startLift.GetCollisionRectagle());
                             }
                             else
                             {
-                                rectList.Add(eindLift.getCollisionRectagle());
+                                rectList.Add(eindLift.GetCollisionRectagle());
                             }
                             for (int i = 0; i < liftSides.Count; i++)
                             {
                                 liftSides[i].Update(gameTime);
-                                rectList.Add(liftSides[i].getCollisionRectagle());
+                                rectList.Add(liftSides[i].GetCollisionRectagle());
                             }
-                            held.checkEnviroments(rectList);
+                            held.CheckEnviroments(rectList);
 
                             startLift.Update(gameTime, held);
                             eindLift.Update(gameTime, held);
@@ -306,24 +306,24 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     case 1:
                         {
 
-                            eindLift.activate(held.getFeetCollisionRect());
+                            eindLift.activate(held.GetFeetCollisionRect());
                             startLift.Update(gameTime, held);
                             eindLift.Update(gameTime, held);
 
                             rectList = level.getRectangles();
-                            rectList.Add(startLift.getCollisionRectagle());
-                            rectList.Add(eindLift.getCollisionRectagle());
-                            held.checkEnviroments(rectList);
+                            rectList.Add(startLift.GetCollisionRectagle());
+                            rectList.Add(eindLift.GetCollisionRectagle());
+                            held.CheckEnviroments(rectList);
 
                             List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
                             foreach (Orih orihd in orihList)
                             {
-                                orihd.checkEnviroments(rectList);
-                                orihd.SeePlayer(held.getCollisionRectagle());
+                                orihd.CheckEnviroments(rectList);
+                                orihd.SeePlayer(held.GetCollisionRectagle());
                                 orihd.Update(gameTime, stateKey, held.getBullets());
                                 if (!held.isGrounded) //The player is allowed to stand on the enemy and can go through the enemy
                                 {
-                                    held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                                    held.isGrounded = held.GetFeetCollisionRect().Intersects(orihd.GetCollisionRectagle());
                                 }
                                 enemyBullets.AddRange(orihd.getBullets());
                             }
@@ -337,7 +337,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 currentLevel = -1;
                                 isNextLevel = 2;
                             }
-                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
                             break;
                         }
                     case 2:
@@ -346,33 +346,33 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             eindLift.Update(gameTime, held);
 
                             rectList = level.getRectangles();
-                            rectList.Add(startLift.getCollisionRectagle());
-                            rectList.Add(eindLift.getCollisionRectagle());
-                            held.checkEnviroments(rectList);
+                            rectList.Add(startLift.GetCollisionRectagle());
+                            rectList.Add(eindLift.GetCollisionRectagle());
+                            held.CheckEnviroments(rectList);
 
                             List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
                             foreach (Orih orihd in orihList)
                             {
-                                orihd.checkEnviroments(rectList);
-                                orihd.SeePlayer(held.getCollisionRectagle());
+                                orihd.CheckEnviroments(rectList);
+                                orihd.SeePlayer(held.GetCollisionRectagle());
                                 orihd.Update(gameTime, stateKey, held.getBullets());
                                 if (!held.isGrounded)
                                 {
-                                    held.isGrounded = held.getFeetCollisionRect().Intersects(orihd.getCollisionRectagle());
+                                    held.isGrounded = held.GetFeetCollisionRect().Intersects(orihd.GetCollisionRectagle());
                                 }
                                 enemyBullets.AddRange(orihd.getBullets());
                             }
 
                             level.Update(gameTime, held);
                             held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, enemyBullets);
-                            eindLift.activate(held.getFeetCollisionRect());
+                            eindLift.activate(held.GetFeetCollisionRect());
 
                             if (eindLift.Positie.Y < 200)
                             {
                                 currentLevel = -1;
                                 isNextLevel = 3;
                             }
-                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
                             break;
                         }
                     case 3:
@@ -381,16 +381,16 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             eindLift.Update(gameTime, held);
 
                             rectList = level.getRectangles();
-                            rectList.Add(startLift.getCollisionRectagle());
-                            rectList.Add(eindLift.getCollisionRectagle());
-                            held.checkEnviroments(rectList);
+                            rectList.Add(startLift.GetCollisionRectagle());
+                            rectList.Add(eindLift.GetCollisionRectagle());
+                            held.CheckEnviroments(rectList);
 
-                            boss.checkEnviroments(rectList);
-                            boss.Update(gameTime, stateKey, held.getCollisionRectagle(), held.getBullets());
+                            boss.CheckEnviroments(rectList);
+                            boss.Update(gameTime, stateKey, held.GetCollisionRectagle(), held.getBullets());
 
                             if (!boss.isAlive)
                             {
-                                eindLift.activate(held.getFeetCollisionRect());
+                                eindLift.activate(held.GetFeetCollisionRect());
                             }
 
 
@@ -404,7 +404,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 isNextLevel = 4;
                                 intro = 1;
                             }
-                            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
                             break;
                         }
                     case 4:
@@ -434,7 +434,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             }
             if (!enableUpdate)
             {
-                camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
                 ui.updateDeath(camPos, gameTime);
                 if (Keyboard.GetState().IsKeyDown(Keys.Enter)) //Dit staat verkeerd
                 {
@@ -462,7 +462,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             
             camera.Rotation = rotation;
             camera.Zoom = zoom;
-            camPos = cameraPos(camera.Focus, held.getCollisionRectagle());
+            camPos = cameraPos(camera.Focus, held.GetCollisionRectagle());
 
             switch (currentLevel)
             {
@@ -495,7 +495,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         {
                             liftSides[i].Draw(spriteBatch);
                         }
-                        held.draw(spriteBatch);
+                        held.Draw(spriteBatch);
                         if (startLift.isActive)
                         {
                             startLift.Draw(spriteBatch);
@@ -518,16 +518,16 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         foreach (Orih orihd in orihList)
                         {
-                            orihd.draw(spriteBatch);
+                            orihd.Draw(spriteBatch);
                         }
-                        held.draw(spriteBatch);
+                        held.Draw(spriteBatch);
                         level.Draw(spriteBatch, 0, 0);
                         ui.showTime(spriteBatch, camPos);
                         break;
                     }
                 case 2:
                     {
-                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                        camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch);
@@ -535,9 +535,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                         foreach (Orih orihd in orihList)
                         {
-                            orihd.draw(spriteBatch);
+                            orihd.Draw(spriteBatch);
                         }
-                        held.draw(spriteBatch);
+                        held.Draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
                         ui.showTime(spriteBatch, camPos);
@@ -546,14 +546,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                     }
                 case 3:
                     {
-                        camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+                        camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
                         spriteBatch.Begin(transformMatrix: viewMatrix);
                         spriteBatch.Draw(_afbeeldingBlokken[7], new Rectangle(Convert.ToInt16(camPos.X * 0.25), -300, 6500, 2500), Color.White);
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
-                        boss.draw(spriteBatch);
-                        held.draw(spriteBatch);
+                        boss.Draw(spriteBatch);
+                        held.Draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
                         ui.showTime(spriteBatch, camPos);
@@ -595,7 +595,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             spriteBatch.End();
             */
 
-            //Console.WriteLine(gameTime.ElapsedGameTime.TotalMilliseconds);
+            Console.WriteLine(1000f/(gameTime.ElapsedGameTime.TotalMilliseconds));
             base.Draw(gameTime);
         }
 
@@ -691,7 +691,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public void gameOVer()
         {
-            camera.Position = cameraPos(camera.Focus, held.getCollisionRectagle());
+            camera.Position = cameraPos(camera.Focus, held.GetCollisionRectagle());
             enableUpdate = false;
             ui = new UI();
             ui.gameOver(camPos);

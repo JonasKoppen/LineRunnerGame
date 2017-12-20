@@ -22,25 +22,22 @@ namespace LineRunnerShooter
         private Texture2D _texture;
         protected float angle;
         protected Vector2 _position;
-        public List<BulletBlueprint> bullets; // Dit is niet juist
+        //public List<BulletBlueprint> bullets; // Dit is niet juist
         protected Rectangle sourceRectangle;
-        private Vector2 pos;
         private Vector2 size;
-        private int damage;
-        private int owner;
 
-        public ARMBluePrint(Texture2D pix)
+        public virtual List<BulletBlueprint> Bullets { get; protected set; }
+
+        public ARMBluePrint(Texture2D texture)
         {
-            _texture = pix;
+            _texture = texture;
             sourceRectangle = new Rectangle(0, 0, 80, 36);
         }
 
-        public ARMBluePrint(Texture2D pix, Vector2 pos, Vector2 size, int damage, int owner) : this(pix)
+        public ARMBluePrint(Texture2D texture, Vector2 pos, Vector2 size) : this(texture)
         {
-            this.pos = pos;
+            this._position = pos;
             this.size = size;
-            this.damage = damage;
-            this.owner = owner;
             sourceRectangle = new Rectangle(0, 0, 80, 36);
         }
 
@@ -49,31 +46,29 @@ namespace LineRunnerShooter
         {
             Vector2 origin = new Vector2(5, 10);
             spriteBatch.Draw(_texture, _position, sourceRectangle, Color.White, -angle, origin, 1.0f, SpriteEffects.None, 1);
-            foreach (BulletBlueprint b in bullets)
+            foreach (BulletBlueprint b in Bullets)
             {
                 b.Draw(spriteBatch);
             }
         }
         public abstract void Fire();
 
-        public abstract List<BulletBlueprint> getBullets();
-
     }
 
     class ShotARM : ARMBluePrint //only has X active bullets
     {
 
-        public ShotARM(Texture2D pix, Texture2D energy, int amountBullets) : base(pix)
+        public ShotARM(Texture2D pix, Texture2D energy, int amountBullets, int damage) : base(pix)
         {
             angle = 0;
             _position = new Vector2(200, 240);
-            bullets = new List<BulletBlueprint>();
+            Bullets = new List<BulletBlueprint>();
             sourceRectangle.Y = 35;
             if (amountBullets > 0)
             {
                 for(int i = 0; i < amountBullets; i++)
                 {
-                    bullets.Add(new Bullet(energy)); //First gun can only fire 1 bullet, make a variation with more bullets and selection key
+                    Bullets.Add(new Bullet(energy, damage)); //First gun can only fire 1 bullet, make a variation with more bullets and selection key
                 } 
             }
         }
@@ -88,7 +83,7 @@ namespace LineRunnerShooter
             angle = (float)Math.Atan2(xVers,yVers) + (float) (Math.PI/2);
             //Console.WriteLine(angle);
 
-            foreach(Bullet b in bullets)
+            foreach(Bullet b in Bullets)
             {
                 b.Update(gameTime);
             }
@@ -107,7 +102,7 @@ namespace LineRunnerShooter
             {
                 angle = 0;
             }
-            foreach (Bullet b in bullets)
+            foreach (Bullet b in Bullets)
             {
                 b.Update(gameTime);
             }
@@ -121,16 +116,16 @@ namespace LineRunnerShooter
             while((i != -1))
             {
                 //Console.WriteLine("searching");
-                if (!bullets[i].isFired)
+                if (!Bullets[i].isFired)
                 {
-                    (bullets[i] as Bullet).fire(angle, _position);
+                    (Bullets[i] as Bullet).fire(angle, _position);
                     //Console.WriteLine("bullet Fired");
                     i = -1;
                 }
                 else
                 {
                     i++;
-                    if(bullets.Count <= i)
+                    if(Bullets.Count <= i)
                     {
                         i = -1;
                         //Console.WriteLine("bullet not available");
@@ -142,17 +137,11 @@ namespace LineRunnerShooter
         public List<Rectangle> getBulletsRect()
         {
             List<Rectangle> bulletsRect = new List<Rectangle>();
-            foreach (BulletBlueprint b in bullets)
+            foreach (BulletBlueprint b in Bullets)
             {
                 bulletsRect.Add(b.CollisionRect);
             }
             return bulletsRect;
-        }
-
-        public override List<BulletBlueprint> getBullets()
-        {
-
-            return bullets;
         }
 
     }
@@ -167,12 +156,14 @@ namespace LineRunnerShooter
         bool isAttacking;
         private MeleeBullet meleeBullet;
 
+        public List<BulletBlueprint> Bullets { get { return getBullets(); }}
+
         public RobotMeleeARM(Texture2D pix)
         {
             angle = 0;
             pixel = pix;
             _position = new Vector2(200, 240);
-            meleeBullet = new MeleeBullet(pix, _position,new Vector2(80,80),1,2);
+            meleeBullet = new MeleeBullet(pix, _position,new Vector2(80,80),1);
         }
         public void Update(GameTime gameTime, Vector2 position, int dir)
         {
@@ -204,23 +195,21 @@ namespace LineRunnerShooter
             isAttacking = true;
         }
 
-        public List<BulletBlueprint> getBullets()
+        private List<BulletBlueprint> getBullets()
         {   
             List<BulletBlueprint> bullets = new List<BulletBlueprint>();
             bullets.Add(meleeBullet);
             return bullets;
         }
 
-        public void setDamage(int damage)
+        public void SetDamage(int damage)
         {
             meleeBullet.setDamage(damage);
         }
 
-        public void disable()
+        public void Disable()
         {
             meleeBullet.resetBullet();
-            
-            
         }
     }
 
@@ -229,11 +218,11 @@ namespace LineRunnerShooter
         bool isFired;
         public FlameThrower(Texture2D texture,Texture2D flame) : base(texture)
         {
-            bullets = new List<BulletBlueprint>();
+            Bullets = new List<BulletBlueprint>();
             isFired = false;
             for(int i =1; i < 10; i++)
             {
-                bullets.Add(new Flame(flame, new Vector2(0,1000), new Vector2(25, 25), i%2, 0, i));
+                Bullets.Add(new Flame(flame, new Vector2(0,1000), new Vector2(25, 25), i%2, i));
             }
             sourceRectangle.Y = 70;
         }
@@ -242,12 +231,6 @@ namespace LineRunnerShooter
         {
             isFired = true;
         }
-
-        public override List<BulletBlueprint> getBullets()
-        {
-            return (bullets);
-        }
-
 
         public override void Update(GameTime gameTime, Vector2 position, Vector2 mouse)
         {
@@ -260,7 +243,7 @@ namespace LineRunnerShooter
             angle = (float)Math.Atan2(xVers, yVers) + (float)(Math.PI / 2);
             //Console.WriteLine(angle);
 
-            foreach (Flame f in bullets)
+            foreach (Flame f in Bullets)
             {
                 f.Update(_position,angle,isFired);
             }
@@ -272,11 +255,11 @@ namespace LineRunnerShooter
         bool isFired;
         public SheepANator(Texture2D texture, Texture2D flame) : base(texture)
         {
-            bullets = new List<BulletBlueprint>();
+            Bullets = new List<BulletBlueprint>();
             isFired = false;
             for (int i = 1; i < 10; i++)
             {
-                bullets.Add(new SheepBeam(flame, new Vector2(0, 1000), new Vector2(25, 25), i % 2, 0, i));
+                Bullets.Add(new SheepBeam(flame, new Vector2(0, 1000), new Vector2(25, 25), i % 2, i));
             }
             sourceRectangle.Y = 115;
         }
@@ -284,11 +267,6 @@ namespace LineRunnerShooter
         public override void Fire()
         {
             isFired = true;
-        }
-
-        public override List<BulletBlueprint> getBullets()
-        {
-            return (bullets);
         }
 
 
@@ -303,7 +281,7 @@ namespace LineRunnerShooter
             angle = (float)Math.Atan2(xVers, yVers) + (float)(Math.PI / 2);
             //Console.WriteLine(angle);
 
-            foreach (SheepBeam f in bullets)
+            foreach (SheepBeam f in Bullets)
             {
                 f.Update(_position, angle, isFired);
             }

@@ -31,44 +31,44 @@ namespace LineRunnerShooter
         {
   
             _spritePos = new Rectangle(0, 0, 100, 200);
-            _Position = location;
+            _position = location;
             arsenal = new List<ARMBluePrint>();
-            arsenal.Add(new ShotARM(armtexture, bullet,1));
-            arsenal.Add( new ShotARM(armtexture, bullet,3));
+            arsenal.Add(new ShotARM(armtexture, bullet,1,1));
+            arsenal.Add( new ShotARM(armtexture, bullet,3,1));
             arsenal.Add(new FlameThrower(armtexture, bullet));
             arsenal.Add(new SheepANator(armtexture, bullet));
             _JumpHeight = 15;
             invincebleTime = 0;
-            collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
+            collisionBox = new CollisionBox(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y), _spritePos.Width, _spritePos.Height);
         }
 
         public void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouse, Vector2 camPos, Vector2 mouseLoc, List<BulletBlueprint> bullets)
         {
             CheckAction();
-            (_MoveMethod as MovePlayer).maxWeapon = maxArms;
-            _MoveMethod.Update(stateKey, mouse, canLeft, canRight);
+            (_moveMethod as MovePlayer).maxWeapon = maxArms;
+            _moveMethod.Update(stateKey, mouse, canLeft, canRight);
             base.Update(gameTime, stateKey, mouse, camPos, bullets);
-            arsenal[selectedARM].Update(gameTime, _Position, mouseLoc);
+            arsenal[selectedARM].Update(gameTime, _position, mouseLoc);
             if (isGrounded)
             {
                 jumpAllowed = true;
             }
             invincebleTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            selectedARM = (_MoveMethod as MovePlayer).selWeapon;
+            selectedARM = (_moveMethod as MovePlayer).selWeapon;
         }
 
-        protected override void spritePosUpdate()
+        protected override void SpritePosUpdate()
         {
             _spritePos.X += 100;
-            if(_MoveMethod.Movedir == 1)
+            if(_moveMethod.Movedir == 1)
             {
                 _spritePos.Y = 0;
             }
-            else if(_MoveMethod.Movedir == 0)
+            else if(_moveMethod.Movedir == 0)
             {
                 _spritePos.Y = 200;
             }
-            if (_MoveMethod.Movedir == 2 || (!isGrounded))
+            if (_moveMethod.Movedir == 2 || (!isGrounded))
             {
                 if (_spritePos.X < 900 || _spritePos.X >= 1300)
                 {
@@ -91,11 +91,11 @@ namespace LineRunnerShooter
 
         private void CheckAction()
         {
-            if (_MoveMethod.isShooting)
+            if (_moveMethod.isShooting)
             {
                 arsenal[selectedARM].Fire();
             }
-            if (_MoveMethod.isJump)
+            if (_moveMethod.isJump)
             {
                 Jump();
             }
@@ -106,52 +106,52 @@ namespace LineRunnerShooter
             {
                 isGrounded = false;
                 jumpAllowed = false;
-                _Velocity.Y = -_JumpHeight;
+                _velocity.Y = -_JumpHeight;
             }
         }
 
         public void setToStartPos(Vector2 location)
         {
-            _Position = location;
-            _Velocity = new Vector2(0, 0);
+            _position = location;
+            _velocity = new Vector2(0, 0);
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if(_spritePos.Y == 0)
             {
-                spriteBatch.Draw(_texture, _Position, _spritePos, Color.White);
+                spriteBatch.Draw(_texture, _position, _spritePos, Color.White);
                 arsenal[selectedARM].Draw(spriteBatch);
                 if (invincebleTime > 20)
                 {
-                    spriteBatch.Draw(_texture, _Position, _spritePos, Color.Red);
+                    spriteBatch.Draw(_texture, _position, _spritePos, Color.Red);
                 }
             }
             else
             {
                 arsenal[selectedARM].Draw(spriteBatch);
-                spriteBatch.Draw(_texture, _Position, _spritePos, Color.White);
+                spriteBatch.Draw(_texture, _position, _spritePos, Color.White);
                 if (invincebleTime > 20)
                 {
-                    spriteBatch.Draw(_texture, _Position, _spritePos, Color.Red);
+                    spriteBatch.Draw(_texture, _position, _spritePos, Color.Red);
                 }
             }
             
             //base.draw(spriteBatch);
         }
 
-        protected override void takeDamage(int damage)
+        protected override void TakeDamage(int damage)
         {
             if(invincebleTime < 1)
             {
-                base.takeDamage(damage);
+                base.TakeDamage(damage);
             }
             invincebleTime = 1000;
         }
 
         public List<BulletBlueprint> getBullets()
         {
-            return arsenal[selectedARM].getBullets();
+            return arsenal[selectedARM].Bullets;
         }
     }
 

@@ -369,9 +369,9 @@ namespace LineRunnerShooter
                 {
                     foreach (BulletBlueprint bullet in held.getBullets())
                     {
-                        if (bullet.CollisionRect.Intersects(b.getCollisionRectagle()))
+                        if (bullet.CollisionRect.Intersects(b.GetCollisionRectagle()))
                         {
-                            bullet.hitTarget();
+                            bullet.HitTarget();
                             if (b is Target)
                             {
                                 (b as Target).hitTarget();
@@ -380,7 +380,7 @@ namespace LineRunnerShooter
                     }
                     if (b is BlockPurple)
                     {
-                        (b as BlockPurple).Update(gameTime, user.getFeetCollisionRect());
+                        (b as BlockPurple).Update(gameTime, user.GetFeetCollisionRect());
                         (b as BlockPurple).getPosChange(user);
                     }
                     if (b is IUpdatetableBlock)
@@ -418,7 +418,7 @@ namespace LineRunnerShooter
             {
                 if (b != null)
                 {
-                    world = b.getCollisionRectagle();
+                    world = b.GetCollisionRectagle();
                     collision = world.Intersects(user);
                     if (collision)
                     {
@@ -441,7 +441,7 @@ namespace LineRunnerShooter
                     {
                         if(!(blockArray[i,j] is Target))
                         {
-                            blocks.Add(blockArray[i, j].getCollisionRectagle());
+                            blocks.Add(blockArray[i, j].GetCollisionRectagle());
                         }
                         
                     }

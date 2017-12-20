@@ -11,4 +11,9 @@ namespace LineRunnerShooter
     {
         void Update(GameTime gameTime);
     }
+
+    interface ICollidableBlocks
+    {
+        Rectangle GetCollisionRectagle();
+    }
 }

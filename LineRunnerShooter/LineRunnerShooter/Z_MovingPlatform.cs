@@ -105,7 +105,7 @@ namespace LineRunnerShooter
         public int PushUpDown(Rectangle player)
         {
             int uit = 0;
-            if (player.Intersects(this.getCollisionRectagle()))
+            if (player.Intersects(this.GetCollisionRectagle()))
             {
                 if (goingUp && (!isStatic))
                 {

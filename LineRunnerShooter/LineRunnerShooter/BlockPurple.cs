@@ -68,7 +68,7 @@ namespace LineRunnerShooter
                     downTime--;
                 }
             }
-            if (player.Intersects(this.getCollisionRectagle()))
+            if (player.Intersects(this.GetCollisionRectagle()))
             {
                 isTouched = true;
             }
@@ -98,7 +98,7 @@ namespace LineRunnerShooter
 
         public void getPosChange(User user)
         {
-            if (user.getFeetCollisionRect().Intersects(getCollisionRectagle()))
+            if (user.GetFeetCollisionRect().Intersects(GetCollisionRectagle()))
             {
                 user.PlatformUpdate(Velocity);
             }

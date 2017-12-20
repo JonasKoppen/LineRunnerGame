@@ -54,26 +54,26 @@ namespace LineRunnerShooter
                         if(player.X > 600 && player.Y > 1000)
                         {
                             phase++;
-                            robotARM.setDamage(0);
+                            robotARM.SetDamage(0);
                         }
-                        _Position.X = 600;
-                        _Position.Y = 2000;
-                        robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
+                        _position.X = 600;
+                        _position.Y = 2000;
+                        robotARM.Update(gameTime, _position, _moveMethod.Movedir);
                         break;
                     }
                 case 1:
                     {
                         //base.Update(gameTime, stateKey);
-                        _Position.X += (player.X - _Position.X + 400) / 8;
+                        _position.X += (player.X - _position.X + 400) / 8;
                         
-                        _Position.Y = (float) (1350 + (Math.Sin(Convert.ToInt32(gameTime.TotalGameTime.TotalMilliseconds/100)))*8);
+                        _position.Y = (float) (1350 + (Math.Sin(Convert.ToInt32(gameTime.TotalGameTime.TotalMilliseconds/100)))*8);
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (player.X > 4700)
                         {
                             phase++;
-                            _Position.X = player.X+600;
+                            _position.X = player.X+600;
                             isGrounded = false;
-                            robotARM.setDamage(5);
+                            robotARM.SetDamage(5);
                         }
                         if(elapsedTime > 1000)
                         {
@@ -86,7 +86,7 @@ namespace LineRunnerShooter
                         {
                             b.Update();
                         }
-                        robotARM.Update(gameTime, _Position, _MoveMethod.Movedir);
+                        robotARM.Update(gameTime, _position, _moveMethod.Movedir);
                         _spritePos.Location = new Point(0, 400);
                         break;
                     }
@@ -96,10 +96,6 @@ namespace LineRunnerShooter
                         elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
                         if (isAlive)
                         {
-                            if (elapsedTime > 200 && r.Next(100) > 95)
-                            {
-                                (_MoveMethod as RobotMove).changeDir();
-                            }
                             if (elapsedTime > 250)
                             {
                                 elapsedTime = 0;
@@ -117,8 +113,8 @@ namespace LineRunnerShooter
                             if (_lives <= 0)
                             {
                                 isAlive = false;
-                                _Position = new Vector2(200, 5000);
-                                robotARM.disable();
+                                _position = new Vector2(200, 5000);
+                                robotARM.Disable();
                                 foreach(BulletR r in rockets)
                                 {
                                     r.resetBullet();
@@ -136,7 +132,7 @@ namespace LineRunnerShooter
         {
             player.X -= 600;
             Vector2 firePos = new Vector2(player.X + r.Next(100, 3000), 0);
-            rockets[firedRockets].fire(_Position, firePos);
+            rockets[firedRockets].fire(_position, firePos);
             firedRockets++;
             if(firedRockets >= rockets.Count)
             {
@@ -145,9 +141,9 @@ namespace LineRunnerShooter
             Console.WriteLine(firePos.ToString());
         }
 
-        public override void draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            base.draw(spriteBatch);
+            base.Draw(spriteBatch);
             if (isAlive)
             {
                 foreach (BulletR b in rockets)
@@ -172,7 +168,7 @@ namespace LineRunnerShooter
         {
             List<BulletBlueprint> bullets = new List<BulletBlueprint>();
             bullets.AddRange(rockets);
-            bullets.AddRange(robotARM.getBullets());
+            bullets.AddRange(robotARM.Bullets);
             return bullets;
         }
 

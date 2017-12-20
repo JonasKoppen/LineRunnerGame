@@ -16,42 +16,38 @@ namespace LineRunnerShooter
 
     interface IBullet
     {
-        int OwnerId { get; }
         Rectangle CollisionRect { get; }
-        int hitTarget();
-        int hitTarget(Rectangle target);
+        int HitTarget();
+        int HitTarget(Rectangle target);
     }
 
     abstract class BulletBlueprint : IBullet
     {
         protected Texture2D _texture;
-        protected Vector2 Positie;
+        protected Vector2 _positie;
         protected Vector2 _size;
 
         public bool isFired { get; set; }
 
         protected int _damage;
 
-        public Rectangle CollisionRect { get {return new Rectangle(Positie.ToPoint(), _size.ToPoint()); } }
+        public Rectangle CollisionRect { get {return new Rectangle(_positie.ToPoint(), _size.ToPoint()); } }
 
-        public int OwnerId { get; private set; }
-
-        public BulletBlueprint(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner)
+        public BulletBlueprint(Texture2D texture, Vector2 pos, Vector2 size, int damage)
         {
             _texture = texture;
-            Positie = pos;
+            _positie = pos;
             _size = size;
             isFired = false;
             _damage = damage;
-            OwnerId = owner;
         }
 
-        public virtual int hitTarget()
+        public virtual int HitTarget()
         {
             isFired = false;
             return _damage;
         }
-        public virtual int hitTarget(Rectangle item)
+        public virtual int HitTarget(Rectangle item)
         {
             int dam = 0;
             if (item.Intersects(CollisionRect) && isFired)
@@ -66,13 +62,13 @@ namespace LineRunnerShooter
         {
             if (isFired)
             {
-                spriteBatch.Draw(_texture, Positie, Color.White);
+                spriteBatch.Draw(_texture, _positie, Color.White);
             }
         }
 
         public void resetBullet()
         {
-            Positie = new Vector2(100, 5000);
+            _positie = new Vector2(100, 5000);
             isFired = false;
         }
 
@@ -82,11 +78,11 @@ namespace LineRunnerShooter
         public Vector2 _direction; //speed is always constant here so, no velocity
         private double timeToLive; //works better than with
 
-        public Bullet(Texture2D texture) : base(texture, new Vector2(0,0), new Vector2(50,50), 1, 1)
+        public Bullet(Texture2D texture, int damage) : base(texture, new Vector2(0,0), new Vector2(50,50), damage)
         {
             timeToLive = 0;
         }
-        public Bullet(Texture2D texture, Point size) : base(texture, new Vector2(0, 0), size.ToVector2(), 1, 1)
+        public Bullet(Texture2D texture, Point size, int damage) : base(texture, new Vector2(0, 0), size.ToVector2(), damage)
         {
             timeToLive = 0;
         }
@@ -97,7 +93,7 @@ namespace LineRunnerShooter
         {
             if (!isFired)
             {
-                Positie = pos;
+                _positie = pos;
                 _direction.X = 0;
                 _direction.Y = 10;
                 isFired = true;
@@ -109,7 +105,7 @@ namespace LineRunnerShooter
         {
             if (!isFired)
             {
-                Positie = pos;
+                _positie = pos;
                 _direction.X = (float)(Math.Cos(angle) * 1.5);
                 _direction.Y = -(float)(Math.Sin(angle) * 1.5);
                 isFired = true;
@@ -123,25 +119,25 @@ namespace LineRunnerShooter
             timeToLive -= gameTime.ElapsedGameTime.TotalMilliseconds;
             if (isFired)
             {
-                Positie.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.X);
-                Positie.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.Y);
+                _positie.X += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.X);
+                _positie.Y += Convert.ToInt32(gameTime.ElapsedGameTime.TotalMilliseconds * _direction.Y);
                 if ((timeToLive < 0))
                 {
-                    hitTarget();
+                    HitTarget();
                 }
             }
             else
             {
-                Positie = new Vector2(0, 1000);
+                _positie = new Vector2(0, 1000);
             }
 
             
         }
 
-        public override int hitTarget() //aka the reset function, returns the damage
+        public override int HitTarget() //aka the reset function, returns the damage
         {
             isFired = false;
-            return base.hitTarget();
+            return base.HitTarget();
         }
     }
 
@@ -149,13 +145,13 @@ namespace LineRunnerShooter
     {
 
         private float _angle;
-        public MeleeBullet(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner) : base(texture, pos, size, damage, owner)
+        public MeleeBullet(Texture2D texture, Vector2 pos, Vector2 size, int damage) : base(texture, pos, size, damage)
         {
         }
         public void Update(float angle, Vector2 pos, bool isAttacking)
         {
             _angle = angle;
-            Positie = pos;
+            _positie = pos;
             isFired = isAttacking;
         }
 
@@ -170,24 +166,24 @@ namespace LineRunnerShooter
             int size = Convert.ToInt16(_size.X);    //We gaan er vanuit dat de collisionbox een vierkant is, kan aangepast worden naar rectangle
             if (Math.Cos(_angle) > 0 && Math.Sin(_angle) > 0)
             {
-                attack.Location = Positie.ToPoint() + new Point(0, -size);
+                attack.Location = _positie.ToPoint() + new Point(0, -size);
             }
             else if (Math.Cos(_angle) <= 0 && Math.Sin(_angle) > 0)
             {
-                attack.Location = Positie.ToPoint() + new Point(-size, -size);
+                attack.Location = _positie.ToPoint() + new Point(-size, -size);
             }
             else if (Math.Cos(_angle) <= 0 && Math.Sin(_angle) <= 0)
             {
-                attack.Location = Positie.ToPoint() + new Point(-size, 0);
+                attack.Location = _positie.ToPoint() + new Point(-size, 0);
             }
             else if (Math.Cos(_angle) > 0 && Math.Sin(_angle) <= 0)
             {
-                attack.Location = Positie.ToPoint();
+                attack.Location = _positie.ToPoint();
             }
             return attack;
         }
 
-        public override int hitTarget(Rectangle item)
+        public override int HitTarget(Rectangle item)
         {
             int damage = 0;
             if (item.Intersects(getCollisonBox()) && isFired)
@@ -203,7 +199,7 @@ namespace LineRunnerShooter
     {
         private int _id;
         Random r;
-        public Flame(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner, int id) : base(texture, pos, size, damage, owner)
+        public Flame(Texture2D texture, Vector2 pos, Vector2 size, int damage, int id) : base(texture, pos, size, damage)
         {
             _id = id;
             r = new Random();
@@ -213,15 +209,15 @@ namespace LineRunnerShooter
         public void Update(Vector2 pos, float angle, bool isFire)
         {
             isFired = isFire;
-            Positie = pos;
+            _positie = pos;
             if (isFired)
             {
-                Positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X)*1.5 + (General.r.Next(-5,5) * _id));
-                Positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 1.5 + (General.r.Next(-5,5) * _id));
+                _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X)*1.5 + (General.r.Next(-5,5) * _id));
+                _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 1.5 + (General.r.Next(-5,5) * _id));
             }
             else
             {
-                Positie = new Vector2(0, 1000);
+                _positie = new Vector2(0, 1000);
             }
             
         }
@@ -233,7 +229,7 @@ namespace LineRunnerShooter
     {
         private int _id;
         Random r;
-        public SheepBeam(Texture2D texture, Vector2 pos, Vector2 size, int damage, int owner, int id) : base(texture, pos, size, damage, owner)
+        public SheepBeam(Texture2D texture, Vector2 pos, Vector2 size, int damage, int id) : base(texture, pos, size, damage)
         {
             _id = id;
             r = new Random();
@@ -243,24 +239,16 @@ namespace LineRunnerShooter
         public void Update(Vector2 pos, float angle, bool isFire)
         {
             isFired = isFire;
-            Positie = pos;
+            _positie = pos;
             if (isFired)
             {
-                Positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X) );
-                Positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y));
+                _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X) );
+                _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y));
             }
             else
             {
-                Positie = new Vector2(0, 1000);
+                _positie = new Vector2(0, 1000);
             }
-
         }
-
-        public void sheepinate(User user)
-        {
-
-        }
-
-
     }
 }

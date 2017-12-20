@@ -38,7 +38,7 @@ namespace LineRunnerShooter
                     change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds/slow);
                     Positie.Y += change;
                 }
-                if ((!player.Intersects(getCollisionRectagle())) || !goingUp )
+                if ((!player.Intersects(GetCollisionRectagle())) || !goingUp )
                 {
                     change = 0;
                 }
@@ -70,7 +70,7 @@ namespace LineRunnerShooter
                     Velocity.Y = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds / slow);
                     Positie += Velocity;
                 }
-                if (player.getFeetCollisionRect().Intersects(getCollisionRectagle()))
+                if (player.GetFeetCollisionRect().Intersects(GetCollisionRectagle()))
                 {
                     player.PlatformUpdate(Velocity);
                     player.isGrounded = true;
@@ -96,7 +96,7 @@ namespace LineRunnerShooter
         {
             if (!isActive)
             {
-                isActive = player.Intersects(getCollisionRectagle());
+                isActive = player.Intersects(GetCollisionRectagle());
             }
         }
         public void activate()

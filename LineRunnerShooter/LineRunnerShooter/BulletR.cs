@@ -19,12 +19,12 @@ namespace LineRunnerShooter
         public bool isGoingUp;
         private int damage;
 
-        public BulletR() : base(General._afbeeldingEnemys[10], new Vector2(0, 0), new Vector2(50, 50), 1, 2)
+        public BulletR() : base(General._afbeeldingEnemys[10], new Vector2(0, 0), new Vector2(50, 50), 1)
         {
             isGoingUp = true;
             damage = _damage;
         }
-        public BulletR(Point size) : base(General._afbeeldingEnemys[10], new Vector2(0,0), size.ToVector2(), 1, 2)
+        public BulletR(Point size) : base(General._afbeeldingEnemys[10], new Vector2(0,0), size.ToVector2(), 1)
         {
             isGoingUp = true;
         }
@@ -32,7 +32,7 @@ namespace LineRunnerShooter
         {
             if (!isFired)
             {
-                Positie = pos;
+                _positie = pos;
                 _direction.X = Convert.ToInt16(Math.Cos(angle) * 10);
                 _direction.Y = -Convert.ToInt16(Math.Sin(angle) * 8);
                 isFired = true;
@@ -46,7 +46,7 @@ namespace LineRunnerShooter
             if (!isFired)
             {
                 DestPos = destPos;
-                Positie = startPos;
+                _positie = startPos;
                 _direction.X = 0;
                 _direction.Y = -15;
                 isFired = true;
@@ -57,20 +57,20 @@ namespace LineRunnerShooter
         {
             if (isFired)
             {
-                Positie = Vector2.Add(Positie, _direction);
-                if(Positie.Y < 0)
+                _positie = Vector2.Add(_positie, _direction);
+                if(_positie.Y < 0)
                 {
-                    Positie.X = DestPos.X;
+                    _positie.X = DestPos.X;
                     _direction.Y = 10;
                     isGoingUp = false;
                     _texture = General._afbeeldingEnemys[9];
                 }
             }
-            if (Positie.Y > 3000)
+            if (_positie.Y > 3000)
             {
                 isFired = false;
                 isGoingUp = true;
-                Positie = new Vector2(0,1000000);
+                _positie = new Vector2(0,1000000);
                 _texture = General._afbeeldingEnemys[10];
             }
         }
@@ -85,12 +85,12 @@ namespace LineRunnerShooter
             return collision;
         }
 
-        public override int hitTarget(Rectangle item) //not needed anymore
+        public override int HitTarget(Rectangle item) //not needed anymore
         {
             int damage = 0;
             if(isFired && !isGoingUp)
             {
-                damage = base.hitTarget(item);
+                damage = base.HitTarget(item);
             }
             Console.WriteLine("hi");
             return damage;

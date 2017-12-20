@@ -22,16 +22,15 @@ namespace LineRunnerShooter
 
         protected Texture2D _texture; //textures
         protected Rectangle _spritePos;     //texture pos
-        protected int _Action;              //actioin movement
-        public Vector2 _Position;        //position
-        protected Vector2 _Velocity;
-        protected Vector2 _StartPos;
-        protected MoveMethod _MoveMethod;   //movemethod 
+        protected int _action;              //actioin movement
+        public Vector2 _position;        //position
+        protected Vector2 _velocity;
+        protected Vector2 _startPos;
+        protected MoveMethod _moveMethod;   //movemethod 
         protected double gravity;
         protected int _lives;
         protected double slow;
         protected double maxSpeed;
-
 
         public bool canLeft;                //true = mag naar links
         public bool canRight;               //true = mag naar rechts
@@ -47,24 +46,24 @@ namespace LineRunnerShooter
 
         public int Lives { get { return _lives; } }
 
-        public Vector2 Location { get { return _Position; } }
+        public Vector2 Location { get { return _position; } }
 
         public User(int texture, MoveMethod move, Texture2D bullet)
         {
             _texture = General._afbeeldingEnemys[texture];
-            _Action = 0;
-            _Position = new Vector2(0, 500);
+            _action = 0;
+            _position = new Vector2(0, 500);
             time = 0;
-            _MoveMethod = move;
+            _moveMethod = move;
             _spritePos = new Rectangle(100, 190, 100, 200);
             isGrounded = false;
             canLeft = true;
             canRight = true;
             _lives = 20;
-            _StartPos = new Vector2(500, 1200);
+            _startPos = new Vector2(500, 1200);
             slow = 30;
-            collisionBox = new CollisionBox(Convert.ToInt16(_Position.X), Convert.ToInt16(_Position.Y), _spritePos.Width, _spritePos.Height);
-            _Velocity = new Vector2(0,0);
+            collisionBox = new CollisionBox(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y), _spritePos.Width, _spritePos.Height);
+            _velocity = new Vector2(0,0);
             gravity = 9.81;
             maxSpeed = 15;
         }
@@ -76,19 +75,19 @@ namespace LineRunnerShooter
             if (time > 20)
             {
                 time = 0;
-                spritePosUpdate();
+                SpritePosUpdate();
             }
 
             UpdateFI(totalTime);
-            if (_Position.Y > 2500 && (_Position.X >300))
+            if (_position.Y > 2500 && (_position.X >300))
             {
                 Reset();
             }
-            collisionBox.Update(_Position.ToPoint());
-            checkHit(bullets);
+            collisionBox.Update(_position.ToPoint());
+            CheckHit(bullets);
         }
 
-        protected virtual void spritePosUpdate()
+        protected virtual void SpritePosUpdate()
         {
             _spritePos.X += 100;
             if (_spritePos.X > 700)
@@ -100,7 +99,7 @@ namespace LineRunnerShooter
         public virtual void Update(GameTime gameTime, KeyboardState stateKey, MouseState mouseState, Vector2 camPos, List<BulletBlueprint> bullets)
         {
             Vector2 mousePos = mouseState.Position.ToVector2();
-            collisionBox.Update(_Position.ToPoint());
+            collisionBox.Update(_position.ToPoint());
             Update(gameTime, stateKey, bullets);
         }
 
@@ -109,12 +108,12 @@ namespace LineRunnerShooter
             
             MoveHorizontal(dt);
             MoveVertical(dt);
-            _Position += _Velocity;
+            _position += _velocity;
         }
 
-        public virtual void draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _Position, _spritePos, Color.White);
+            spriteBatch.Draw(_texture, _position, _spritePos, Color.White);
             //spriteBatch.Draw(_texture[0], collisionBox.Left, _spritePos, Color.Red);
             //spriteBatch.Draw(_texture[0], collisionBox.Right, _spritePos, Color.Red);
             //spriteBatch.Draw(_texture[0], collisionBox.Feet, _spritePos, Color.Blue);
@@ -122,34 +121,34 @@ namespace LineRunnerShooter
 
         protected virtual void MoveHorizontal(double time)
         {
-            double speed = Math.Abs(_Velocity.X) + time/slow;
+            double speed = Math.Abs(_velocity.X) + time/slow;
             if(speed > maxSpeed) { speed = maxSpeed; }
-            switch (_MoveMethod.Movedir)
+            switch (_moveMethod.Movedir)
             {
                 case (0):
-                    _Velocity.X = -(float)(speed);
-                    _Action = 0;
+                    _velocity.X = -(float)(speed);
+                    _action = 0;
                     _spritePos.Y = _spritePos.Size.Y;
                     break;
                 case (1):
-                    _Velocity.X = (float)(speed);
-                    _Action = 1;
+                    _velocity.X = (float)(speed);
+                    _action = 1;
                     _spritePos.Y = 0;
                     break;
                 default:
-                    if (Math.Abs(_Velocity.X) < 1)
+                    if (Math.Abs(_velocity.X) < 1)
                     {
-                        _Velocity.X = 0;
+                        _velocity.X = 0;
                     }
                     else
                     {
-                        _Velocity.X /= 1.2F;
+                        _velocity.X /= 1.2F;
                     }
                     break;
             }
             if (!isGrounded)
             {
-                _Velocity.X = _Velocity.X * 0.95f;
+                _velocity.X = _velocity.X * 0.95f;
             }
         }
 
@@ -157,7 +156,7 @@ namespace LineRunnerShooter
         {
             if (!isGrounded)
             {
-                _Velocity.Y += 1;
+                _velocity.Y += 1;
             }
         }
 
@@ -165,36 +164,36 @@ namespace LineRunnerShooter
         {
             if (!isGrounded)
             {
-                _Velocity.Y += (float)((time / 400.0)*gravity); 
+                _velocity.Y += (float)((time / 400.0)*gravity); 
             }
-            else { _Velocity.Y = 0; }
-            if (_Velocity.Y > 20) { _Velocity.Y = 20; }
+            else { _velocity.Y = 0; }
+            if (_velocity.Y > 20) { _velocity.Y = 20; }
 
         }
 
-        public Rectangle getCollisionRectagle()
+        public Rectangle GetCollisionRectagle()
         {
             return collisionBox.Body;
         }
 
-        public virtual Rectangle getFeetCollisionRect()
+        public virtual Rectangle GetFeetCollisionRect()
         {
             return collisionBox.UnderFeet;
         }
 
-        public Rectangle getRightCollision()
+        public Rectangle GetRightCollision()
         {
             return collisionBox.Right;
         }
 
-        public Rectangle getLeftCollision()
+        public Rectangle GetLeftCollision()
         {
             return collisionBox.Left;
         }
 
         public void PlatformUpdate(Vector2 platformVelocity)
         {
-            _Position += platformVelocity; 
+            _position += platformVelocity; 
         }
         /*
         public virtual List<Rectangle> getBulletsRect()
@@ -205,11 +204,11 @@ namespace LineRunnerShooter
 
         public virtual void Reset()
         {
-            _Position = _StartPos;
+            _position = _startPos;
             _lives--;
         }
 
-        public virtual void checkEnviroments(List<Rectangle> level)
+        public virtual void CheckEnviroments(List<Rectangle> level)
         {
 
             isGrounded = false;
@@ -227,30 +226,30 @@ namespace LineRunnerShooter
                 }
                 if (rect.Intersects(collisionBox.Feet) && isGrounded) //TODO: Lift glitcht weer
                 {
-                    _Position.Y -= 1;
-                    _Velocity.Y = 0;
+                    _position.Y -= 1;
+                    _velocity.Y = 0;
                     //isGrounded = true;
                 }
-                if (rect.Intersects(getLeftCollision())&&canLeft)
+                if (rect.Intersects(GetLeftCollision())&&canLeft)
                 {
                     canLeft = false;
-                    _Position.X += Math.Abs(_Velocity.X);
+                    _position.X += Math.Abs(_velocity.X);
                 }
-                if (rect.Intersects(getRightCollision())&&canRight)
+                if (rect.Intersects(GetRightCollision())&&canRight)
                 {
                     canRight = false;
-                    _Position.X -= Math.Abs(_Velocity.X);
+                    _position.X -= Math.Abs(_velocity.X);
                 }
                 if(rect.Intersects(collisionBox.Head) && !hitHead)
                 {
                     hitHead = true;
-                    _Velocity.Y = Math.Abs(_Velocity.Y);
+                    _velocity.Y = Math.Abs(_velocity.Y);
                 }
                 
             }
         }
 
-        public virtual void checkHit(List<BulletBlueprint> bullets)
+        public virtual void CheckHit(List<BulletBlueprint> bullets)
         {
             if(bullets != null)
             {
@@ -259,11 +258,11 @@ namespace LineRunnerShooter
                 {
                     if (collisionBox.Body.Intersects(bullets[i].CollisionRect))
                     {
-                        takeDamage(bullets[i].hitTarget());
+                        TakeDamage(bullets[i].HitTarget());
                         
                         if(bullets[i] is SheepBeam && _lives < 3)
                         {
-                            sheep();
+                            Sheep();
                         }
                         i = bullets.Count + 1;
                     }
@@ -273,14 +272,14 @@ namespace LineRunnerShooter
 
         }
 
-        protected virtual void sheep()
+        protected virtual void Sheep()
         {
             _texture = General._afbeeldingEnemys[11];
             _spritePos = new Rectangle(0, 0, 100, 200);
             _lives = 100000;
         }
 
-        protected virtual void takeDamage(int damage)
+        protected virtual void TakeDamage(int damage)
         {
             _lives -= damage;
         }

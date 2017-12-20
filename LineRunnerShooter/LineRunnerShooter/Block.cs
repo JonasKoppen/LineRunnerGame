@@ -13,7 +13,7 @@ namespace LineRunnerShooter
      * The Lava class is like the Block but without the collionRectangle but with an animation wich requires an update method
      * The target block has also no collisoin rect, but will be shootable, if destroyed it wil return points.
      */ 
-    class Block
+    class Block : ICollidableBlocks
     {
         public Vector2 Positie; //Make property
         protected Rectangle _texturePos;
@@ -43,11 +43,11 @@ namespace LineRunnerShooter
         public void Draw(SpriteBatch spriteBatch, int i)
         {
             spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie, Color.Yellow);
-            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], getCollisionRectagle(), Color.Red); //Check collision block locations
+            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], GetCollisionRectagle(), Color.Red); //Check collision block locations
 
         }
 
-        public virtual Rectangle getCollisionRectagle()
+        public virtual Rectangle GetCollisionRectagle()
         {
             return new Rectangle(Positie.ToPoint(),_texturePos.Size); ;
         }
@@ -65,13 +65,9 @@ namespace LineRunnerShooter
             _texturePos.X = Convert.ToInt16((_texturePos.Size.X / 2) + Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/500)* (_texturePos.Size.X / 2));
         }
 
-        public override Rectangle getCollisionRectagle()
-        {
-            return new Rectangle();
-        }
     }
 
-    class Target : Block, IUpdatetableBlock
+    class Target : Block, IUpdatetableBlock, ICollidableBlocks
     {
         bool isShot;
         int _value;
@@ -124,12 +120,12 @@ namespace LineRunnerShooter
             return points;
         }
 
-        public override Rectangle getCollisionRectagle()
+        public override Rectangle GetCollisionRectagle()
         {
             Rectangle rect = new Rectangle();
             if (!isShot)
             {
-                rect = base.getCollisionRectagle();
+                rect = base.GetCollisionRectagle();
             }
             return rect;
         }

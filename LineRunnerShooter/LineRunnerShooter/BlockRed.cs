@@ -14,7 +14,7 @@ namespace LineRunnerShooter
      * Also works with counters wich tick every x milliseconds
      * 
      */
-    class BlockRed : Block, IUpdatetableBlock
+    class BlockRed : Block, IUpdatetableBlock, ICollidableBlocks
     {
         private bool isActive;
         protected double time;
@@ -44,12 +44,12 @@ namespace LineRunnerShooter
             greenTime = green;
         }
 
-        public override Rectangle getCollisionRectagle()
+        public override Rectangle GetCollisionRectagle()
         {
             Rectangle rectangle;
             if (isActive)
             {
-                rectangle = base.getCollisionRectagle();
+                rectangle = base.GetCollisionRectagle();
             }
             else
             {
