@@ -136,7 +136,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             General._afbeeldingBlokken = _afbeeldingBlokken;
             General._afbeeldingEnemys = _afbeeldingEnemys;
             General._levelMaps = _levelMaps;
-            General.r = new Random();
+            General.random = new Random();
             //held = new Hiro2(_afbeeldingEnemys[0], _afbeeldingEnemys[1], new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], 250, 1750);
             ui = new UI();
             LoadLevel0();

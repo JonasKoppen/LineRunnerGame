@@ -13,7 +13,7 @@ namespace LineRunnerShooter
      * The Lava class is like the Block but without the collionRectangle but with an animation wich requires an update method
      * The target block has also no collisoin rect, but will be shootable, if destroyed it wil return points.
      */ 
-    class Block : ICollidableBlocks
+    class Block //Moet een block bleuprint maken
     {
         public Vector2 Positie; //Make property
         protected Rectangle _texturePos;
@@ -67,7 +67,7 @@ namespace LineRunnerShooter
 
     }
 
-    class Target : Block, IUpdatetableBlock, ICollidableBlocks
+    class Target : Block, IUpdatetableBlock
     {
         bool isShot;
         int _value;

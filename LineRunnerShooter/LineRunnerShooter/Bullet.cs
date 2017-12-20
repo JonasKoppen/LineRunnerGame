@@ -212,8 +212,8 @@ namespace LineRunnerShooter
             _positie = pos;
             if (IsFired)
             {
-                _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X)*1.5 + (General.r.Next(-5,5) * _id));
-                _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 1.5 + (General.r.Next(-5,5) * _id));
+                _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X)*1.5 + (General.random.Next(-5,5) * _id));
+                _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 1.5 + (General.random.Next(-5,5) * _id));
             }
             else
             {
@@ -227,7 +227,7 @@ namespace LineRunnerShooter
 
     class SheepBeam : BulletBlueprint
     {
-        private int _id;
+        private float _id;
         Random r;
         public SheepBeam(Texture2D texture, Vector2 pos, Vector2 size, int damage, int id) : base(texture, pos, size, damage)
         {
@@ -242,8 +242,8 @@ namespace LineRunnerShooter
             _positie = pos;
             if (IsFired)
             {
-                _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X) );
-                _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y));
+                _positie.X += (float)(Math.Cos(angle) * (float)(_id * _size.X) *0.90);
+                _positie.Y += -(float)(Math.Sin(angle) * (float)(_id * _size.Y) * 0.90);
             }
             else
             {

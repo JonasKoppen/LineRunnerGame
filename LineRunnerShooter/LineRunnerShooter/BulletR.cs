@@ -10,7 +10,7 @@ namespace LineRunnerShooter
 {
     /*
      * Like bullets but made for the boss to work like rockets, should add explosion on ground hit, this one is scripted , can be used for the Annihilator
-     * 
+     * Like the boss itself, this bullets are more scripted than the rest
      */
     class BulletR : BulletBlueprint
     {

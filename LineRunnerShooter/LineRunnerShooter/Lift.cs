@@ -57,8 +57,8 @@ namespace LineRunnerShooter
             if(time > 150)
             {
                 time = 0;
-                _texturePos.X += 200;
-                if(_texturePos.X >= 800)
+                _texturePos.X += _texturePos.Size.X;
+                if(_texturePos.X >= General._afbeeldingBlokken[_textureNum].Width)
                 {
                     _texturePos.X = 0;
                 }
