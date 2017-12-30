@@ -21,7 +21,7 @@ namespace LineRunnerShooter
 
         public int[,] tileArray;
 
-        private Block[,] blockArray;
+        private BlockBlueprint[,] blockArray;
 
         public LevelControl()
         {
@@ -35,7 +35,7 @@ namespace LineRunnerShooter
             xDim = map.Width;
             yDim = map.Height;
             tileArray = new int[xDim, yDim];
-            blockArray = new Block[xDim, yDim];
+            blockArray = new BlockBlueprint[xDim, yDim];
             Color[] colors1D = new Color[map.Width * map.Height];
             map.GetData(colors1D);
             for (int x = 0; x < map.Width; x++)
@@ -147,16 +147,22 @@ namespace LineRunnerShooter
         public void Update(GameTime gameTime, User user)
         {
             Hiro2 held = user as Hiro2;
-            foreach (Block b in blockArray)
+            foreach (BlockBlueprint b in blockArray)
             {
                 if(b != null)
                 {
                     foreach (BulletBlueprint bullet in held.GetBullets())
                     {
-                        if (bullet.CollisionRect.Intersects(b.GetCollisionRectagle()))
+                        if(b is ICollidableBlocks)
                         {
-                            bullet.HitTarget();
-                            if (b is Target)
+                            if (bullet.CollisionRect.Intersects((b as ICollidableBlocks).GetCollisionRectagle()))
+                            {
+                                bullet.HitTarget();
+                            }
+                        }
+                        if(b is Target)
+                        {
+                            if (bullet.HitTarget((b as Target).GetCollisionRectagle()) > 0)
                             {
                                 (b as Target).HitTarget();
                             }
@@ -223,9 +229,9 @@ namespace LineRunnerShooter
                 {
                     if (blockArray[i, j] != null)
                     {
-                        if(!(blockArray[i,j] is Target))
+                        if((blockArray[i,j] is ICollidableBlocks))
                         {
-                            blocks.Add(blockArray[i, j].GetCollisionRectagle());
+                            blocks.Add((blockArray[i, j] as ICollidableBlocks).GetCollisionRectagle());
                         }
                         
                     }
@@ -238,7 +244,7 @@ namespace LineRunnerShooter
         public int GetPoints()
         {
             int score = 0;
-            foreach(Block t in blockArray)
+            foreach(BlockBlueprint t in blockArray)
             {
                 if(t is Target)
                 {

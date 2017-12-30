@@ -61,7 +61,7 @@ namespace LineRunnerShooter
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie,_texturePos, Color.White);    
+                spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], _positie,_texturePos, Color.White);    
         }
 
         public void Update(GameTime gameTime) //TODO: check of dit beter kan, ziet er rommelig uit

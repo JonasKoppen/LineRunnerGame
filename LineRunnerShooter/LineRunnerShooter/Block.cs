@@ -12,49 +12,48 @@ namespace LineRunnerShooter
      * Blocks are the foundation of the game, the level(builder) wil use them for making the level, not much happens here after construction is complete
      * The Lava class is like the Block but without the collionRectangle but with an animation wich requires an update method
      * The target block has also no collisoin rect, but will be shootable, if destroyed it wil return points.
-     */ 
-    class Block //Moet een block bleuprint maken
+     */
+
+    abstract class BlockBlueprint
     {
-        public Vector2 Positie; //Make property
-        protected Rectangle _texturePos;
+        protected Vector2 _positie;
         protected int _textureNum;
-        public bool IsHazard { get; private set; }
+        protected Rectangle _texturePos;
 
-        public Block(int texture, Vector2 pos)
+        public BlockBlueprint(int texture, Vector2 pos)
         {
             _textureNum = texture;
-            Positie = pos;
+            _positie = pos;
             _texturePos = new Rectangle(0, 0, 100, 100);
-        }
-
-        public Block(int texture, Vector2 pos, Vector2 textPos)
-        {
-            _textureNum = texture;
-            Positie = pos;
-            _texturePos = new Rectangle(textPos.ToPoint(), new Point(100,100));
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie ,_texturePos, Color.White);
+            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], _positie, _texturePos, Color.White);
             //spriteBatch.Draw(_texture, getCollisionRectagle(), Color.Red); //Check collision block locations
         }
+    }
 
-        public void Draw(SpriteBatch spriteBatch, int i)
+    class Block : BlockBlueprint, ICollidableBlocks //Moet een block bleuprint maken
+    {
+        public Block(int texture, Vector2 pos) : base(texture, pos)
+        {  
+        }
+
+        public Block(int texture, Vector2 pos, Vector2 textPos) : base(texture, pos)
         {
-            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie, Color.Yellow);
-            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], GetCollisionRectagle(), Color.Red); //Check collision block locations
-
+            _texturePos = new Rectangle(textPos.ToPoint(), new Point(100,100));
         }
 
         public virtual Rectangle GetCollisionRectagle()
         {
-            return new Rectangle(Positie.ToPoint(),_texturePos.Size);
+            return new Rectangle(_positie.ToPoint(),_texturePos.Size);
         }
     }
 
-    class Lava : Block, IUpdatetableBlock
+    class Lava : BlockBlueprint, IUpdatetableBlock
     {
+ 
         public Lava(int texture, Vector2 pos) : base(texture, pos)
         {
         }
@@ -65,14 +64,9 @@ namespace LineRunnerShooter
             _texturePos.X = Convert.ToInt16((_texturePos.Size.X / 2) + Math.Sin(gameTime.TotalGameTime.TotalMilliseconds/500)* (_texturePos.Size.X / 2));
         }
 
-        public override Rectangle GetCollisionRectagle()
-        {
-            return new Rectangle();
-        }
-
     }
 
-    class Target : Block, IUpdatetableBlock
+    class Target : BlockBlueprint, IUpdatetableBlock
     {
         bool isShot;
         int _value;
@@ -125,12 +119,12 @@ namespace LineRunnerShooter
             return points;
         }
 
-        public override Rectangle GetCollisionRectagle()
+        public Rectangle GetCollisionRectagle()
         {
             Rectangle rect = new Rectangle();
             if (!isShot)
             {
-                rect = base.GetCollisionRectagle();
+                rect = new Rectangle(_positie.ToPoint(), _texturePos.Size);
             }
             return rect;
         }

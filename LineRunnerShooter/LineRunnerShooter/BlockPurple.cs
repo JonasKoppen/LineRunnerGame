@@ -13,7 +13,7 @@ namespace LineRunnerShooter
      * the platforms work with a counter wich ticks every time the game has run more than 1000 milliseconds (or an other number, wich can be modified later probably, should add it???
      * 
      */ 
-    class BlockPurple : Block
+    class BlockPurple : BlockBlueprint, ICollidableBlocks
     {
         int upTime;
         int downTime;
@@ -39,7 +39,8 @@ namespace LineRunnerShooter
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], Positie, _texturePos, Color.White);
+            //spriteBatch.Draw(General._afbeeldingBlokken[_textureNum], _positie, _texturePos, Color.White);
+            base.Draw(spriteBatch);
         }
 
         public void Update(GameTime gameTime, Rectangle player)
@@ -59,7 +60,7 @@ namespace LineRunnerShooter
                 }
                 if (isStable)
                 {
-                    Positie.Y = stablePosY;
+                    _positie.Y = stablePosY;
                     _texturePos.X = 0;
                 }
                 else
@@ -89,10 +90,10 @@ namespace LineRunnerShooter
             }
             else
             {
-                Positie.Y = stablePosY;
+                _positie.Y = stablePosY;
                 Velocity = new Vector2(0, 0);
             }
-            Positie += Velocity;
+            _positie += Velocity;
             lastTime = time;
         }
 
@@ -102,6 +103,11 @@ namespace LineRunnerShooter
             {
                 user.PlatformUpdate(Velocity);
             }
+        }
+
+        public Rectangle GetCollisionRectagle()
+        {
+           return new Rectangle(_positie.ToPoint(), _texturePos.Size);
         }
     }
 }

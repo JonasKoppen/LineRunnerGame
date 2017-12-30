@@ -44,11 +44,11 @@ namespace LineRunnerShooter
                 stateTimer += baseSlow;
                 if (goingUp && (!isStatic))
                 {
-                    Positie.Y -= 3;
+                    _positie.Y -= 3;
                 }
                 else if ((!goingUp) && (!isStatic))
                 {
-                    Positie.Y += 3;
+                    _positie.Y += 3;
                 }
                 change = PushUpDown(player);
 
@@ -85,11 +85,11 @@ namespace LineRunnerShooter
                 stateTimer += baseSlow;
                 if (goingUp)
                 {
-                    Positie.Y -= 3;
+                    _positie.Y -= 3;
                 }
                 else if (!goingUp)
                 {
-                    Positie.Y += 3;
+                    _positie.Y += 3;
                 }
                 change = PushUpDown(player);
                 stateCounter--;

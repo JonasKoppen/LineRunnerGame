@@ -12,13 +12,15 @@ namespace LineRunnerShooter
      * This thing can only go up and will only be used for the end en begin of each level
      * 
      */ 
-    class Lift : Block //TODO: add reset function zodat ik die liften niet altijd opnieuw moet aanmaken, liften kunnen nu gereset worden vooral handig met de tutorial
+    class Lift : BlockBlueprint, ICollidableBlocks //TODO: add reset function zodat ik die liften niet altijd opnieuw moet aanmaken, liften kunnen nu gereset worden vooral handig met de tutorial
     {
         bool goingUp;
         Vector2 eindPos;
         public bool isActive;
         int slow;
         double time;
+
+        public Vector2 Positie { get { return _positie; }}
         public Lift(Vector2 startPos, Vector2 eindPos) : base(6, startPos)
         {
             goingUp = true;
@@ -36,14 +38,14 @@ namespace LineRunnerShooter
                 if (goingUp)
                 {                 
                     change = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds/slow);
-                    Positie.Y += change;
+                    _positie.Y += change;
                 }
                 if ((!player.Intersects(GetCollisionRectagle())) || !goingUp )
                 {
                     change = 0;
                 }
             }
-            if(Positie.Y <= eindPos.Y)
+            if(_positie.Y <= eindPos.Y)
             {
                 isActive = false;
             }
@@ -68,7 +70,7 @@ namespace LineRunnerShooter
                 if (goingUp)
                 {
                     Velocity.Y = -Convert.ToInt16(gameTime.ElapsedGameTime.TotalMilliseconds / slow);
-                    Positie += Velocity;
+                    _positie += Velocity;
                 }
                 if (player.GetFeetCollisionRect().Intersects(GetCollisionRectagle()))
                 {
@@ -76,7 +78,7 @@ namespace LineRunnerShooter
                     player.isGrounded = true;
                 }
             }
-            if (Positie.Y <= eindPos.Y)
+            if (_positie.Y <= eindPos.Y)
             {
                 isActive = false;
             }
@@ -84,7 +86,7 @@ namespace LineRunnerShooter
 
         public void SetPos(Vector2 loc)
         {
-            Positie = loc;
+            _positie = loc;
         }
 
         public void SetDest(Vector2 dest)
@@ -128,10 +130,12 @@ namespace LineRunnerShooter
 
         public override void Draw(SpriteBatch spriteBatch) //TODO: dit moet in  1 draw gebeuren
         {
-            base.Draw(spriteBatch);
-            
-            
-            
+            base.Draw(spriteBatch);   
+        }
+
+        public Rectangle GetCollisionRectagle()
+        {
+            return new Rectangle(_positie.ToPoint(), _texturePos.Size);
         }
     }
 
