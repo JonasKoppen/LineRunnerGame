@@ -8,7 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LineRunnerShooter
 {
-    class LiftSide : Block
+    /*
+     * Animated lift side (used for intro)
+     * 
+     */
+    class LiftSide : BlockBlueprint, IUpdatetableBlock
     {
         double slow; 
         public LiftSide(int texture, Vector2 pos, bool isRight) : base(texture, pos)

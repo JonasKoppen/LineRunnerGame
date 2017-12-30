@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
+    /*
+     * The User Interface wit timer, live points and total earned points
+     * Keeps track of the time
+     */ 
     class UI
     {
         TimeSpan playTime;

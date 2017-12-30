@@ -12,10 +12,10 @@ namespace LineRunnerShooter
     /*
      * The enemy class
      * beter shoot them before they see you and rush forward
-     * 
+     * attacks with spinning arms (not shown in final version, too ugly) 
      * 
      */ 
-    class Orih : User
+    class Orih : Character
     {
         //TODO: attack modes: spinning arms (done), shooting
         public bool isAlive;
@@ -147,7 +147,6 @@ namespace LineRunnerShooter
         public override void Reset()
         {
             isAlive = false;
-            gravity = 0;
             maxSpeed = 0;
             _position = new Vector2(500, 6000);
         }

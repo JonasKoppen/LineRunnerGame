@@ -52,7 +52,7 @@ namespace LineRunnerShooter
             return change;
         }
 
-        public void Update(GameTime gameTime, User player)
+        public void Update(GameTime gameTime, Character player)
         {
             Vector2 Velocity = new Vector2(0,0);
             time += gameTime.ElapsedGameTime.TotalMilliseconds;

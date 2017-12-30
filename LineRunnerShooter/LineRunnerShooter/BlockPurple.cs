@@ -97,7 +97,7 @@ namespace LineRunnerShooter
             lastTime = time;
         }
 
-        public void GetPosChange(User user)
+        public void GetPosChange(Character user)
         {
             if (user.GetFeetCollisionRect().Intersects(GetCollisionRectagle()))
             {

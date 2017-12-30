@@ -11,6 +11,7 @@ namespace LineRunnerShooter
      * Warning!! 
      * This class is contains some deseases (bad english), do not touch until it is finished (or at least working)
      * 
+     * This Class will not be implemented in the final version
      */
     class Z_PhysicsBox
     {

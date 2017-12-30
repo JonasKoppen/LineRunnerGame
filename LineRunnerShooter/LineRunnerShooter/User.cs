@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 
 namespace LineRunnerShooter
 {
-    class User
+    /*
+     * The user class is the blueprint for the player and the enemy's
+     * does gravity and basic movement, 
+     * 
+     */ 
+    class Character
     {
-        //TODO: healt
-        //TODO: Add 360 shooting requirement
-        //TODO: bad guy sprite maken
-        //TODO: user kan nog door platformen springen van onder naar boven, maar dan kan je niet naar links/rechts, Dit is op de moment dus niet meer mogelijk, mss wel best zo iets toelaten
-        //TODO: maak users een paar pixels kleiner (zodat er geen collisieprobleem is
-        //TODO: rename user to character
 
         protected int time; //for update 
 
@@ -24,31 +23,26 @@ namespace LineRunnerShooter
         protected Rectangle _spritePos;     //texture pos
         protected int _action;              //actioin movement
         public Vector2 _position;        //position
-        protected Vector2 _velocity;
-        protected Vector2 _startPos;
+        protected Vector2 _velocity;    //for change of position
+        protected Vector2 _startPos;    //start position
         protected MoveMethod _moveMethod;   //movemethod 
-        protected double gravity;
-        protected int _lives;
-        protected double slow;
-        protected double maxSpeed;
+        protected const double gravity = 9.81;       //gravity
+        protected int _lives;               //live points
+        protected double slow;              //slows down user
+        protected double maxSpeed;          //maximum speed the user can have
 
         public bool canLeft;                //true = mag naar links
         public bool canRight;               //true = mag naar rechts
         public bool isGrounded;             //true = ik sta op de grond
 
-        /*
-        protected Rectangle _CollisionRight;   //for move right
-        protected Rectangle _CollisionLeft;    //for move left
-        protected Rectangle _CollisionRect; //hit box
-        protected Rectangle feetCollisionRect; //bepaald isGrounded gebruik voor collisie met de grond
-        */
         protected CollisionBox collisionBox;
+
 
         public int Lives { get { return _lives; } }
 
         public Vector2 Location { get { return _position; } }
 
-        public User(int texture, MoveMethod move, Texture2D bullet)
+        public Character(int texture, MoveMethod move, Texture2D bullet)
         {
             _texture = General._afbeeldingEnemys[texture];
             _action = 0;
@@ -64,7 +58,6 @@ namespace LineRunnerShooter
             slow = 30;
             collisionBox = new CollisionBox(Convert.ToInt16(_position.X), Convert.ToInt16(_position.Y), _spritePos.Width, _spritePos.Height);
             _velocity = new Vector2(0,0);
-            gravity = 9.81;
             maxSpeed = 15;
         }
 
@@ -105,7 +98,6 @@ namespace LineRunnerShooter
 
         public virtual void UpdateFI(double dt)
         {
-            
             MoveHorizontal(dt);
             MoveVertical(dt);
             _position += _velocity;
@@ -168,7 +160,6 @@ namespace LineRunnerShooter
             }
             else { _velocity.Y = 0; }
             if (_velocity.Y > 20) { _velocity.Y = 20; }
-
         }
 
         public Rectangle GetCollisionRectagle()
@@ -195,12 +186,6 @@ namespace LineRunnerShooter
         {
             _position += platformVelocity; 
         }
-        /*
-        public virtual List<Rectangle> getBulletsRect()
-        {
-            
-        }
-        */
 
         public virtual void Reset()
         {
@@ -210,16 +195,13 @@ namespace LineRunnerShooter
 
         public virtual void CheckEnviroments(List<Rectangle> level)
         {
-
             isGrounded = false;
             canLeft = true;
             canRight = true;
-
             bool hitHead = false;
 
             foreach(Rectangle rect in level)
             {
-                
                 if(rect.Intersects(collisionBox.UnderFeet))
                 {
                     isGrounded = true;
@@ -228,7 +210,6 @@ namespace LineRunnerShooter
                 {
                     _position.Y -= 1;
                     _velocity.Y = 0;
-                    //isGrounded = true;
                 }
                 if (rect.Intersects(GetLeftCollision())&&canLeft)
                 {
@@ -245,7 +226,6 @@ namespace LineRunnerShooter
                     hitHead = true;
                     _velocity.Y = Math.Abs(_velocity.Y);
                 }
-                
             }
         }
 
@@ -269,10 +249,9 @@ namespace LineRunnerShooter
                     i++;
                 }
             }
-
         }
 
-        protected virtual void Sheep()
+        protected virtual void Sheep() //for sheepinating the enemy (player can too)
         {
             _texture = General._afbeeldingEnemys[11];
             _spritePos = new Rectangle(0, 0, 100, 200);

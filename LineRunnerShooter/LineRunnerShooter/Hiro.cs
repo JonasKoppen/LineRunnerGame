@@ -16,7 +16,7 @@ namespace LineRunnerShooter
      * 
      */ 
 
-    class Hiro2 : User
+    class Hiro2 : Character
     {
         protected bool jumpAllowed;
         protected int _JumpHeight;

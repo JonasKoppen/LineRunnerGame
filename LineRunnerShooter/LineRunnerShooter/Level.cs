@@ -100,6 +100,8 @@ namespace LineRunnerShooter
                     }
                 }
             }
+
+            //Build the normal blocks
             Random r = new Random();
             for (int x = 1; x < map.Width - 1; x++)
             {
@@ -144,7 +146,7 @@ namespace LineRunnerShooter
             }
         }
 
-        public void Update(GameTime gameTime, User user)
+        public void Update(GameTime gameTime, Character user)
         {
             Hiro2 held = user as Hiro2;
             foreach (BlockBlueprint b in blockArray)
@@ -215,7 +217,6 @@ namespace LineRunnerShooter
                         col = true;
                     }
                 }
-
             }
             return col;
         }
@@ -233,9 +234,7 @@ namespace LineRunnerShooter
                         {
                             blocks.Add((blockArray[i, j] as ICollidableBlocks).GetCollisionRectagle());
                         }
-                        
                     }
-
                 }
             }
             return blocks;
@@ -250,7 +249,6 @@ namespace LineRunnerShooter
                 {
                     score += (t as Target).GetPoints();
                 }
-                
             }
             return score;
         }
