@@ -15,7 +15,7 @@ namespace LineRunnerShooter
      * after his death, the lift will work, so you cannot escape by running away
      * 
      */ 
-    class BigBoy : Orih
+    class BigBoy : Enemy
     {
         //TODO: More scripted actions: begin when hiro is on X, enter battle scene on X, ...
         //TODO: More attack modes + smaller hitbox, only face => hiro needs the challange to aim

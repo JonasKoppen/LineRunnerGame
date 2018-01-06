@@ -12,7 +12,7 @@ namespace LineRunnerShooter
      * Animated lift side (used for intro)
      * 
      */
-    class LiftSide : BlockBlueprint, IUpdatetableBlock
+    class LiftSide : BlockBlueprint, IUpdatetableBlock, ICollidableBlocks
     {
         double slow; 
         public LiftSide(int texture, Vector2 pos, bool isRight) : base(texture, pos)
@@ -20,6 +20,11 @@ namespace LineRunnerShooter
             _texturePos.X = isRight ? 100 : 0;
             _texturePos.Height = 200;
             slow = 10;
+        }
+
+        public Rectangle GetCollisionRectagle()
+        {
+            return new Rectangle(_positie.ToPoint(), _texturePos.Size);
         }
 
         public void Update(GameTime gameTime)

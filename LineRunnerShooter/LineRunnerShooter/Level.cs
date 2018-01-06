@@ -30,7 +30,7 @@ namespace LineRunnerShooter
             blockArray = new Block[xDim, yDim];
         }
 
-        public LevelControl(Texture2D map, List<Texture2D> texture, List<Orih> enemys)
+        public LevelControl(Texture2D map, List<Texture2D> texture, List<Enemy> enemys)
         {   //gebruik Texture 2D colors array als level editor: https://stackoverflow.com/questions/10127871/how-can-i-read-image-pixels-values-as-rgb-into-2d-array // http://www.riemers.net/eng/Tutorials/XNA/Csharp/Series2D/Texture_to_Colors.php
             xDim = map.Width;
             yDim = map.Height;
@@ -89,7 +89,7 @@ namespace LineRunnerShooter
                             }
                         case "255 10":
                             {
-                                enemys.Add(new Orih(6, new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
+                                enemys.Add(new Enemy(6, new Rectangle(0, 0, 100, 200), new RobotMove(), General._afbeeldingEnemys[2], General._afbeeldingEnemys[3], new Vector2(x*100,y*100))); //ADDED some ducktape here, probably should remove the general and move it more down insede the class
                                 break;
                             }
                         default:

@@ -15,7 +15,7 @@ namespace LineRunnerShooter
      * attacks with spinning arms (not shown in final version, too ugly) 
      * 
      */ 
-    class Orih : Character
+    class Enemy : Character
     {
         //TODO: attack modes: spinning arms (done), shooting
         public bool isAlive;
@@ -25,7 +25,7 @@ namespace LineRunnerShooter
         protected RobotMeleeARM robotARM;
 
 
-        public Orih(int textureL, MoveMethod move, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
+        public Enemy(int textureL, MoveMethod move, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
         {
             _spritePos = new Rectangle(pos.ToPoint(), new Point(60, 200));
             _position = pos;
@@ -37,7 +37,7 @@ namespace LineRunnerShooter
             robotARM = new RobotMeleeARM(bullet);
             maxSpeed = 8;
         }
-        public Orih(int textureL, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
+        public Enemy(int textureL, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
         {
             _spritePos = new Rectangle(pos.ToPoint(), new Point(60,200));
             _position = pos;
@@ -50,7 +50,7 @@ namespace LineRunnerShooter
             maxSpeed = 8;
             robotARM.SetDamage(5);
         }
-        public Orih(int textureL,Rectangle spritePos, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
+        public Enemy(int textureL,Rectangle spritePos, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, bullet)
         {
             _spritePos = spritePos;
             _position = pos;
@@ -103,6 +103,8 @@ namespace LineRunnerShooter
                 base.Draw(spriteBatch);
                 //robotARM.Draw(spriteBatch); //Arm is te lelijk
             }
+
+            /*
             if (isAttacking)
             {
                 //spriteBatch.Draw(_Texture, getAttackRect(), Color.Red);
@@ -112,6 +114,7 @@ namespace LineRunnerShooter
             spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Head, Color.Blue);
             spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Left, Color.Gray);
             spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Right, Color.Green);
+            */
         }
 
         public void SeePlayer(Rectangle player)

@@ -15,6 +15,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
     //http://rbwhitaker.wikidot.com/monogame-drawing-text-with-spritefonts Text in the game
     public class Game1 : Game
     {
+        //TODO: change explanation jump from A to Z
+        //TODO: Remove collision box enemy
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Camera camera;
@@ -29,7 +31,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         LevelControl level;
         Hiro2 held;
         //Orih orih;
-        List<Orih> orihList;
+        List<Enemy> orihList;
  
         Lift startLift;
         Lift eindLift;
@@ -228,7 +230,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 {
                     case -1: //Loading screen, 
                         {
-                            orihList = new List<Orih>();
+                            orihList = new List<Enemy>();
                             camPos = new Vector2(0, 0);
                             currentLevel = isNextLevel;
                             isNextLevel = 0;
@@ -322,7 +324,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             held.CheckEnviroments(rectList);
 
                             List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
-                            foreach (Orih orihd in orihList)
+                            foreach (Enemy orihd in orihList)
                             {
                                 orihd.CheckEnviroments(rectList);
                                 orihd.SeePlayer(held.GetCollisionRectagle());
@@ -357,7 +359,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             held.CheckEnviroments(rectList);
 
                             List<BulletBlueprint> enemyBullets = new List<BulletBlueprint>();
-                            foreach (Orih orihd in orihList)
+                            foreach (Enemy orihd in orihList)
                             {
                                 orihd.CheckEnviroments(rectList);
                                 orihd.SeePlayer(held.GetCollisionRectagle());
@@ -433,7 +435,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 }
             }
             ui.Update(gameTime, held, points);
-            if(held.Lives < 4 && enableUpdate)
+            if(held.Lives < 1 && enableUpdate)
             {
                 enableUpdate = false;
                 GameOVer();
@@ -522,7 +524,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
-                        foreach (Orih orihd in orihList)
+                        foreach (Enemy orihd in orihList)
                         {
                             orihd.Draw(spriteBatch);
                         }
@@ -539,7 +541,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         startLift.Draw(spriteBatch);
                         eindLift.Draw(spriteBatch);
 
-                        foreach (Orih orihd in orihList)
+                        foreach (Enemy orihd in orihList)
                         {
                             orihd.Draw(spriteBatch);
                         }
@@ -625,7 +627,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             
 
             zoom = 1;
-            orihList = new List<Orih>();
+            orihList = new List<Enemy>();
             camPos = new Vector2(0, 0);
             level = new LevelControl();
             liftSides = new List<LiftSide>();
@@ -646,7 +648,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             zoom = 1 - 0.5f;
             currentLevel = 1;
 
-            orihList = new List<Orih>();
+            orihList = new List<Enemy>();
 
             startLift = new Lift(new Vector2(100, 2700), new Vector2(100, 950*2));
             startLift.isActive = true;
@@ -665,7 +667,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             zoom = 1 - 0.5f;
             currentLevel = 2;
             
-            orihList = new List<Orih>();
+            orihList = new List<Enemy>();
             
             held.SetToStartPos(new Vector2(200, 2400));
             level = new LevelControl(_levelMaps[2], _afbeeldingBlokken, orihList);
