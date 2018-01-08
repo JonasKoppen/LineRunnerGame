@@ -44,12 +44,12 @@ namespace LineRunnerShooter
         public void ShowResult(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(General.font, (playTime.ToString(@"mm\:ss\.ff")), new Vector2(870, 270), Color.White);
-            spriteBatch.DrawString(General.font, ( points.ToString()), new Vector2(1000, 320), Color.White);
-            if((points > 90) && (playTime.CompareTo(new TimeSpan(0,3,0)) < 0))
+            spriteBatch.DrawString(General.font, ( points.ToString()), new Vector2(950, 310), Color.White);
+            if((points >= 120) && (playTime.CompareTo(new TimeSpan(0,3,0)) < 0)) //player has to be faster than 3 minutes and the score has to be more or equal to 120 points
             {
                 spriteBatch.Draw(General._afbeeldingBlokken[14], new Rectangle(800, 420, 300, 120), new Rectangle(0, 0, 150, 50), Color.White);
             }
-            else if (points > 50)
+            else if (points > 100)
             {
                 spriteBatch.Draw(General._afbeeldingBlokken[14], new Rectangle(800, 420, 300, 120), new Rectangle(0, 50, 150, 50), Color.White);
             }
@@ -57,8 +57,29 @@ namespace LineRunnerShooter
             {
                 spriteBatch.Draw(General._afbeeldingBlokken[14], new Rectangle(800, 420, 300, 120), new Rectangle(0, 100, 150, 50), Color.White);
             }
+        }
 
-
+        public void ShowDemoEnd(SpriteBatch spriteBatch, Hiro2 hiro)
+        {
+            if ((points >= 120) && (playTime.CompareTo(new TimeSpan(0, 3, 0)) < 0))
+            {
+                spriteBatch.DrawString(General.fontBig, "Thanks for playing the Game", new Vector2(100, 200), Color.Yellow);
+                spriteBatch.DrawString(General.fontBig, "Everything is unlocked!", new Vector2(110, 280), Color.Yellow);
+                hiro.MaxArms = 4;
+            }
+            else if (points > 100)
+            {
+                spriteBatch.DrawString(General.fontBig, "Thanks for playing the Game", new Vector2(100, 180), Color.Yellow);
+                spriteBatch.DrawString(General.fontBig, "The 3th weapon (flamthrower)!", new Vector2(80, 250), Color.Yellow);
+                spriteBatch.DrawString(General.fontBig, "Is Unlocked", new Vector2(100, 320), Color.Yellow);
+                if (hiro.MaxArms < 3) hiro.MaxArms = 3;
+            }
+            else
+            {
+                spriteBatch.DrawString(General.fontBig, "Thanks for playing the Game!", new Vector2(100, 180), Color.Yellow);
+                spriteBatch.DrawString(General.fontBig, "Try Again and score more points!", new Vector2(0, 250), Color.Yellow);
+                spriteBatch.DrawString(General.fontBig, "To unlock more weapons!", new Vector2(100, 320), Color.Yellow);
+            }
         }
 
         public void ShowDeath(SpriteBatch spriteBatch)

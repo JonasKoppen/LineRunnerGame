@@ -23,7 +23,7 @@ namespace LineRunnerShooter
         private double invincebleTime;
         List<ARMBluePrint> arsenal;
         int selectedARM = 0;
-        int maxArms = 5; //Zet 
+        int maxArms = 2; //Zet 
 
         public int MaxArms { get { return maxArms; } set { if (value > maxArms) { maxArms = value; }} }
 

@@ -50,12 +50,13 @@ namespace LineRunnerShooter
             if (isActive)
             {
                 rectangle = base.GetCollisionRectagle();
+                rectangle.Y += 40;
+                rectangle.Height = 25;
             }
             else
             {
                 rectangle = new Rectangle();
             }
-            rectangle.Y += 20;
             return rectangle;
         }
 

@@ -422,6 +422,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 intro++;
                                 lastEnter = -1;
+                                
                             }
                             if (stateKey.IsKeyUp(Keys.Enter)) lastEnter = 0;
                             if (intro > 2)
@@ -580,7 +581,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 }
                             case 2:
                                 {
-                                    spriteBatch.DrawString(General.fontBig, "Thanks for playing", new Vector2(500, 500), Color.Yellow);
+                                    ui.ShowDemoEnd(spriteBatch, held);
+                                   
                                     break;
                                 }
                         }
@@ -624,8 +626,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held.HealthUp();
             //TODO: explenation picture
             held.SetToStartPos(new Vector2(150, 1250));
-            
 
+            points = 0;
             zoom = 1;
             orihList = new List<Enemy>();
             camPos = new Vector2(0, 0);
