@@ -23,9 +23,9 @@ namespace LineRunnerShooter
         protected Vector2 _ResetPos;
 
 
-        public double slow { get; set; }
-        public double maxSpeed { get; set; }
-        public double gravity { get; set; }
+        public double Slow { get; set; }
+        public double MaxSpeed { get; set; }
+        public double Gravity { get; set; }
 
         public Vector2 Location { get { return _Position; } }
 
@@ -34,10 +34,10 @@ namespace LineRunnerShooter
             _Position = startPos;
             time = 0;
             _ResetPos = resetPos;
-            slow = 30;
+            Slow = 30;
             _Velocity = new Vector2(0, 0);
-            gravity = 9.81;
-            maxSpeed = 15;
+            Gravity = 9.81;
+            MaxSpeed = 15;
             _VelocityChange = new Vector2(0, 0);
         }
         public Z_PhysicsBox(MoveMethod move, Vector2 startPos, Vector2 resetPos, int slow, int gravity, int maxSpeed)
@@ -45,10 +45,10 @@ namespace LineRunnerShooter
             _Position = startPos;
             time = 0;
             _ResetPos = resetPos;
-            this.slow = slow;
+            this.Slow = slow;
             _Velocity = new Vector2(0, 0);
-            this.gravity = gravity;
-            this.maxSpeed = maxSpeed;
+            this.Gravity = gravity;
+            this.MaxSpeed = maxSpeed;
             _VelocityChange = new Vector2(0, 0);
         }
 
@@ -60,35 +60,35 @@ namespace LineRunnerShooter
             _VelocityChange = new Vector2(0, 0);
         }
 
-        public void moveRight(double time)//I WAS HERE888
+        public void MoveRight(double time)//I WAS HERE888
         {
-            _VelocityChange.X += (float)(Math.Abs(_Velocity.X) + time / slow);
-            if (_VelocityChange.X > maxSpeed) { _VelocityChange.X = (float)maxSpeed; }
+            _VelocityChange.X += (float)(Math.Abs(_Velocity.X) + time / Slow);
+            if (_VelocityChange.X > MaxSpeed) { _VelocityChange.X = (float)MaxSpeed; }
         }
-        public void moveLeft(double time)
+        public void MoveLeft(double time)
         {
-            _VelocityChange.X -= (float)(Math.Abs(_Velocity.X) + time / slow);
-            if (_VelocityChange.X < -maxSpeed) { _VelocityChange.X = (float)(-maxSpeed); }
+            _VelocityChange.X -= (float)(Math.Abs(_Velocity.X) + time / Slow);
+            if (_VelocityChange.X < -MaxSpeed) { _VelocityChange.X = (float)(-MaxSpeed); }
         }
 
-        public void moveStop(double time)
+        public void MoveStop(double time)
         {
             _Velocity.X /= 1.2F;
             if (Math.Abs(_Velocity.X) < 0.5f) { _Velocity.X = 0; }
         }
 
-        private void moveUpdate(MoveMethod dir, double time, bool isGrounded)
+        private void MoveUpdate(MoveMethod dir, double time, bool isGrounded)
         {
             switch (dir.Movedir)
             {
                 case (0):
-                    moveLeft(time);
+                    MoveLeft(time);
                     break;
                 case (1):
-                    moveRight(time);
+                    MoveRight(time);
                     break;
                 default:
-                    moveStop(time);
+                    MoveStop(time);
                     break;
             }
             if (!isGrounded)

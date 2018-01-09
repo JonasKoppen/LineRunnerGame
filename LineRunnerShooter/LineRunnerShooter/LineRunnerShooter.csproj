@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="ARM.cs" />
     <Compile Include="BigBoy.cs" />
-    <Compile Include="BlockPurple.cs" />
-    <Compile Include="BlockRed.cs" />
-    <Compile Include="Block.cs" />
+    <Compile Include="Blocks\BlockBlueprint.cs" />
+    <Compile Include="Blocks\BlockPurple.cs" />
+    <Compile Include="Blocks\BlockRed.cs" />
+    <Compile Include="Blocks\Block.cs" />
+    <Compile Include="Blocks\Lava.cs" />
+    <Compile Include="Blocks\Target.cs" />
     <Compile Include="BulletR.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Camera.cs" />
@@ -55,11 +58,11 @@
     <Compile Include="Hiro.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Lift.cs" />
-    <Compile Include="LiftSide.cs" />
-    <Compile Include="Z_PhysicsBox.cs" />
+    <Compile Include="Blocks\LiftSide.cs" />
+    <Compile Include="Z_Freezer\Z_PhysicsBox.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="IBlock.cs" />
-    <Compile Include="Z_MovingPlatform.cs" />
+    <Compile Include="Z_Freezer\Z_MovingPlatform.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
