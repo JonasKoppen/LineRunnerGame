@@ -35,14 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Dread.ico</ApplicationIcon>
+    <ApplicationIcon>Content\Dread.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Blocks\IUpdatetableBlock.cs" />
     <Compile Include="Weapons\ARM.cs" />
-    <Compile Include="BigBoy.cs" />
+    <Compile Include="Characters\BigBoy.cs" />
     <Compile Include="Blocks\BlockBlueprint.cs" />
     <Compile Include="Blocks\BlockPurple.cs" />
     <Compile Include="Blocks\BlockRed.cs" />
@@ -54,12 +55,12 @@
     <Compile Include="Weapons\Bullets\BulletR.cs" />
     <Compile Include="Weapons\Bullets\Bullet.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="CollisionBox.cs" />
+    <Compile Include="Characters\CollisionBox.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="General.cs" />
-    <Compile Include="Hiro.cs" />
+    <Compile Include="Characters\Hiro.cs" />
     <Compile Include="Level.cs" />
-    <Compile Include="Lift.cs" />
+    <Compile Include="Blocks\Lift.cs" />
     <Compile Include="Blocks\LiftSide.cs" />
     <Compile Include="Weapons\Bullets\Flame.cs" />
     <Compile Include="Weapons\Bullets\IBullet.cs" />
@@ -70,12 +71,12 @@
     <Compile Include="Weapons\SheepANator.cs" />
     <Compile Include="Z_Freezer\Z_PhysicsBox.cs" />
     <Compile Include="UI.cs" />
-    <Compile Include="IBlock.cs" />
+    <Compile Include="Blocks\ICollidableBlocks.cs" />
     <Compile Include="Z_Freezer\Z_MovingPlatform.cs" />
-    <Compile Include="Enemy.cs" />
+    <Compile Include="Characters\Enemy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Characters\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -86,8 +87,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dread.ico" />
-    <Content Include="Icon.ico" />
+    <Content Include="Content\Dread.ico" />
+    <Content Include="Content\Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

@@ -1,4 +1,5 @@
 ﻿using LineRunnerShooter.Weapons;
+using LineRunnerShooter.Weapons.Bullets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;

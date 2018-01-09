@@ -5,15 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LineRunnerShooter
+namespace LineRunnerShooter.Blocks
 {
     interface IUpdatetableBlock
     {
         void Update(GameTime gameTime);
-    }
-
-    interface ICollidableBlocks
-    {
-        Rectangle GetCollisionRectagle();
     }
 }

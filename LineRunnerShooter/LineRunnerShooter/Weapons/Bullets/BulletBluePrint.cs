@@ -60,10 +60,5 @@ namespace LineRunnerShooter.Weapons.Bullets
             _positie = new Vector2(100, 5000);
             IsFired = false;
         }
-
-        public int HitTarget(Rectangle target)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
