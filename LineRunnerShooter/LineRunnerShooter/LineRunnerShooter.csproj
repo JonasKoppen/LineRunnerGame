@@ -41,7 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ARM.cs" />
+    <Compile Include="Weapons\ARM.cs" />
     <Compile Include="BigBoy.cs" />
     <Compile Include="Blocks\BlockBlueprint.cs" />
     <Compile Include="Blocks\BlockPurple.cs" />
@@ -49,8 +49,10 @@
     <Compile Include="Blocks\Block.cs" />
     <Compile Include="Blocks\Lava.cs" />
     <Compile Include="Blocks\Target.cs" />
-    <Compile Include="BulletR.cs" />
-    <Compile Include="Bullet.cs" />
+    <Compile Include="Weapons\ARMBluePrint.cs" />
+    <Compile Include="Weapons\Bullets\BulletBluePrint.cs" />
+    <Compile Include="Weapons\Bullets\BulletR.cs" />
+    <Compile Include="Weapons\Bullets\Bullet.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="CollisionBox.cs" />
     <Compile Include="Game1.cs" />
@@ -59,6 +61,13 @@
     <Compile Include="Level.cs" />
     <Compile Include="Lift.cs" />
     <Compile Include="Blocks\LiftSide.cs" />
+    <Compile Include="Weapons\Bullets\Flame.cs" />
+    <Compile Include="Weapons\Bullets\IBullet.cs" />
+    <Compile Include="Weapons\Bullets\MeleeBullet.cs" />
+    <Compile Include="Weapons\Bullets\SheepBeam.cs" />
+    <Compile Include="Weapons\FlameThrower.cs" />
+    <Compile Include="Weapons\RobotMelee.cs" />
+    <Compile Include="Weapons\SheepANator.cs" />
     <Compile Include="Z_Freezer\Z_PhysicsBox.cs" />
     <Compile Include="UI.cs" />
     <Compile Include="IBlock.cs" />
