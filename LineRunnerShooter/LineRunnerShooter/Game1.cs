@@ -399,20 +399,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                             if (!boss.isAlive)
                             {
-                                eindLift.Activate(held.GetFeetCollisionRect());
+                                currentLevel = -1;
+                                isNextLevel = 4;
+                                intro = 1;
                             }
 
 
                             level.Update(gameTime, held);
                             held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.GetBullets());
-
-
-                            if (eindLift.Positie.Y < 200)
-                            {
-                                currentLevel = -1;
-                                isNextLevel = 4;
-                                intro = 1;
-                            }
                             camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                             break;
                         }
