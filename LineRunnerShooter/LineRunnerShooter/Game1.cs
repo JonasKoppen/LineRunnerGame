@@ -40,6 +40,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         Vector2 mouse;
 
         UI ui;
+        bool isDebug;
 
         int points;
 
@@ -146,6 +147,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
             held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(100, 800));
             LoadLevel0();
+            isDebug = false;
             // TODO: slaag afbeeldingen op in variabelen
 
         }
@@ -174,7 +176,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             KeyboardState stateKey = Keyboard.GetState();
             MouseState mouseState = Mouse.GetState();
             mouse = mouseState.Position.ToVector2() / zoom + camera.Position - new Vector2(65, 65);
-            
+
             /*
             if (stateKey.IsKeyDown(Keys.F1))
             {
@@ -185,41 +187,51 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 camPos.X += 1;
             }
             */
-            
 
-            if (stateKey.IsKeyDown(Keys.F1))
+            if(isDebug)
             {
-                LoadLevel1(gameTime);
+                if (stateKey.IsKeyDown(Keys.F1))
+                {
+                    LoadLevel1(gameTime);
+                }
+                if (stateKey.IsKeyDown(Keys.F2))
+                {
+                    LoadLevel2(gameTime);
+                }
+                if (stateKey.IsKeyDown(Keys.F3))
+                {
+                    LoadLevel3(gameTime);
+                }
+                if (stateKey.IsKeyDown(Keys.F9))
+                {
+                    isNextLevel = 4;
+                    currentLevel = -1;
+                }
+                if (stateKey.IsKeyDown(Keys.F5))
+                {
+                    rotation += .1f;
+                }
+                if (stateKey.IsKeyDown(Keys.F6))
+                {
+                    rotation -= .1f;
+                }
+                if (stateKey.IsKeyDown(Keys.F7))
+                {
+                    zoom += .1f;
+                }
+                if (stateKey.IsKeyDown(Keys.F8))
+                {
+                    zoom -= .1f;
+                }
+                held.MaxArms = 5;
             }
-            if (stateKey.IsKeyDown(Keys.F2))
+
+            if(stateKey.IsKeyDown(Keys.Home))
             {
-                LoadLevel2(gameTime);
+                held.MaxArms = 5;
+                isDebug = true;
             }
-            if (stateKey.IsKeyDown(Keys.F3))
-            {
-                LoadLevel3(gameTime);
-            }
-            if (stateKey.IsKeyDown(Keys.F9))
-            {
-                isNextLevel = 4;
-                currentLevel = -1;
-            }
-            if (stateKey.IsKeyDown(Keys.F5))
-            {
-                rotation += .1f;
-            }
-            if (stateKey.IsKeyDown(Keys.F6))
-            {
-                rotation -= .1f;
-            }
-            if (stateKey.IsKeyDown(Keys.F7))
-            {
-                zoom += .1f;
-            }
-            if (stateKey.IsKeyDown(Keys.F8))
-            {
-                zoom -= .1f;
-            }
+            
 
             base.Update(gameTime);
 
@@ -591,7 +603,10 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             if (!enableUpdate)
             {
                 ui.ShowDeath(spriteBatch);
-                
+            }
+            if(isDebug)
+            {
+                spriteBatch.DrawString(General.font, ("DEBUG"), new Vector2(camPos.X, camPos.Y), Color.DeepSkyBlue);
             }
             spriteBatch.End();
             /*
