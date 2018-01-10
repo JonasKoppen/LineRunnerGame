@@ -466,7 +466,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 {
                     LoadLevel0();
                     currentLevel = 0;
-                    intro = 2;
                     enableUpdate = true;
                 }
             }
@@ -666,6 +665,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             camPos = new Vector2(0, 0);
             level = new LevelControl();
             liftSides = new List<LiftSide>();
+            intro = 0;
             for(int i = 0; i < 1100; i += 200)
             {
                 liftSides.Add(new LiftSide(4, new Vector2(0, i), false));
@@ -731,7 +731,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public void LoadResult()
         {
-            intro = 1;
             MediaPlayer.Play(music[3]);
             if(points > 50)
             {
