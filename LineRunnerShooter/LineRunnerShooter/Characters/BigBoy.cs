@@ -25,6 +25,12 @@ namespace LineRunnerShooter
         private Random r;
         private int phase;
         private double elapsedTime;
+
+        public bool IsAlive { get {
+                bool tmp = true;
+                if (!isAlive || phase == 3) tmp = false;
+                return tmp;
+            } }
         public BigBoy(int textureL, MoveMethod move, Texture2D armpix, Texture2D bullet, Vector2 pos) : base(textureL, move, armpix, bullet, pos)
         {
             rockets = new List<BulletR>() {
@@ -131,6 +137,36 @@ namespace LineRunnerShooter
                         
                         break;
                     }
+                case 3:
+                    {
+                        base.Update(gameTime, stateKey, bullets);
+                        elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                        if (isAlive)
+                        {
+                            robotARM.Disable();
+                            foreach (BulletR r in rockets)
+                            {
+                                r.ResetBullet();
+                            }
+                            if (isHit)
+                            {
+                                _lives--;
+                            }
+                            if (_lives <= 0)
+                            {
+                                isAlive = false;
+                                _position = new Vector2(200, 5000);
+                                robotARM.Disable();
+                                foreach (BulletR r in rockets)
+                                {
+                                    r.ResetBullet();
+                                }
+                            }
+                            SeePlayer(player);
+                        }
+
+                        break;
+                    }
             }
         }
 
@@ -178,7 +214,11 @@ namespace LineRunnerShooter
             return bullets;
         }
 
-
+        protected override void Sheep()
+        {
+            base.Sheep();
+            phase = 3;
+        }
 
     }
 }

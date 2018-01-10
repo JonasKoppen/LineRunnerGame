@@ -47,6 +47,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
         public static SpriteFont font;
 
         bool enableUpdate;
+        bool showVictory;
 
         int intro = 0;
         double lastEnter =0;
@@ -101,7 +102,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
              Content.Load<Texture2D>("Complete"),
              Content.Load<Texture2D>("target"),
              Content.Load<Texture2D>("ChallangeFailed"),
-             Content.Load<Texture2D>("RESULT")
+             Content.Load<Texture2D>("RESULT"),
+             Content.Load<Texture2D>("Complete2") //15
              };
 
 
@@ -148,6 +150,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             held = new Hiro2(8, new MovePlayer(), _afbeeldingEnemys[2], _afbeeldingEnemys[3], new Vector2(100, 800));
             LoadLevel0();
             isDebug = false;
+            showVictory = false;
             // TODO: slaag afbeeldingen op in variabelen
 
         }
@@ -362,7 +365,6 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                             if (eindLift.Positie.Y < 200)
                             {
-
                                 currentLevel = -1;
                                 isNextLevel = 2;
                             }
@@ -417,13 +419,13 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             boss.CheckEnviroments(rectList);
                             boss.Update(gameTime, stateKey, held.GetCollisionRectagle(), held.GetBullets());
 
-                            if (!boss.isAlive)
+                            if (!boss.IsAlive)
                             {
-                                currentLevel = -1;
-                                isNextLevel = 4;
-                                intro = 1;
+                                ui.StopTimer(gameTime);
+                                showVictory = true;
+                                enableUpdate = false;
+                                ui.UpdateDeath(camPos, gameTime);
                             }
-
 
                             level.Update(gameTime, held);
                             held.Update(gameTime, stateKey, mouseState, camera.Position, mouse, boss.GetBullets());
@@ -437,10 +439,9 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             {
                                 intro++;
                                 lastEnter = -1;
-                                
                             }
                             if (stateKey.IsKeyUp(Keys.Enter)) lastEnter = 0;
-                            if (intro > 2)
+                            if (intro > 1)
                             {
                                 LoadLevel0();
                                 intro = 0;
@@ -450,13 +451,14 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                 }
             }
+
             ui.Update(gameTime, held, points);
             if(held.Lives < 1 && enableUpdate)
             {
                 enableUpdate = false;
                 GameOVer();
             }
-            if (!enableUpdate)
+            if (!enableUpdate  && !showVictory)
             {
                 camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
                 ui.UpdateDeath(camPos, gameTime);
@@ -464,7 +466,20 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 {
                     LoadLevel0();
                     currentLevel = 0;
+                    intro = 2;
                     enableUpdate = true;
+                }
+            }
+            if(!enableUpdate && showVictory)
+            {
+                camera.Position = CameraPos(camera.Focus, held.GetCollisionRectagle());
+                ui.UpdateDeath(camPos, gameTime);
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    currentLevel = -1;
+                    isNextLevel = 4;
+                    enableUpdate = true;
+                    showVictory = false;
                 }
             }
         }
@@ -580,29 +595,21 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         held.Draw(spriteBatch);
 
                         level.Draw(spriteBatch, 0, 0);
-                        ui.ShowTime(spriteBatch, camPos);
+                        if (boss.isAlive)
+                        {
+                            ui.ShowTime(spriteBatch, camPos);
+                        }
+                        if (!boss.isAlive)
+                        {
+                            enableUpdate = false;
+                            ui.ShowResultAnimated(spriteBatch);
+                        }
                         break;
                     }
                 case 4:
                     {
                         spriteBatch.Begin();
-                        switch (intro)
-                        {
-                            case 1:
-                                {
-                                    spriteBatch.Draw(General._afbeeldingBlokken[11], new Rectangle(0, 0, 1280, 720), Color.White);
-                                    ui.ShowResult(spriteBatch);
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    ui.ShowDemoEnd(spriteBatch, held);
-                                   
-                                    break;
-                                }
-                        }
-                        
-                        
+                        ui.ShowDemoEnd(spriteBatch, held);
                         break;
                     }
              }
@@ -610,7 +617,15 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             Console.WriteLine(held.Location.ToString());
             if (!enableUpdate)
             {
-                ui.ShowDeath(spriteBatch);
+                if(showVictory)
+                {
+                    ui.ShowResultAnimated(spriteBatch);
+                }
+                else
+                {
+                    ui.ShowDeath(spriteBatch, camPos);
+                }
+                
             }
             if(isDebug)
             {

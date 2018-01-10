@@ -256,7 +256,7 @@ namespace LineRunnerShooter
         {
             _texture = General._afbeeldingEnemys[11];
             _spritePos = new Rectangle(0, 0, 100, 200);
-            _lives = 100000;
+            _lives = 3;
         }
 
         protected virtual void TakeDamage(int damage)
