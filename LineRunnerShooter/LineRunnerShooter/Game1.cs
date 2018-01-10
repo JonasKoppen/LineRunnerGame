@@ -177,17 +177,17 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             MouseState mouseState = Mouse.GetState();
             mouse = mouseState.Position.ToVector2() / zoom + camera.Position - new Vector2(65, 65);
 
-            /*
-            if (stateKey.IsKeyDown(Keys.F1))
-            {
-                camPos.X -= 1;
-            }
-            if (stateKey.IsKeyDown(Keys.F2))
-            {
-                camPos.X += 1;
-            }
-            */
-
+             /* Debug mode:
+              *     enable with home
+              *     level 1 with F1
+              *     level 2 with F2
+              *     boss fight with F3
+              *     F5 and F6 control the camera rotation
+              *     F7 and F8 control the camera zoom
+              *     F9 show the result screen
+              *     !! All weapons are available with debug mode 
+              *     
+              */ 
             if(isDebug)
             {
                 if (stateKey.IsKeyDown(Keys.F1))
@@ -202,11 +202,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 {
                     LoadLevel3(gameTime);
                 }
-                if (stateKey.IsKeyDown(Keys.F9))
-                {
-                    isNextLevel = 4;
-                    currentLevel = -1;
-                }
+                
                 if (stateKey.IsKeyDown(Keys.F5))
                 {
                     rotation += .1f;
@@ -223,12 +219,24 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 {
                     zoom -= .1f;
                 }
+                if (stateKey.IsKeyDown(Keys.F9))
+                {
+                    isNextLevel = 4;
+                    currentLevel = -1;
+                }
+                if (stateKey.IsKeyDown(Keys.PageDown))
+                {
+                    camPos.X -= 1;
+                }
+                if (stateKey.IsKeyDown(Keys.PageUp))
+                {
+                    camPos.X += 1;
+                }
                 held.MaxArms = 5;
             }
 
             if(stateKey.IsKeyDown(Keys.Home))
             {
-                held.MaxArms = 5;
                 isDebug = true;
             }
             
