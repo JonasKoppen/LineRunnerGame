@@ -19,7 +19,8 @@ namespace LineRunnerShooter
      */ 
     class Enemy : Character
     {
-        //TODO: attack modes: spinning arms (done), shooting
+        //TODO: attack modes: spinning arms (done, not drawed because it is ugly), shooting
+        //TODO: Death animation (enemy expolodes)
         public bool isAlive;
         public bool seePlayer;
         private bool isAttacking;
@@ -67,7 +68,6 @@ namespace LineRunnerShooter
         }
         public override void Update(GameTime gameTime, KeyboardState stateKey, List<BulletBlueprint> bullets)
         {
-            
             if (isAlive)
             {
                 _moveMethod.Update(stateKey, new MouseState(), canLeft, canRight);
@@ -78,11 +78,13 @@ namespace LineRunnerShooter
                     Console.WriteLine("Attacing");
                     robotARM.Fire();
                 }
+
                 if (lastMove != _moveMethod.Movedir)
                 {
                     isAttacking = false;
                     maxSpeed = 8;
                 }
+
                 if (_lives <= 0)
                 {
                     Reset();
@@ -107,10 +109,12 @@ namespace LineRunnerShooter
             }
 
             /*
-            if (isAttacking)
+            if (isAttacking)  
             {
-                //spriteBatch.Draw(_Texture, getAttackRect(), Color.Red);
+                spriteBatch.Draw(_Texture, getAttackRect(), Color.Red);
             }
+            
+            //Draw the collision rectangles 
             spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Body, Color.Red);
             spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Feet, Color.Beige);
             spriteBatch.Draw(General._afbeeldingBlokken[1], collisionBox.Head, Color.Blue);
