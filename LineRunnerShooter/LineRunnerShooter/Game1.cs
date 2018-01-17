@@ -597,9 +597,11 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         if (boss.isAlive)
                         {
                             ui.ShowTime(spriteBatch, camPos);
+
                         }
                         if (!boss.isAlive)
                         {
+                            MediaPlayer.Play(music[3]); 
                             enableUpdate = false;
                             ui.ShowResultAnimated(spriteBatch);
                         }
@@ -731,7 +733,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
         public void LoadResult()
         {
-            MediaPlayer.Play(music[3]);
+            
             if(points > 50)
             {
                 held.MaxArms = 3;
