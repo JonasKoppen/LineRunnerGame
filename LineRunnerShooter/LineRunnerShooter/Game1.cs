@@ -425,6 +425,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                                 showVictory = true;
                                 enableUpdate = false;
                                 ui.UpdateDeath(camPos, gameTime);
+                                MediaPlayer.Play(music[3]);
                             }
 
                             level.Update(gameTime, held);
@@ -601,7 +602,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                         }
                         if (!boss.isAlive)
                         {
-                            MediaPlayer.Play(music[3]); 
+                            
                             enableUpdate = false;
                             ui.ShowResultAnimated(spriteBatch);
                         }
