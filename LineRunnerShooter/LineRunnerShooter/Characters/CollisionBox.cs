@@ -9,7 +9,7 @@ namespace LineRunnerShooter
 {
     /*
      * The famous collision box, keeps other things a bit more clean
-     * 
+     * idee van Brent, code van mezelf
      * 
      */  
     class CollisionBox

@@ -87,6 +87,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
             General.font = Content.Load<SpriteFont>("textFont");
             General.fontBig = Content.Load<SpriteFont>("textFontBigger");
 
+            //Lijsten voor overzicht
+
             _afbeeldingBlokken = new List<Texture2D>() {
              Content.Load<Texture2D>("platformSpritSheet2"), //0
              Content.Load<Texture2D>("RotPlat"),
@@ -191,6 +193,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
               *     !! All weapons are available with debug mode 
               *     
               */ 
+
             if(isDebug)
             {
                 if (stateKey.IsKeyDown(Keys.F1))
@@ -252,7 +255,7 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                 points += level.GetPoints();
                 switch (currentLevel)
                 {
-                    case -1: //Loading screen, 
+                    case -1: //Loading screen, visible for 1ms on slow pc's
                         {
                             orihList = new List<Enemy>();
                             camPos = new Vector2(0, 0);
@@ -290,8 +293,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
 
                             break;
                         }
-                    case 0:
 
+                    case 0: //intro level 
                         {
                             if (stateKey.IsKeyDown(Keys.Enter) && !startLift.isActive && lastEnter < 0)
                             {
@@ -335,7 +338,8 @@ namespace LineRunnerShooter //TODO: REFRACTOR REQUIRED !!
                             camera.Position = new Vector2(0, 200);
                             break;
                         }
-                    case 1:
+
+                    case 1: //first level
                         {
 
                             eindLift.Activate(held.GetFeetCollisionRect());
